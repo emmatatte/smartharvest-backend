@@ -1,5 +1,9 @@
 package pe.edu.upc.smartharvest.dtos;
 
+import jakarta.persistence.*;
+import pe.edu.upc.smartharvest.entities.Empresa;
+import pe.edu.upc.smartharvest.entities.Rol;
+
 public class UsuarioDTO {
     private int idUsuario;
     private String nombre;
@@ -8,6 +12,8 @@ public class UsuarioDTO {
     private String password;
     private String fechaRegistro;
     private String preferencias;
+    private Rol rol;
+    private Empresa empresa;
 
     public int getIdUsuario() {
         return idUsuario;
@@ -63,5 +69,21 @@ public class UsuarioDTO {
 
     public void setPreferencias(String preferencias) {
         this.preferencias = preferencias;
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 }

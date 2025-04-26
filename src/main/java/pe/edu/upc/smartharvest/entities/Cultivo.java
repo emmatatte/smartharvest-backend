@@ -21,15 +21,20 @@ public class Cultivo {
     @Column(name = "estado_actual", length = 50)
     private String estadoActual;
 
+    @ManyToOne
+    @JoinColumn(name = "idParcela")
+    private Parcela parcela;
+
     public Cultivo() {
     }
 
-    public Cultivo(int idCultivo, String tipoCultivo, String fechaSiembra, String fechaCosechaEstimada, String estadoActual) {
+    public Cultivo(int idCultivo, String tipoCultivo, String fechaSiembra, String fechaCosechaEstimada, String estadoActual, Parcela parcela) {
         this.idCultivo = idCultivo;
         this.tipoCultivo = tipoCultivo;
         this.fechaSiembra = fechaSiembra;
         this.fechaCosechaEstimada = fechaCosechaEstimada;
         this.estadoActual = estadoActual;
+        this.parcela = parcela;
     }
 
     public int getIdCultivo() {
@@ -70,5 +75,13 @@ public class Cultivo {
 
     public void setEstadoActual(String estadoActual) {
         this.estadoActual = estadoActual;
+    }
+
+    public Parcela getParcela() {
+        return parcela;
+    }
+
+    public void setParcela(Parcela parcela) {
+        this.parcela = parcela;
     }
 }

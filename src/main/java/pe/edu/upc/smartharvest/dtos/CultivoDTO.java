@@ -1,11 +1,15 @@
 package pe.edu.upc.smartharvest.dtos;
 
+import jakarta.persistence.*;
+import pe.edu.upc.smartharvest.entities.Parcela;
+
 public class CultivoDTO {
     private int idCultivo;
     private String tipoCultivo;
     private String fechaSiembra;
     private String fechaCosechaEstimada;
     private String estadoActual;
+    private Parcela parcela;
 
     public int getIdCultivo() {
         return idCultivo;
@@ -45,5 +49,13 @@ public class CultivoDTO {
 
     public void setEstadoActual(String estadoActual) {
         this.estadoActual = estadoActual;
+    }
+
+    public Parcela getParcela() {
+        return parcela;
+    }
+
+    public void setParcela(Parcela parcela) {
+        this.parcela = parcela;
     }
 }

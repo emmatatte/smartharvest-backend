@@ -24,16 +24,21 @@ public class Parcela {
     @Column(name = "fecha_registro")
     private String fechaRegistro;
 
+    @ManyToOne
+    @JoinColumn(name = "idUsuario")
+    private Usuario usuario;
+
     public Parcela() {
     }
 
-    public Parcela(int idParcela, String nombre, String ubicacion, double tamaño, String tipoSuelo, String fechaRegistro) {
+    public Parcela(int idParcela, String nombre, String ubicacion, double tamaño, String tipoSuelo, String fechaRegistro, Usuario usuario) {
         this.idParcela = idParcela;
         this.nombre = nombre;
         this.ubicacion = ubicacion;
         this.tamaño = tamaño;
         this.tipoSuelo = tipoSuelo;
         this.fechaRegistro = fechaRegistro;
+        this.usuario = usuario;
     }
 
     public int getIdParcela() {
@@ -82,5 +87,13 @@ public class Parcela {
 
     public void setFechaRegistro(String fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }
