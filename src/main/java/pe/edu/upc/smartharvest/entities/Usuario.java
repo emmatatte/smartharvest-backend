@@ -27,10 +27,18 @@ public class Usuario {
     @Column(name = "preferencias", length = 300)
     private String preferencias;
 
+    @ManyToOne
+    @JoinColumn(name = "idRol")
+    private Rol rol;
+
+    @ManyToOne
+    @JoinColumn(name = "idEmpresa")
+    private Empresa empresa;
+
     public Usuario() {
     }
 
-    public Usuario(int idUsuario, String nombre, String apellido, String email, String password, String fechaRegistro, String preferencias) {
+    public Usuario(int idUsuario, String nombre, String apellido, String email, String password, String fechaRegistro, String preferencias, Rol rol, Empresa empresa) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -38,6 +46,8 @@ public class Usuario {
         this.password = password;
         this.fechaRegistro = fechaRegistro;
         this.preferencias = preferencias;
+        this.rol = rol;
+        this.empresa = empresa;
     }
 
     public int getIdUsuario() {
@@ -94,5 +104,21 @@ public class Usuario {
 
     public void setPreferencias(String preferencias) {
         this.preferencias = preferencias;
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 }

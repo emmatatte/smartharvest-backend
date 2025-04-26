@@ -1,5 +1,8 @@
 package pe.edu.upc.smartharvest.dtos;
 
+import jakarta.persistence.*;
+import pe.edu.upc.smartharvest.entities.Usuario;
+
 public class ParcelaDTO {
     private int idParcela;
     private String nombre;
@@ -7,6 +10,7 @@ public class ParcelaDTO {
     private double tamaño;
     private String tipoSuelo;
     private String fechaRegistro;
+    private Usuario usuario;
 
     public int getIdParcela() {
         return idParcela;
@@ -54,5 +58,13 @@ public class ParcelaDTO {
 
     public void setFechaRegistro(String fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }
