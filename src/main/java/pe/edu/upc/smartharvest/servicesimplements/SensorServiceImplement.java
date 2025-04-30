@@ -35,10 +35,10 @@ public class SensorServiceImplement implements ISensorService {
 
     @Override
     public List<SensorDTO> getSatelliteData(Long parcelId, LocalDate startDate, LocalDate endDate) {
-    List<Sensor> sensors = sensorRepository.getSatelliteDataByParcel(parcelId, startDate, endDate);
-    return sensors.stream().map(sensor -> {
+        List<Sensor> sensors = sensorRepository.findSatelliteDataByParcelAndDate(parcelId, startDate, endDate);
         ModelMapper mapper = new ModelMapper();
-        return mapper.map(sensor, SensorDTO.class);
-    }).collect(Collectors.toList());
+        return sensors.stream()
+                .map(sensor -> mapper.map(sensor, SensorDTO.class))
+                .collect(Collectors.toList());
     }
 }
