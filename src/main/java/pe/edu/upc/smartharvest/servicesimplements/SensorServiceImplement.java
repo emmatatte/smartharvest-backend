@@ -32,13 +32,4 @@ public class SensorServiceImplement implements ISensorService {
     public void delete(int idSensor) {
         sR.deleteById(idSensor);
     }
-
-    @Override
-    public List<SensorDTO> getSatelliteData(Long parcelId, LocalDate startDate, LocalDate endDate) {
-        List<Sensor> sensors = sensorRepository.findSatelliteDataByParcelAndDate(parcelId, startDate, endDate);
-        ModelMapper mapper = new ModelMapper();
-        return sensors.stream()
-                .map(sensor -> mapper.map(sensor, SensorDTO.class))
-                .collect(Collectors.toList());
-    }
 }
