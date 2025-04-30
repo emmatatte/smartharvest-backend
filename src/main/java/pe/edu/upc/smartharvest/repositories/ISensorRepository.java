@@ -4,10 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import pe.edu.upc.smartharvest.entities.Sensor;
 
 public interface ISensorRepository extends JpaRepository<Sensor, Integer> {
-  @Query("SELECT s FROM Sensor s WHERE s.parcel.id = :parcelId AND s.date BETWEEN :startDate AND :endDate")
-      List<Sensor> getSatelliteDataByParcel(
+  @Query("SELECT s FROM Sensor s WHERE s.parcel.idParcel = :parcelId AND s.lastLecture BETWEEN :start AND :end")
+    List<Sensor> findSatelliteDataByParcelAndDate(
         @Param("parcelId") Long parcelId,
-        @Param("startDate") LocalDate startDate,
-        @Param("endDate") LocalDate endDate
+        @Param("start") LocalDate start,
+        @Param("end") LocalDate end
     );
 }
