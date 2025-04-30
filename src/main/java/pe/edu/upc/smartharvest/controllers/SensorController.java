@@ -4,17 +4,16 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.smartharvest.dtos.SensorDTO;
-import pe.edu.upc.smartharvest.dtos.UsuarioDTO;
 import pe.edu.upc.smartharvest.entities.Sensor;
-import pe.edu.upc.smartharvest.entities.Usuario;
-import pe.edu.upc.smartharvest.servicesinterfaces.IRolService;
 import pe.edu.upc.smartharvest.servicesinterfaces.ISensorService;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
+@SecurityRequirement(name = "bearerAuth")
 @RestController
-@RequestMapping("/sensores")
+@RequestMapping("/sensors")
 public class SensorController {
     @Autowired
     private ISensorService sS;
