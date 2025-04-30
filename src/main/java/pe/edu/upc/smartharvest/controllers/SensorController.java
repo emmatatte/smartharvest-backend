@@ -47,12 +47,4 @@ public class SensorController {
     public void eliminar(@PathVariable int idSensor) {
         sS.delete(idSensor);
     }
-
-    @GetMapping("/satellite-data")
-    public ResponseEntity<List<SensorDTO>> getSatelliteData(
-            @RequestParam Long parcelId,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        return ResponseEntity.ok(sensorService.getSatelliteData(parcelId, startDate, endDate));
-    }
 }
