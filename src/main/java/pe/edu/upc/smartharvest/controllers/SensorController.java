@@ -50,10 +50,9 @@ public class SensorController {
 
     @GetMapping("/satellite-data")
     public ResponseEntity<List<SensorDTO>> getSatelliteData(
-        @RequestParam Long parcelId,
-        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-    List<SensorDTO> list = sensorService.getSatelliteData(parcelId, startDate, endDate);
-    return new ResponseEntity<>(list, HttpStatus.OK);
+            @RequestParam Long parcelId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        return ResponseEntity.ok(sensorService.getSatelliteData(parcelId, startDate, endDate));
     }
 }
