@@ -5,13 +5,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import pe.edu.upc.smartharvest.entities.Parcel;
 
-import java.time.LocalDate;
-
-public class SensorDTO {
-    private int idSensor;
-    private String sensorType;
-    private LocalDate installationDate;
-    private boolean state;
-    private LocalDate lastLecture;
+public class CropDTO {
+    private int idCrop;
+    private String typeCrop;
+    private String sowingDate;
+    private String estimatedHarvestDate;
+    private String actualState;
     private Parcel parcel;
 }
