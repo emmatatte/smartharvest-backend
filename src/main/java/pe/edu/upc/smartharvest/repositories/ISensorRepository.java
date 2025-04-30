@@ -10,4 +10,6 @@ public interface ISensorRepository extends JpaRepository<Sensor, Integer> {
         @Param("start") LocalDate start,
         @Param("end") LocalDate end
     );
+  @Query("SELECT s FROM Sensor s WHERE s.parcel.idParcel = :parcelId AND s.lastLecture = CURRENT_DATE")
+    List<Sensor> getDailySummary(@Param("parcelId") Long parcelId);
 }
