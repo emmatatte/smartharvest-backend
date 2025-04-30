@@ -9,5 +9,4 @@ public interface ISensorService {
     void insert(Sensor sensor);
     void update(Sensor sensor);
     void delete(int idSensor);
-    List<SensorDTO> getSatelliteData(Long parcelId, LocalDate startDate, LocalDate endDate);
 }
