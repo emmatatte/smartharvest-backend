@@ -1,6 +1,5 @@
 package pe.edu.upc.smartharvest.dtos;
 
-import jakarta.persistence.*;
 import pe.edu.upc.smartharvest.entities.Users;
 
 import java.time.LocalDate;
