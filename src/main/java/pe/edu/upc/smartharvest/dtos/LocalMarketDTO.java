@@ -10,4 +10,52 @@ public class LocalMarketDTO {
     private String contact;
     private String attentionDate;
     private Sensor sensor;
+
+    public int getIdLocalMarket() {
+        return idLocalMarket;
+    }
+
+    public void setIdLocalMarket(int idLocalMarket) {
+        this.idLocalMarket = idLocalMarket;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getAttentionDate() {
+        return attentionDate;
+    }
+
+    public void setAttentionDate(String attentionDate) {
+        this.attentionDate = attentionDate;
+    }
+
+    public Sensor getSensor() {
+        return sensor;
+    }
+
+    public void setSensor(Sensor sensor) {
+        this.sensor = sensor;
+    }
 }
