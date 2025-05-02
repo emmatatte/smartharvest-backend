@@ -32,4 +32,10 @@ public class ParcelServiceImplement implements IParcelService {
     public void delete(int idParcela) {
         pR.deleteById(idParcela);
     }
+
+    @Override
+    public List<Parcel> findByUserId(Integer userId) {
+        return pR.findByUsers_IdUser(userId);
+    }
+
 }

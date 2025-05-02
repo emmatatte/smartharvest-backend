@@ -32,4 +32,10 @@ public class MaintenanceServiceImplement implements IMaintenanceService {
     public void delete(int idMantenimiento) {
         mR.deleteById(idMantenimiento);
     }
+
+    @Override
+    public List<Maintenance> findBySensorId(int sensorId) {
+        return mR.findBySensor_IdSensor(sensorId);
+    }
+
 }

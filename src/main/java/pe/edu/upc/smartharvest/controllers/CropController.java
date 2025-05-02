@@ -47,4 +47,19 @@ public class CropController {
     public void eliminar(@PathVariable int idCultivo) {
         cS.delete(idCultivo);
     }
+
+    @GetMapping("/by-type/{typeCrop}")
+    public List<CropDTO> getByType(@PathVariable("typeCrop") String typeCrop) {
+        return cS.findByTypeCrop(typeCrop).stream()
+                .map(x -> new ModelMapper().map(x, CropDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/by-state/{actualState}")
+    public List<CropDTO> getByState(@PathVariable("actualState") String actualState) {
+        return cS.findByActualState(actualState).stream()
+                .map(x -> new ModelMapper().map(x, CropDTO.class))
+                .collect(Collectors.toList());
+    }
+
 }

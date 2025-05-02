@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.smartharvest.dtos.RecommendationDTO;
+import pe.edu.upc.smartharvest.entities.Crop;
 import pe.edu.upc.smartharvest.entities.Recommendation;
 import pe.edu.upc.smartharvest.servicesinterfaces.IRecommendationService;
 
@@ -32,19 +33,45 @@ public class RecommendationController {
     @PostMapping
     public void register(@RequestBody RecommendationDTO rDTO) {
         ModelMapper m = new ModelMapper();
-        Recommendation r = m.map(rDTO, Recommendation.class);
-        rS.insert(r);
+        Recommendation recommendation = m.map(rDTO, Recommendation.class);
+
+        Crop c = new Crop();
+        c.setIdCrop(rDTO.getCropId());
+        recommendation.setCrop(c);
+
+        rS.insert(recommendation);
     }
 
     @PutMapping
-    public void modificar(@RequestBody Recommendation rDTO) {
+    public void modificar(@RequestBody RecommendationDTO rDTO) {
         ModelMapper m = new ModelMapper();
-        Recommendation r = m.map(rDTO, Recommendation.class);
-        rS.update(r);
+        Recommendation recommendation = m.map(rDTO, Recommendation.class);
+
+        Crop c = new Crop();
+        c.setIdCrop(rDTO.getCropId());
+        recommendation.setCrop(c);
+
+        rS.update(recommendation);
     }
 
     @DeleteMapping("/{idRecomendation}")
     public void eliminar(@PathVariable int idRecomendation) {
         rS.delete(idRecomendation);
     }
+
+    @GetMapping("/by-crop/{cropId}")
+    public List<RecommendationDTO> getByCrop(@PathVariable("cropId") Integer cropId) {
+        return rS.findByCropId(cropId).stream()
+                .map(x -> new ModelMapper().map(x, RecommendationDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/by-user/{userId}")
+    public List<RecommendationDTO> getByUser(@PathVariable("userId") Integer userId) {
+        return rS.findByUserId(userId).stream()
+                .map(x -> new ModelMapper().map(x, RecommendationDTO.class))
+                .collect(Collectors.toList());
+    }
+
+
 }

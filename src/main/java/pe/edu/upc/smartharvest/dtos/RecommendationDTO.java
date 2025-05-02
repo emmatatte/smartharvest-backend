@@ -1,6 +1,7 @@
 package pe.edu.upc.smartharvest.dtos;
 
 import pe.edu.upc.smartharvest.entities.Crop;
+import pe.edu.upc.smartharvest.entities.Users;
 
 import java.time.LocalDate;
 
@@ -10,7 +11,8 @@ public class RecommendationDTO {
     private String description;
     private LocalDate issueDate;
     private String source;
-    private Crop crop;
+    private int cropId;
+    private Users users;
 
     public int getIdRecommendation() {
         return idRecommendation;
@@ -51,12 +53,18 @@ public class RecommendationDTO {
     public void setSource(String source) {
         this.source = source;
     }
-
-    public Crop getCrop() {
-        return crop;
+    public int getCropId() {
+        return cropId;
+    }
+    public void setCropId(int cropId) {
+        this.cropId = cropId;
     }
 
-    public void setCrop(Crop crop) {
-        this.crop = crop;
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
     }
 }

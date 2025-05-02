@@ -26,4 +26,10 @@ public class MarketPlaceServiceImplement implements IMarketPlaceService {
 
     @Override
     public void delete(int idMercadoLocal) {mR.deleteById(idMercadoLocal);};
+
+    @Override
+    public List<LocalMarket> findByLocation(String location) {
+        return mR.findByLocationContainingIgnoreCase(location);
+    }
+
 }

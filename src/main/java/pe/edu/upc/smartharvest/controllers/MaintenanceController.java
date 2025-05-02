@@ -48,4 +48,12 @@ public class MaintenanceController {
         mS.delete(idMantenimiento);
     }
 
+    @GetMapping("/by-sensor/{sensorId}")
+    public List<MaintenanceDTO> getBySensor(@PathVariable("sensorId") int sensorId) {
+        return mS.findBySensorId(sensorId).stream()
+                .map(x -> new ModelMapper().map(x, MaintenanceDTO.class))
+                .collect(Collectors.toList());
+    }
+
+
 }

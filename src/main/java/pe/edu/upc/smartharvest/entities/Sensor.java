@@ -22,6 +22,9 @@ public class Sensor {
     @Column(name = "lastLecture", nullable = false)
     private LocalDate lastLecture;
 
+    @Column(name = "batteryLevel")
+    private double batteryLevel;
+
     @ManyToOne
     @JoinColumn(name = "idParcel")
     private Parcel parcel;
@@ -29,13 +32,14 @@ public class Sensor {
     public Sensor() {
     }
 
-    public Sensor(int idSensor, String sensorType, LocalDate installationDate, boolean state, LocalDate lastLecture, Parcel parcel) {
+    public Sensor(int idSensor, String sensorType, LocalDate installationDate, boolean state, LocalDate lastLecture, Parcel parcel, double batteryLevel) {
         this.idSensor = idSensor;
         this.sensorType = sensorType;
         this.installationDate = installationDate;
         this.state = state;
         this.lastLecture = lastLecture;
         this.parcel = parcel;
+        this.batteryLevel = batteryLevel;
     }
 
     public int getIdSensor() {
@@ -85,4 +89,15 @@ public class Sensor {
     public void setParcel(Parcel parcel) {
         this.parcel = parcel;
     }
+
+    public double getBatteryLevel() {
+        return batteryLevel;
+    }
+
+    public void setBatteryLevel(double batteryLevel) {
+        this.batteryLevel = batteryLevel;
+    }
+
+
+
 }

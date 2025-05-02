@@ -27,16 +27,21 @@ public class Recommendation {
     @JoinColumn(name = "idCrop")
     private Crop crop;
 
+    @ManyToOne
+    @JoinColumn(name = "idUser")
+    private Users users;
+
     public Recommendation() {
     }
 
-    public Recommendation(int idRecommendation, String type, String description, LocalDate issueDate, String source, Crop crop) {
+    public Recommendation(int idRecommendation, String type, String description, LocalDate issueDate, String source, Crop crop, Users users) {
         this.idRecommendation = idRecommendation;
         this.type = type;
         this.description = description;
         this.issueDate = issueDate;
         this.source = source;
         this.crop = crop;
+        this.users = users;
     }
 
     public int getIdRecommendation() {
@@ -85,5 +90,11 @@ public class Recommendation {
 
     public void setCrop(Crop crop) {
         this.crop = crop;
+    }
+    public Users getUsers() {
+        return users;
+    }
+    public void setUsers(Users users) {
+        this.users = users;
     }
 }

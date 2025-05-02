@@ -9,4 +9,5 @@ public interface IMarketPlaceService {
     void insert(LocalMarket m);
     void update(LocalMarket m);
     void delete(int idLocalMarket);
+    List<LocalMarket> findByLocation(String location);
 }

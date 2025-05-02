@@ -25,6 +25,9 @@ public class Crop {
     @JoinColumn(name = "idParcela")
     private Parcel parcel;
 
+    @Column(name = "name", length = 50)
+    private String name;
+
     public Crop() {
     }
 
@@ -83,5 +86,13 @@ public class Crop {
 
     public void setParcel(Parcel parcel) {
         this.parcel = parcel;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

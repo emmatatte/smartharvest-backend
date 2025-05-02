@@ -6,10 +6,11 @@ import pe.edu.upc.smartharvest.entities.Recommendation;
 import pe.edu.upc.smartharvest.repositories.IRecommendationRepository;
 import pe.edu.upc.smartharvest.servicesinterfaces.IRecommendationService;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
-public class RecommendationService implements IRecommendationService {
+public class RecommendationServiceImplement implements IRecommendationService {
     @Autowired
     private IRecommendationRepository rR;
 
@@ -32,4 +33,15 @@ public class RecommendationService implements IRecommendationService {
     public void delete(int idRecommendation) {
         rR.deleteById(idRecommendation);
     }
+
+    @Override
+    public List<Recommendation> findByCropId(Integer cropId) {
+        return rR.findByCropId(cropId);
+    }
+
+    @Override
+    public List<Recommendation> findByUserId(Integer userId) {
+        return rR.findByUserId(userId);
+    }
+
 }
