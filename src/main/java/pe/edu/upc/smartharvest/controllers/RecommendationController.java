@@ -59,14 +59,14 @@ public class RecommendationController {
         rS.delete(idRecomendation);
     }
 
-    @GetMapping("/by-crop/{cropId}")
+    @GetMapping("/by-crop/{cropId}") // US02 - El usuario puede obtener recomendaciones filtradas por cultivo.
     public List<RecommendationDTO> getByCrop(@PathVariable("cropId") Integer cropId) {
         return rS.findByCropId(cropId).stream()
                 .map(x -> new ModelMapper().map(x, RecommendationDTO.class))
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/by-user/{userId}")
+    @GetMapping("/by-user/{userId}")// US20 - El usuario puede ver el historial de recomendaciones generadas para él.
     public List<RecommendationDTO> getByUser(@PathVariable("userId") Integer userId) {
         return rS.findByUserId(userId).stream()
                 .map(x -> new ModelMapper().map(x, RecommendationDTO.class))

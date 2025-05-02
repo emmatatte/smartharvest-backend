@@ -33,4 +33,9 @@ public class ShareActionServiceImplement implements IShareActionService {
     public void delete(int id) {
         shareActionRepository.deleteById((long) id);
     }
+
+    @Override
+    public List<ShareAction> findBySharedContent(String sharedContent) {
+        return shareActionRepository.findBySharedContent(sharedContent);
+    }
 }

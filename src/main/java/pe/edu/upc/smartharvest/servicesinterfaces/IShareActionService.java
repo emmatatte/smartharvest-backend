@@ -9,4 +9,5 @@ public interface IShareActionService {
     List<ShareAction> list();
     ShareAction listId(int id);
     void delete(int id);
+    List<ShareAction> findBySharedContent(String sharedContent);
 }

@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface IMaintenanceRepository extends JpaRepository<Maintenance, Integer> {
-    List<Maintenance> findBySensor_IdSensor(int sensorId);
+    List<Maintenance> findBySensor_IdSensor(int sensorId); // US28
 }

@@ -57,12 +57,10 @@ public class InputController {
         iS.delete(idInsumo);
     }
 
-    @GetMapping("/by-parcel/{parcelId}")
+    @GetMapping("/by-parcel/{parcelId}") // US11 - El usuario puede ver todos los insumos utilizados en una parcela específica.
     public List<InputDTO> getByParcel(@PathVariable("parcelId") int parcelId) {
         return iS.findByParcelId(parcelId).stream()
                 .map(x -> new ModelMapper().map(x, InputDTO.class))
                 .collect(Collectors.toList());
     }
-
-
 }

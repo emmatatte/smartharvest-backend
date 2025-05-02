@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface IParcelRepository extends JpaRepository<Parcel, Integer> {
-    List<Parcel> findByUsers_IdUser(Integer userId);
+    List<Parcel> findByUsers_IdUser(Integer userId); // US23
 }

@@ -62,7 +62,7 @@ public class SatelliteDataController {
         return modelMapper.map(dto, SatelliteData.class);
     }
 
-    @GetMapping("/by-zone")
+    @GetMapping("/by-zone") // US14 - El usuario puede obtener datos satelitales dentro de una zona geográfica específica.
     public List<SatelliteDataDTO> getByZone(@RequestParam double minLat,
                                             @RequestParam double maxLat,
                                             @RequestParam double minLon,

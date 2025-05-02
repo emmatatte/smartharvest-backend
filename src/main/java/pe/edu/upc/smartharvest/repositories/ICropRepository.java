@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface ICropRepository extends JpaRepository<Crop, Integer> {
-    List<Crop> findByTypeCrop(String typeCrop);
-    List<Crop> findByActualState(String actualState);
+    List<Crop> findByTypeCrop(String typeCrop); // US27
+    List<Crop> findByActualState(String actualState); // US27
 }

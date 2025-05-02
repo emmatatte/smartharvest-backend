@@ -48,7 +48,7 @@ public class ParcelController {
         pS.delete(idParcela);
     }
 
-    @GetMapping("/by-user/{userId}")
+    @GetMapping("/by-user/{userId}") // US23 - El usuario visualiza todas las parcelas registradas bajo su cuenta.
     public List<ParcelDTO> getParcelsByUser(@PathVariable("userId") Integer userId) {
         return pS.findByUserId(userId).stream()
                 .map(x -> new ModelMapper().map(x, ParcelDTO.class))

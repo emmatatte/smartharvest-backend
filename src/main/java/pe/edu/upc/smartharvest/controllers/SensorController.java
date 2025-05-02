@@ -56,12 +56,10 @@ public class SensorController {
         return new ResponseEntity<>(summary, HttpStatus.OK);
     }
 
-    @GetMapping("/battery-low/{threshold}")
+    @GetMapping("/battery-low/{threshold}") // US22 - El sistema alerta al usuario si el nivel de batería de un sensor está por debajo del umbral.
     public List<SensorDTO> getLowBatterySensors(@PathVariable("threshold") double threshold) {
         return sS.findByBatteryLevelLessThan(threshold).stream()
                 .map(x -> new ModelMapper().map(x, SensorDTO.class))
                 .collect(Collectors.toList());
     }
-
-
 }

@@ -17,11 +17,18 @@ public class ShareActionController {
     @Autowired
     private IShareActionService shareActionService;
 
-    @PostMapping
+    @PostMapping // US06 - El usuario puede compartir su experiencia con otros agricultores como recomendación.
     public void insert(@RequestBody ShareActionDTO dto) {
         ModelMapper m = new ModelMapper();
         ShareAction entity = m.map(dto, ShareAction.class);
         shareActionService.insert(entity);
+    }
+
+    @GetMapping("/by-content")  // US06 - El usuario puede consultar los contenidos compartidos con otros agricultores.
+    public List<ShareActionDTO> getBySharedContent(@RequestParam("sharedContent") String sharedContent) {
+        return shareActionService.findBySharedContent(sharedContent).stream()
+                .map(x -> new ModelMapper().map(x, ShareActionDTO.class))
+                .collect(Collectors.toList());
     }
 
     @GetMapping
