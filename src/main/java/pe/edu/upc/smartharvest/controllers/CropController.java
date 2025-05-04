@@ -48,14 +48,14 @@ public class CropController {
         cS.delete(idCultivo);
     }
 
-    @GetMapping("/by-type/{typeCrop}") // US27 - El usuario puede comparar cultivos por tipo (por ejemplo: “Maíz”).
+    @GetMapping("/by-type/{typeCrop}")
     public List<CropDTO> getByType(@PathVariable("typeCrop") String typeCrop) {
         return cS.findByTypeCrop(typeCrop).stream()
                 .map(x -> new ModelMapper().map(x, CropDTO.class))
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/by-state/{actualState}") // US27 - El usuario puede comparar cultivos por su estado actual (por ejemplo: “Cosechado”).
+    @GetMapping("/by-state/{actualState}")
     public List<CropDTO> getByState(@PathVariable("actualState") String actualState) {
         return cS.findByActualState(actualState).stream()
                 .map(x -> new ModelMapper().map(x, CropDTO.class))
