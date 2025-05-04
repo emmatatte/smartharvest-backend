@@ -3,6 +3,7 @@ package pe.edu.upc.smartharvest.servicesinterfaces;
 import pe.edu.upc.smartharvest.entities.ProductMarket;
 import pe.edu.upc.smartharvest.entities.Recommendation;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface IRecommendationService {
@@ -10,4 +11,6 @@ public interface IRecommendationService {
     void insert(Recommendation recommendation);
     void update(Recommendation recommendation);
     void delete(int idRecommendation);
+    List<Recommendation> findByCropId(Integer cropId);
+    List<Recommendation> findByUserId(Integer userId);
 }

@@ -47,4 +47,12 @@ public class ParcelController {
     public void eliminar(@PathVariable int idParcela) {
         pS.delete(idParcela);
     }
+
+    @GetMapping("/by-user/{userId}")
+    public List<ParcelDTO> getParcelsByUser(@PathVariable("userId") Integer userId) {
+        return pS.findByUserId(userId).stream()
+                .map(x -> new ModelMapper().map(x, ParcelDTO.class))
+                .collect(Collectors.toList());
+    }
+
 }

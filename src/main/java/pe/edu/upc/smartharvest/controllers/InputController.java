@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.smartharvest.dtos.InputDTO;
 import pe.edu.upc.smartharvest.entities.Input;
+import pe.edu.upc.smartharvest.entities.Parcel;
 import pe.edu.upc.smartharvest.servicesinterfaces.IInputService;
 
 import java.util.List;
@@ -30,22 +31,38 @@ public class InputController {
     }
 
     @PostMapping
-    public void registrar(@RequestBody InputDTO iDTO) {
+    public void register(@RequestBody InputDTO inputDTO) {
         ModelMapper m = new ModelMapper();
-        Input i = m.map(iDTO, Input.class);
-        iS.insert(i);
+        Input input = m.map(inputDTO, Input.class);
+        Parcel p = new Parcel();
+        p.setIdParcel(inputDTO.getParcelId());
+        input.setParcel(p);
+        iS.insert(input);
     }
 
+
     @PutMapping
-    public void modificar(@RequestBody InputDTO iDTO) {
+    public void update(@RequestBody InputDTO inputDTO) {
         ModelMapper m = new ModelMapper();
-        Input i = m.map(iDTO, Input.class);
-        iS.update(i);
+        Input input = m.map(inputDTO, Input.class);
+        Parcel p = new Parcel();
+        p.setIdParcel(inputDTO.getParcelId());
+        input.setParcel(p);
+        iS.update(input);
     }
+
 
     @DeleteMapping("/{idInsumo}")
     public void eliminar(@PathVariable int idInsumo) {
         iS.delete(idInsumo);
     }
+
+    @GetMapping("/by-parcel/{parcelId}")
+    public List<InputDTO> getByParcel(@PathVariable("parcelId") int parcelId) {
+        return iS.findByParcelId(parcelId).stream()
+                .map(x -> new ModelMapper().map(x, InputDTO.class))
+                .collect(Collectors.toList());
+    }
+
 
 }

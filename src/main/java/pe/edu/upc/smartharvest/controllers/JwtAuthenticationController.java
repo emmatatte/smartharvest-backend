@@ -11,21 +11,26 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import pe.edu.upc.smartharvest.entities.Users;
 import pe.edu.upc.smartharvest.securities.JwtRequest;
 import pe.edu.upc.smartharvest.securities.JwtResponse;
 import pe.edu.upc.smartharvest.securities.JwtTokenUtil;
 import pe.edu.upc.smartharvest.servicesimplements.JwtUserDetailsService;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import java.util.List;
 
 @RestController
 @CrossOrigin
 public class JwtAuthenticationController {
+
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
     private JwtUserDetailsService userDetailsService;
-
 
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest req) throws Exception {

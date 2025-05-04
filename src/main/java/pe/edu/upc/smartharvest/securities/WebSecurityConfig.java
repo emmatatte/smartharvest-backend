@@ -17,7 +17,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.RequestMatchers;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
@@ -76,8 +75,16 @@ public class WebSecurityConfig {
     private static final String[] AUTH_WHITELIST = {
             "/api/v1/auth/**",
             "/v3/api-docs/**",
+            "/auth/register-simple",
             "/v3/api-docs.yaml",
             "/swagger-ui/**",
             "/swagger-ui.html",
+            "/recommendations/**",
+            "/notifications/**",
+            "/sensors/**",
+            "/parcels/**",
+            "/maintenances/**",
+            "/inputs/**",
+            "/localmarkets/**"
     };
 }

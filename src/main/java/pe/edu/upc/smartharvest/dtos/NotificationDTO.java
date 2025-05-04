@@ -2,7 +2,6 @@ package pe.edu.upc.smartharvest.dtos;
 
 import pe.edu.upc.smartharvest.entities.Sensor;
 import pe.edu.upc.smartharvest.entities.Users;
-
 import java.time.LocalDate;
 
 public class NotificationDTO {
@@ -13,6 +12,20 @@ public class NotificationDTO {
     private Boolean read;
     private Sensor sensor;
     private Users users;
+    private String weatherEvent; // ADD THIS
+
+    public NotificationDTO() {
+    }
+
+    public NotificationDTO(int idNotification, String notificationType, String message, LocalDate dateTime, Boolean read, Sensor sensor, Users users) {
+        this.idNotification = idNotification;
+        this.notificationType = notificationType;
+        this.message = message;
+        this.dateTime = dateTime;
+        this.read = read;
+        this.sensor = sensor;
+        this.users = users;
+    }
 
     public int getIdNotification() {
         return idNotification;
@@ -68,5 +81,13 @@ public class NotificationDTO {
 
     public void setUsers(Users users) {
         this.users = users;
+    }
+
+    public String getWeatherEvent() {
+        return weatherEvent;
+    }
+
+    public void setWeatherEvent(String weatherEvent) {
+        this.weatherEvent = weatherEvent;
     }
 }

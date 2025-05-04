@@ -32,4 +32,16 @@ public class CropServiceImplement implements ICropService {
     public void delete(int idCultivo) {
         cR.deleteById(idCultivo);
     }
+    @Override
+    public List<Crop> findByTypeCrop(String typeCrop) {
+        return cR.findByTypeCrop(typeCrop);
+    }
+
+    @Override
+    public List<Crop> findByActualState(String actualState) {
+        return cR.findByActualState(actualState);
+    }
+
+    @Override
+    public List<String[]> findCropsNeedingAttention() { return cR.findCropsNeedingAttention();}
 }

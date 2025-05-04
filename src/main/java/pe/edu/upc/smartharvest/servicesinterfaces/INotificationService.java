@@ -9,4 +9,5 @@ public interface INotificationService {
     void insert(Notification notification);
     void update(Notification notification);
     void delete(int idNotification);
+    List<Notification> findByNotificationType(String notificationType);
 }

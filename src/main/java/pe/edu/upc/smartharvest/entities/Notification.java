@@ -1,7 +1,6 @@
 package pe.edu.upc.smartharvest.entities;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 
 @Entity
@@ -30,6 +29,9 @@ public class Notification {
     @ManyToOne
     @JoinColumn(name = "idUser")
     private Users users;
+
+    @Column(name = "weather_event", length = 50)
+    private String weatherEvent;
 
     public Notification() {
     }
@@ -98,5 +100,13 @@ public class Notification {
 
     public void setUsers(Users users) {
         this.users = users;
+    }
+
+    public String getWeatherEvent() {
+        return weatherEvent;
+    }
+
+    public void setWeatherEvent(String weatherEvent) {
+        this.weatherEvent = weatherEvent;
     }
 }

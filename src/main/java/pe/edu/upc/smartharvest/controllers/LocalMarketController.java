@@ -47,4 +47,12 @@ public class LocalMarketController {
     public void eliminar(@PathVariable("idMercadoLocal") int idMercadoLocal) {
         mS.delete(idMercadoLocal);
     }
+
+    @GetMapping("/by-location")
+    public List<LocalMarketDTO> getByLocation(@RequestParam("location") String location) {
+        return mS.findByLocation(location).stream()
+                .map(x -> new ModelMapper().map(x, LocalMarketDTO.class))
+                .collect(Collectors.toList());
+    }
+
 }

@@ -2,6 +2,8 @@ package pe.edu.upc.smartharvest.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "Crop")
 public class Crop {
@@ -9,16 +11,16 @@ public class Crop {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCrop;
 
-    @Column(name = "typeCrop", length = 50)
+    @Column(name = "typeCrop", nullable = false, length = 50)
     private String typeCrop;
 
-    @Column(name = "sowingDate")
-    private String sowingDate;
+    @Column(name = "sowingDate", nullable = false)
+    private LocalDate sowingDate;
 
-    @Column(name = "estimatedHarvestDate")
-    private String estimatedHarvestDate;
+    @Column(name = "estimatedHarvestDate", nullable = false)
+    private LocalDate estimatedHarvestDate;
 
-    @Column(name = "actualState", length = 50)
+    @Column(name = "actualState", nullable = false, length = 50)
     private String actualState;
 
     @ManyToOne
@@ -28,7 +30,7 @@ public class Crop {
     public Crop() {
     }
 
-    public Crop(int idCrop, String typeCrop, String sowingDate, String estimatedHarvestDate, String actualState, Parcel parcel) {
+    public Crop(int idCrop, String typeCrop, LocalDate sowingDate, LocalDate estimatedHarvestDate, String actualState, Parcel parcel) {
         this.idCrop = idCrop;
         this.typeCrop = typeCrop;
         this.sowingDate = sowingDate;
@@ -53,19 +55,19 @@ public class Crop {
         this.typeCrop = typeCrop;
     }
 
-    public String getSowingDate() {
+    public LocalDate getSowingDate() {
         return sowingDate;
     }
 
-    public void setSowingDate(String sowingDate) {
+    public void setSowingDate(LocalDate sowingDate) {
         this.sowingDate = sowingDate;
     }
 
-    public String getEstimatedHarvestDate() {
+    public LocalDate getEstimatedHarvestDate() {
         return estimatedHarvestDate;
     }
 
-    public void setEstimatedHarvestDate(String estimatedHarvestDate) {
+    public void setEstimatedHarvestDate(LocalDate estimatedHarvestDate) {
         this.estimatedHarvestDate = estimatedHarvestDate;
     }
 

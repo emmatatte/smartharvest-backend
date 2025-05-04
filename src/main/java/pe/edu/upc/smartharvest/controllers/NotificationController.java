@@ -47,4 +47,12 @@ public class NotificationController {
     public void eliminar(@PathVariable int idNotification) {
         nS.delete(idNotification);
     }
+
+    @GetMapping("/by-type/{type}")
+    public List<NotificationDTO> getByType(@PathVariable("type") String type) {
+        return nS.findByNotificationType(type).stream()
+                .map(x -> new ModelMapper().map(x, NotificationDTO.class))
+                .collect(Collectors.toList());
+    }
+
 }
