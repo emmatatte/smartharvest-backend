@@ -5,11 +5,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import pe.edu.upc.smartharvest.entities.Parcel;
 
+import java.time.LocalDate;
+
 public class CropDTO {
     private int idCrop;
     private String typeCrop;
-    private String sowingDate;
-    private String estimatedHarvestDate;
+    private LocalDate sowingDate;
+    private LocalDate estimatedHarvestDate;
     private String actualState;
     private Parcel parcel;
 
@@ -29,19 +31,19 @@ public class CropDTO {
         this.typeCrop = typeCrop;
     }
 
-    public String getSowingDate() {
+    public LocalDate getSowingDate() {
         return sowingDate;
     }
 
-    public void setSowingDate(String sowingDate) {
+    public void setSowingDate(LocalDate sowingDate) {
         this.sowingDate = sowingDate;
     }
 
-    public String getEstimatedHarvestDate() {
+    public LocalDate getEstimatedHarvestDate() {
         return estimatedHarvestDate;
     }
 
-    public void setEstimatedHarvestDate(String estimatedHarvestDate) {
+    public void setEstimatedHarvestDate(LocalDate estimatedHarvestDate) {
         this.estimatedHarvestDate = estimatedHarvestDate;
     }
 
