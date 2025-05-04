@@ -10,8 +10,8 @@ import java.util.List;
 @Repository
 public interface ISatelliteDataRepository extends JpaRepository<SatelliteData, Long> {
     List<SatelliteData> findByCropIdOrderByCaptureDateDesc(int cropId);
-    @Query("SELECT s FROM SatelliteData s WHERE s.latitude BETWEEN :minLat AND :maxLat AND s.longitude BETWEEN :minLon AND :maxLon")
-    List<SatelliteData> findByLatLongRange(@Param("minLat") double minLat, // US14
+    @Query(value = "SELECT s FROM satellite_data s WHERE s.latitude BETWEEN :minLat AND :maxLat AND s.longitude BETWEEN :minLon AND :maxLon", nativeQuery = true)
+    List<String[]> findByLatLongRange(@Param("minLat") double minLat, // US14
                                            @Param("maxLat") double maxLat,
                                            @Param("minLon") double minLon,
                                            @Param("maxLon") double maxLon);

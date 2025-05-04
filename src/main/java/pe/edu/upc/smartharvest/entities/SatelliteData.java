@@ -24,7 +24,7 @@ public class SatelliteData {
     private double longitude;
 
     @ManyToOne
-    @JoinColumn(name = "crop_id", nullable = false)
+    @JoinColumn(name = "crop_id")
     private Crop crop;
 
     public SatelliteData() {

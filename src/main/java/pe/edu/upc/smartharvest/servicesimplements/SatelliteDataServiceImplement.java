@@ -46,7 +46,7 @@ public class SatelliteDataServiceImplement implements ISatelliteDataService {
     }
 
     @Override
-    public List<SatelliteData> findByLatLongRange(double minLat, double maxLat, double minLon, double maxLon) {
+    public List<String[]> findByLatLongRange(double minLat, double maxLat, double minLon, double maxLon) {
         return repo.findByLatLongRange(minLat, maxLat, minLon, maxLon);
     }
 

@@ -10,6 +10,6 @@ public interface ISatelliteDataService {
     void update(SatelliteData data);
     void delete(Long id);
     List<SatelliteData> findByCropId(int cropId);
-    List<SatelliteData> findByLatLongRange(double minLat, double maxLat, double minLon, double maxLon);
+    List<String[]> findByLatLongRange(double minLat, double maxLat, double minLon, double maxLon);
 
 }

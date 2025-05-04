@@ -8,6 +8,8 @@ import pe.edu.upc.smartharvest.dtos.SatelliteDataDTO;
 import pe.edu.upc.smartharvest.entities.SatelliteData;
 import pe.edu.upc.smartharvest.servicesinterfaces.ISatelliteDataService;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,7 +49,7 @@ public class SatelliteDataController {
         service.delete(id);
     }
 
-    @GetMapping("/crop/{cropId}")
+    @GetMapping("/crop")
     public List<SatelliteDataDTO> getSatelliteDataByCropId(@PathVariable int cropId) {
         return service.findByCropId(cropId).stream().map(this::convertToDTO).collect(Collectors.toList());
     }
@@ -67,10 +69,24 @@ public class SatelliteDataController {
                                             @RequestParam double maxLat,
                                             @RequestParam double minLon,
                                             @RequestParam double maxLon) {
-        return service.findByLatLongRange(minLat, maxLat, minLon, maxLon)
-                .stream()
-                .map(x -> new ModelMapper().map(x, SatelliteDataDTO.class))
-                .collect(Collectors.toList());
+
+
+        List<SatelliteDataDTO> dtoLista = new ArrayList<>();
+        List<String[]> filaLista = service.findByLatLongRange(minLat, maxLat, minLon, maxLon);
+        for (String[] columna : filaLista) {
+            SatelliteDataDTO dto = new SatelliteDataDTO();
+            dto.setCaptureDate(LocalDate.parse(columna[0]));
+            dto.setCropId(Integer.parseInt(columna[1]));
+            dto.setLatitude(Double.parseDouble(columna[2]));
+            dto.setLongitude(Double.parseDouble(columna[3]));
+            dto.setNdviValue(Double.parseDouble(columna[4]));
+            dto.setId(Long.parseLong(columna[5]));
+            dtoLista.add(dto);
+
+        }
+        return dtoLista;
     }
 
+    public SatelliteDataController() {
+    }
 }
