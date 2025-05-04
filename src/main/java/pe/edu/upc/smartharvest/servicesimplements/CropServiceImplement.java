@@ -42,4 +42,6 @@ public class CropServiceImplement implements ICropService {
         return cR.findByActualState(actualState);
     }
 
+    @Override
+    public List<String[]> findCropsNeedingAttention() { return cR.findCropsNeedingAttention();}
 }

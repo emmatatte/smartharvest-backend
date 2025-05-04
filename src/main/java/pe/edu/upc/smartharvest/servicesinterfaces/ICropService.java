@@ -11,5 +11,5 @@ public interface ICropService {
     void delete(int idCrop);
     List<Crop> findByTypeCrop(String typeCrop);
     List<Crop> findByActualState(String actualState);
-
+    public List<String[]> findCropsNeedingAttention();
 }
