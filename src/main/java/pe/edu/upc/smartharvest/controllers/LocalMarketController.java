@@ -48,7 +48,7 @@ public class LocalMarketController {
         mS.delete(idMercadoLocal);
     }
 
-    @GetMapping("/by-location") // US05 - El usuario puede buscar mercados locales cercanos por ubicación.
+    @GetMapping("/by-location")
     public List<LocalMarketDTO> getByLocation(@RequestParam("location") String location) {
         return mS.findByLocation(location).stream()
                 .map(x -> new ModelMapper().map(x, LocalMarketDTO.class))

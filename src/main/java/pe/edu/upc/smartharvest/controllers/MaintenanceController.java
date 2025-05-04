@@ -48,7 +48,7 @@ public class MaintenanceController {
         mS.delete(idMantenimiento);
     }
 
-    @GetMapping("/by-sensor/{sensorId}") // US28 - El usuario puede consultar el historial de mantenimiento de un sensor específico.
+    @GetMapping("/by-sensor/{sensorId}")
     public List<MaintenanceDTO> getBySensor(@PathVariable("sensorId") int sensorId) {
         return mS.findBySensorId(sensorId).stream()
                 .map(x -> new ModelMapper().map(x, MaintenanceDTO.class))

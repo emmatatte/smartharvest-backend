@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pe.edu.upc.smartharvest.entities.Users;
 import pe.edu.upc.smartharvest.repositories.IUsersRepository;
-import pe.edu.upc.smartharvest.dtos.SimpleRegisterDTO;
 import pe.edu.upc.smartharvest.entities.Crop;
 import pe.edu.upc.smartharvest.entities.Parcel;
 import pe.edu.upc.smartharvest.repositories.ICropRepository;
@@ -17,8 +16,6 @@ import pe.edu.upc.smartharvest.repositories.IParcelRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pe.edu.upc.smartharvest.entities.ShareAction;
-import pe.edu.upc.smartharvest.repositories.IShareActionRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

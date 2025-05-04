@@ -16,7 +16,6 @@ import pe.edu.upc.smartharvest.securities.JwtRequest;
 import pe.edu.upc.smartharvest.securities.JwtResponse;
 import pe.edu.upc.smartharvest.securities.JwtTokenUtil;
 import pe.edu.upc.smartharvest.servicesimplements.JwtUserDetailsService;
-import pe.edu.upc.smartharvest.dtos.SimpleRegisterDTO;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
