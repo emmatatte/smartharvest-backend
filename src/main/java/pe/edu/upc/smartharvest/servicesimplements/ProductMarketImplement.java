@@ -31,4 +31,9 @@ public class ProductMarketImplement implements IProductMarketService {
     public void delete(int idProductMarket) {
         pM.deleteById(idProductMarket);
     }
+
+    @Override
+    public List<String[]> findTopMarketsByProductCount() {
+        return pM.findTopMarketsByProductCount();
+    }
 }

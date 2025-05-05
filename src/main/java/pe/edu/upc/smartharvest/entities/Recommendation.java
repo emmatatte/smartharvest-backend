@@ -31,6 +31,7 @@ public class Recommendation {
     @JoinColumn(name = "idUser")
     private Users users;
 
+
     public Recommendation() {
     }
 

@@ -38,4 +38,9 @@ public class MaintenanceServiceImplement implements IMaintenanceService {
         return mR.findBySensor_IdSensor(sensorId);
     }
 
+    @Override
+    public List<Object[]> findTopCropsByMaintenanceCount() {
+        return mR.findTopCropsByMaintenanceCount();
+    }
+
 }

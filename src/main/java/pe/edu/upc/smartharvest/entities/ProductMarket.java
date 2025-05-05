@@ -21,7 +21,7 @@ public class ProductMarket {
 
     @ManyToOne
     @JoinColumn(name = "idLocalMarket")
-    private LocalMarket LocalMarket;
+    private LocalMarket localMarket;
 
     public ProductMarket() {
     }
@@ -31,7 +31,7 @@ public class ProductMarket {
         this.estimatedPrice = estimatedPrice;
         this.availability = availability;
         this.agriculturalProduct = agriculturalProduct;
-        LocalMarket = localMarket;
+        this.localMarket = localMarket;
     }
 
     public int getIdProductMarket() {
@@ -67,10 +67,10 @@ public class ProductMarket {
     }
 
     public LocalMarket getLocalMarket() {
-        return LocalMarket;
+        return localMarket;
     }
 
     public void setLocalMarket(LocalMarket localMarket) {
-        LocalMarket = localMarket;
+        this.localMarket = localMarket;
     }
 }

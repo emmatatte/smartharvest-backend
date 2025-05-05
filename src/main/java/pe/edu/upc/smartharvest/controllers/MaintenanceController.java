@@ -2,6 +2,8 @@ package pe.edu.upc.smartharvest.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.smartharvest.dtos.MaintenanceDTO;
 import pe.edu.upc.smartharvest.entities.Maintenance;
@@ -53,6 +55,12 @@ public class MaintenanceController {
         return mS.findBySensorId(sensorId).stream()
                 .map(x -> new ModelMapper().map(x, MaintenanceDTO.class))
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/top-cultivos-mantenimientos")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public ResponseEntity<List<Object[]>> getTopCropsByMaintenance() {
+        return ResponseEntity.ok(mS.findTopCropsByMaintenanceCount());
     }
 
 
