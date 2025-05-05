@@ -62,4 +62,22 @@ public class CropController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping("/cropsInDanger")
+    @PreAuthorize("hasAnyAuthority('AGRICULTOR','ADMIN')")
+    public List<CropsNeedingAttentionDTO> cultivosNecesitanAtencion(){
+        List<String[]> filaLista = cS.findCropsNeedingAttention();
+        List<CropsNeedingAttentionDTO> dtoLista = new ArrayList<>();
+        for (String[] columna : filaLista) {
+            CropsNeedingAttentionDTO dto = new CropsNeedingAttentionDTO();
+            dto.setIdCrop(Integer.parseInt(columna[0]));
+            dto.setTypeCrop(columna[1]);
+            dto.setName(columna[2]);
+            dto.setActualState(columna[3]);
+            LocalDate sowingDate = LocalDate.parse(columna[4]);
+            dto.setSowingDate(sowingDate);
+            dtoLista.add(dto);
+        }
+        return dtoLista;
+    }
+
 }
