@@ -10,4 +10,5 @@ public interface IProductMarketService {
     void insert(ProductMarket productMarket);
     void update(ProductMarket productMarket);
     void delete(int idProductMarket);
+    List<String[]> findTopMarketsByProductCount();
 }

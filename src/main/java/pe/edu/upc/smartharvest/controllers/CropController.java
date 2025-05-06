@@ -2,11 +2,15 @@ package pe.edu.upc.smartharvest.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.smartharvest.dtos.CropDTO;
+import pe.edu.upc.smartharvest.dtos.CropsNeedingAttentionDTO;
 import pe.edu.upc.smartharvest.entities.Crop;
 import pe.edu.upc.smartharvest.servicesinterfaces.ICropService;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

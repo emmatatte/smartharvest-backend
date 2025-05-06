@@ -3,6 +3,8 @@ package pe.edu.upc.smartharvest.controllers;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.smartharvest.dtos.RecommendationDTO;
 import pe.edu.upc.smartharvest.entities.Crop;
@@ -50,7 +52,6 @@ public class RecommendationController {
         Crop c = new Crop();
         c.setIdCrop(rDTO.getCropId());
         recommendation.setCrop(c);
-
         rS.update(recommendation);
     }
 
@@ -71,6 +72,19 @@ public class RecommendationController {
         return rS.findByUserId(userId).stream()
                 .map(x -> new ModelMapper().map(x, RecommendationDTO.class))
                 .collect(Collectors.toList());
+    }
+
+
+    @GetMapping("/recomendaciones/sensores-humedad-baja")
+    @PreAuthorize("hasAnyAuthority('USER')")
+    public ResponseEntity<List<Recommendation>> getRecommendationsBySensorHumidity(@RequestParam Double threshold) {
+        return ResponseEntity.ok(rS.findByLowHumiditySensors(threshold));
+    }
+
+    @GetMapping("/ranking-recomendaciones-por-parcela")
+    @PreAuthorize("hasAnyAuthority('TECHNICIAN')")
+    public ResponseEntity<List<String[]>> getRecommendationRankingByParcel() {
+        return ResponseEntity.ok(rS.findRecommendationCountByParcel());
     }
 
 

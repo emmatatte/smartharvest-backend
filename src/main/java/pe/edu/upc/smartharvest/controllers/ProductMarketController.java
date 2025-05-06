@@ -3,6 +3,8 @@ package pe.edu.upc.smartharvest.controllers;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.smartharvest.dtos.ProductMarketDTO;
 import pe.edu.upc.smartharvest.entities.ProductMarket;
@@ -46,5 +48,11 @@ public class ProductMarketController {
     @DeleteMapping("/{idProductMarket}")
     public void eliminar(@PathVariable int idProductMarket) {
         pmS.delete(idProductMarket);
+    }
+
+    @GetMapping("/ranking-mercados-productos")
+    @PreAuthorize("hasAnyAuthority('USER')")
+    public ResponseEntity<List<String[]>> getTopMarketsByProductCount() {
+        return ResponseEntity.ok(pmS.findTopMarketsByProductCount());
     }
 }
