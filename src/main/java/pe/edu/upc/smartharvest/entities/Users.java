@@ -20,17 +20,8 @@ public class Users implements Serializable {
     private Boolean enabled;
     private String email;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "idRol")
+    @JoinColumn(name = "idUser")
     private List<Role> roles;
-    @Column(name = "preferred_language", length = 20)
-    private String preferredLanguage;
-    @Column(name = "display_theme", length = 20)
-    private String displayTheme;
-    @ElementCollection
-    @CollectionTable(name = "user_favorite_sections", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "section_name")
-    private List<String> favoriteSections;
-
 
     public Long getIdUser() {
         return idUser;
@@ -64,9 +55,13 @@ public class Users implements Serializable {
         this.enabled = enabled;
     }
 
-    public String getEmail() { return email; }
+    public String getEmail() {
+        return email;
+    }
 
-    public void setEmail(String email) { this.email = email; }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public List<Role> getRoles() {
         return roles;
@@ -74,28 +69,5 @@ public class Users implements Serializable {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
-    }
-    public String getPreferredLanguage() {
-        return preferredLanguage;
-    }
-
-    public void setPreferredLanguage(String preferredLanguage) {
-        this.preferredLanguage = preferredLanguage;
-    }
-
-    public String getDisplayTheme() {
-        return displayTheme;
-    }
-
-    public void setDisplayTheme(String displayTheme) {
-        this.displayTheme = displayTheme;
-    }
-
-    public List<String> getFavoriteSections() {
-        return favoriteSections;
-    }
-
-    public void setFavoriteSections(List<String> favoriteSections) {
-        this.favoriteSections = favoriteSections;
     }
 }

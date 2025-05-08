@@ -51,7 +51,7 @@ public class ProductMarketController {
     }
 
     @GetMapping("/ranking-mercados-productos")
-    @PreAuthorize("hasAnyAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('AGRICULTOR')")
     public ResponseEntity<List<String[]>> getTopMarketsByProductCount() {
         return ResponseEntity.ok(pmS.findTopMarketsByProductCount());
     }

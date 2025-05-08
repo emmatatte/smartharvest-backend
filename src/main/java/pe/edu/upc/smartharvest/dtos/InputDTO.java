@@ -16,7 +16,6 @@ public class InputDTO {
     private LocalDate registrationDate;
     private LocalDate expirationDate;
     private Users users;
-    private int parcelId;
 
     public int getIdInput() {
         return idInput;
@@ -80,12 +79,5 @@ public class InputDTO {
 
     public void setUsers(Users users) {
         this.users = users;
-    }
-
-    public int getParcelId() {
-        return parcelId;
-    }
-    public void setParcelId(int parcelId) {
-        this.parcelId = parcelId;
     }
 }

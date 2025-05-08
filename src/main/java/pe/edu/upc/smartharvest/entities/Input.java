@@ -32,14 +32,10 @@ public class Input {
     @JoinColumn(name = "idUser")
     private Users users;
 
-    @ManyToOne
-    @JoinColumn(name = "idParcel")
-    private Parcel parcel;
-
     public Input() {
     }
 
-    public Input(int idInput, String name, String type, int amount, String unit, LocalDate registrationDate, LocalDate expirationDate, Users users, Parcel parcel) {
+    public Input(int idInput, String name, String type, int amount, String unit, LocalDate registrationDate, LocalDate expirationDate, Users users) {
         this.idInput = idInput;
         this.name = name;
         this.type = type;
@@ -48,7 +44,6 @@ public class Input {
         this.registrationDate = registrationDate;
         this.expirationDate = expirationDate;
         this.users = users;
-        this.parcel = parcel;
     }
 
     public int getIdInput() {
@@ -113,12 +108,5 @@ public class Input {
 
     public void setUsers(Users users) {
         this.users = users;
-    }
-
-    public Parcel getParcel() {
-        return parcel;
-    }
-    public void setParcel(Parcel parcel) {
-        this.parcel = parcel;
     }
 }

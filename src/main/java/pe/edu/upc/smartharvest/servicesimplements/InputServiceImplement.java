@@ -32,10 +32,4 @@ public class InputServiceImplement implements IInputService {
     public void delete(int idInsumo) {
         iR.deleteById(idInsumo);
     }
-
-    @Override
-    public List<Input> findByParcelId(int parcelId) {
-        return iR.findByParcel_IdParcel(parcelId);
-    }
-
 }

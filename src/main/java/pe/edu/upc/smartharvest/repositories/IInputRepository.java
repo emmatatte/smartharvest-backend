@@ -8,6 +8,4 @@ import java.util.List;
 
 @Repository
 public interface IInputRepository extends JpaRepository<Input,Integer> {
-    List<Input> findByParcel_IdParcel(int parcelId);
-
 }

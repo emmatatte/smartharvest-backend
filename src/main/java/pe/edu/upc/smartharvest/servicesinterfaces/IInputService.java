@@ -9,5 +9,4 @@ public interface IInputService {
     void insert(Input input);
     void update(Input input);
     void delete(int idInput);
-    List<Input> findByParcelId(int parcelId);
 }
