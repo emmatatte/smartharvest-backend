@@ -19,7 +19,7 @@ public class Notification {
     @Column(name = "dateTime", nullable = false)
     private LocalDate dateTime;
 
-    @Column(name = "read")
+    @Column(name = "read", nullable = false)
     private Boolean read;
 
     @ManyToOne

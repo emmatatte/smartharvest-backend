@@ -21,20 +21,15 @@ public class LocalMarket {
     @Column(name = "attentionDate", nullable = false, length = 50)
     private String attentionDate;
 
-    @ManyToOne
-    @JoinColumn(name = "idSensor")
-    private Sensor sensor;
-
     public LocalMarket() {
     }
 
-    public LocalMarket(int idLocalMarket, String name, String location, String contact, String attentionDate, Sensor sensor) {
+    public LocalMarket(int idLocalMarket, String name, String location, String contact, String attentionDate) {
         this.idLocalMarket = idLocalMarket;
         this.name = name;
         this.location = location;
         this.contact = contact;
         this.attentionDate = attentionDate;
-        this.sensor = sensor;
     }
 
     public int getIdLocalMarket() {
@@ -75,13 +70,5 @@ public class LocalMarket {
 
     public void setAttentionDate(String attentionDate) {
         this.attentionDate = attentionDate;
-    }
-
-    public Sensor getSensor() {
-        return sensor;
-    }
-
-    public void setSensor(Sensor sensor) {
-        this.sensor = sensor;
     }
 }

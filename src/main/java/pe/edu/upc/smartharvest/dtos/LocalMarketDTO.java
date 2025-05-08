@@ -9,7 +9,6 @@ public class LocalMarketDTO {
     private String location;
     private String contact;
     private String attentionDate;
-    private Sensor sensor;
 
     public int getIdLocalMarket() {
         return idLocalMarket;
@@ -51,11 +50,4 @@ public class LocalMarketDTO {
         this.attentionDate = attentionDate;
     }
 
-    public Sensor getSensor() {
-        return sensor;
-    }
-
-    public void setSensor(Sensor sensor) {
-        this.sensor = sensor;
-    }
 }

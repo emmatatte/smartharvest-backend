@@ -34,9 +34,6 @@ public class InputController {
     public void register(@RequestBody InputDTO inputDTO) {
         ModelMapper m = new ModelMapper();
         Input input = m.map(inputDTO, Input.class);
-        Parcel p = new Parcel();
-        p.setIdParcel(inputDTO.getParcelId());
-        input.setParcel(p);
         iS.insert(input);
     }
 
@@ -45,10 +42,7 @@ public class InputController {
     public void update(@RequestBody InputDTO inputDTO) {
         ModelMapper m = new ModelMapper();
         Input input = m.map(inputDTO, Input.class);
-        Parcel p = new Parcel();
-        p.setIdParcel(inputDTO.getParcelId());
-        input.setParcel(p);
-        iS.update(input);
+        iS.insert(input);
     }
 
 
@@ -56,13 +50,4 @@ public class InputController {
     public void eliminar(@PathVariable int idInsumo) {
         iS.delete(idInsumo);
     }
-
-    @GetMapping("/by-parcel/{parcelId}")
-    public List<InputDTO> getByParcel(@PathVariable("parcelId") int parcelId) {
-        return iS.findByParcelId(parcelId).stream()
-                .map(x -> new ModelMapper().map(x, InputDTO.class))
-                .collect(Collectors.toList());
-    }
-
-
 }

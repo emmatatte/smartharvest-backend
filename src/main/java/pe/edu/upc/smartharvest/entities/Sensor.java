@@ -22,7 +22,7 @@ public class Sensor {
     @Column(name = "lastLecture", nullable = false)
     private LocalDate lastLecture;
 
-    @Column(name = "batteryLevel")
+    @Column(name = "batteryLevel", nullable = false)
     private double batteryLevel;
 
     @ManyToOne
@@ -33,7 +33,7 @@ public class Sensor {
     @JoinColumn(name = "idCrop")
     private Crop crop;
 
-    @Column(name = "humidity")
+    @Column(name = "humidity", nullable = false)
     private Double humidity;
 
     public Sensor() {
