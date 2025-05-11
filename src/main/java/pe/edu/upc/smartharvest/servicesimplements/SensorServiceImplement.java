@@ -38,7 +38,7 @@ public class SensorServiceImplement implements ISensorService {
 
     @Override
     public Sensor listId(int idSensor) {
-        return sR.findById(idSensor).orElse(new Sensor());
+        return sR.findById(idSensor).orElse(null); // Retorna Sensor o null
     }
 
     @Override

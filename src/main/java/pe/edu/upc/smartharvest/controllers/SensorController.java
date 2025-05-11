@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.smartharvest.dtos.CropDTO;
 import pe.edu.upc.smartharvest.dtos.SensorDTO;
 import pe.edu.upc.smartharvest.entities.Sensor;
 import pe.edu.upc.smartharvest.servicesinterfaces.ISensorService;
