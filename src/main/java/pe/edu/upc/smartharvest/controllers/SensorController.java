@@ -50,6 +50,13 @@ public class SensorController {
         sS.delete(idSensor);
     }
 
+    @GetMapping("/DeleteByID/{idSensor}")
+    public SensorDTO listarId(@PathVariable("idSensor") int idSensor) {
+        ModelMapper m = new ModelMapper();
+        SensorDTO dto = m.map(sS.listId(idSensor), SensorDTO.class);
+        return dto;
+    }
+
     @GetMapping("/daily-summary")
     public ResponseEntity<List<SensorDTO>> getDailySummary(@RequestParam Long parcelId) {
         List<SensorDTO> summary = sS.getDailySummary(parcelId);

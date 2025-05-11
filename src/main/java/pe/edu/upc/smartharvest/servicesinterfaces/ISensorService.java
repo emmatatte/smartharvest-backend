@@ -10,6 +10,7 @@ public interface ISensorService {
     void insert(Sensor sensor);
     void update(Sensor sensor);
     void delete(int idSensor);
+    public Sensor listId(int idSensor);
     List<SensorDTO> getDailySummary(Long parcelId);
     List<Sensor> findByBatteryLevelLessThan(double threshold);
 
