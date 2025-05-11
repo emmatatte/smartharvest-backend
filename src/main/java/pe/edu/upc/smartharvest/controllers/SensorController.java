@@ -50,7 +50,7 @@ public class SensorController {
         sS.delete(idSensor);
     }
 
-    @GetMapping("/DeleteByID/{idSensor}")
+    @GetMapping("/ListByID/{idSensor}")
     public SensorDTO listarId(@PathVariable("idSensor") int idSensor) {
         ModelMapper m = new ModelMapper();
         SensorDTO dto = m.map(sS.listId(idSensor), SensorDTO.class);
