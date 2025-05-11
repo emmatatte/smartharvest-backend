@@ -37,6 +37,11 @@ public class SensorServiceImplement implements ISensorService {
     }
 
     @Override
+    public Sensor listId(int idSensor) {
+        return sR.findById(idSensor).orElse(new Sensor());
+    }
+
+    @Override
     public List<SensorDTO> getDailySummary(Long parcelId) {
         List<Sensor> sensors = sR.getDailySummary(parcelId);
         ModelMapper mapper = new ModelMapper();
