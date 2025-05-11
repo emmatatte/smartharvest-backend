@@ -1,8 +1,11 @@
 package pe.edu.upc.smartharvest.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "roles", uniqueConstraints = {@UniqueConstraint(columnNames = {"idUser", "rol"})})
@@ -12,20 +15,13 @@ public class Role implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idRol;
 
-    private String rol;
+    @Enumerated(EnumType.STRING)
+    @Column(unique = true)
+    private RoleType rol;
 
-    @ManyToOne
-    @JoinColumn(name = "idUser", nullable = false)
-    private Users user;
-
-
-    public Users getUser() {
-        return user;
-    }
-
-    public void setUser(Users user) {
-        this.user = user;
-    }
+    @OneToMany(mappedBy = "role")  // Relación inversa
+    @JsonIgnore  // Evita el bucle en JSON
+    private List<Users> users;  // Lista de usuarios con este rol
 
     public Long getIdRol() {
         return idRol;
@@ -35,12 +31,19 @@ public class Role implements Serializable {
         this.idRol = idRol;
     }
 
-    public String getRol() {
+    public RoleType getRol() {
         return rol;
     }
 
-    public void setRol(String rol) {
+    public void setRol(RoleType rol) {
         this.rol = rol;
     }
 
+    public List<Users> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<Users> users) {
+        this.users = users;
+    }
 }

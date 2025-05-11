@@ -17,7 +17,7 @@ public class Parcel {
     @Column(name = "location", nullable = false, length = 200)
     private String location;
 
-    @Column(name = "sizem2")
+    @Column(name = "sizem2", nullable = false)
     private double sizem2;
 
     @Column(name = "groundType", nullable = false, length = 100)

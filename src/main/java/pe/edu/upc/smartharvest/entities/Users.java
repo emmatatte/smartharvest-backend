@@ -1,5 +1,6 @@
 package pe.edu.upc.smartharvest.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -19,9 +20,9 @@ public class Users implements Serializable {
     private String password;
     private Boolean enabled;
     private String email;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "idUser")
-    private List<Role> roles;
+    @ManyToOne  // Muchos usuarios pueden tener UN mismo rol
+    @JoinColumn(name = "id_rol")  // Columna FK en la tabla Users
+    private Role role;  // ¡Solo un rol por usuario!
 
     public Long getIdUser() {
         return idUser;
@@ -63,11 +64,11 @@ public class Users implements Serializable {
         this.email = email;
     }
 
-    public List<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

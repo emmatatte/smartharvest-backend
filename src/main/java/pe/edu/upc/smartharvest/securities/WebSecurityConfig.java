@@ -84,7 +84,9 @@ public class WebSecurityConfig {
             "/sensors/**",
             "/parcels/**",
             "/maintenances/**",
-            "/inputs/**",
-            "/localmarkets/**"
+            "/localmarkets/**",
+            "/crops/**",
+            "/users/**",
+            "/roles/**"
     };
 }
