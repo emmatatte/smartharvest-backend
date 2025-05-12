@@ -6,10 +6,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.smartharvest.dtos.CropDTO;
+import pe.edu.upc.smartharvest.dtos.FindActiveSensorsDTO;
+import pe.edu.upc.smartharvest.dtos.GetUsersQuantityDTO;
 import pe.edu.upc.smartharvest.dtos.SensorDTO;
 import pe.edu.upc.smartharvest.entities.Sensor;
 import pe.edu.upc.smartharvest.servicesinterfaces.ISensorService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -70,6 +73,25 @@ public class SensorController {
                 .map(x -> new ModelMapper().map(x, SensorDTO.class))
                 .collect(Collectors.toList());
     }
+    @GetMapping("/findSensorsWithMaintenance")
+    public List<SensorDTO> findSensorsWithMaintenance() {
+        return sS.findSensorsWithMaintenance().stream().map(x -> {
+            ModelMapper m = new ModelMapper();
+            return m.map(x, SensorDTO.class);
+        }).collect(Collectors.toList());
+    }
 
+    @GetMapping("/FindActiveSensors")
+    public List<FindActiveSensorsDTO> FindActiveSensors(){
+        List<FindActiveSensorsDTO> dtoList = new ArrayList<>();
+        List<String[]> RowList=sS.FindActiveSensors();
+        for(String[] column:RowList){
+            FindActiveSensorsDTO dto = new FindActiveSensorsDTO();
+            dto.setIdSensor(Integer.parseInt(column[0]));
+            dto.setName(column[1]);
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
 
 }

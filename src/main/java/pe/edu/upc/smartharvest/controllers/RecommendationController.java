@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.smartharvest.dtos.FindActiveParcelsDTO;
 import pe.edu.upc.smartharvest.dtos.RecommendationDTO;
+import pe.edu.upc.smartharvest.dtos.findRecommendationsDTO;
 import pe.edu.upc.smartharvest.entities.Crop;
 import pe.edu.upc.smartharvest.entities.Recommendation;
 import pe.edu.upc.smartharvest.servicesinterfaces.IRecommendationService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -88,4 +91,20 @@ public class RecommendationController {
     }
 
 
+
+    @GetMapping("/findRecommendations")
+    public List<findRecommendationsDTO> findRecommendations(){
+        List<findRecommendationsDTO> dtoList = new ArrayList<>();
+        List<String[]> RowList=rS.findRecommendations();
+        for(String[] column:RowList){
+            findRecommendationsDTO dto = new findRecommendationsDTO();
+            dto.setIdRecommendation(Integer.parseInt(column[0]));
+            dto.setDescription(column[1]);
+            dto.setIDROP(Integer.parseInt(column[2]));
+            dto.setType(column[3]);
+            dto.setState(column[4]);
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
 }
