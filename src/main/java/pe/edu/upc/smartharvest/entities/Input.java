@@ -29,7 +29,7 @@ public class Input {
     private LocalDate expirationDate;
 
     @ManyToOne
-    @JoinColumn(name = "idUser")
+    @JoinColumn(name = "user_id")
     private Users users;
 
     public Input() {

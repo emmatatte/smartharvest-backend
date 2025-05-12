@@ -12,7 +12,7 @@ import java.util.List;
 public interface IRecommendationRepository extends JpaRepository<Recommendation, Integer> {
     @Query("SELECT r FROM Recommendation r WHERE r.crop.idCrop = :cropId")
     List<Recommendation> findByCropId(@Param("cropId") Integer cropId);
-    @Query("SELECT r FROM Recommendation r WHERE r.users.idUser = :userId")
+    @Query(value = "SELECT r FROM Recommendation r WHERE r.users.id_user = :userId", nativeQuery = true)
     List<Recommendation> findByUserId(@Param("userId") Integer userId);
     @Query("SELECT r FROM Recommendation r WHERE r.crop.idCrop IN (SELECT s.crop.idCrop FROM Sensor s WHERE s.humidity < :threshold)")
     List<Recommendation> findByLowHumiditySensors(@Param("threshold") Double threshold);

@@ -27,7 +27,7 @@ public class Notification {
     private Sensor sensor;
 
     @ManyToOne
-    @JoinColumn(name = "idUser")
+    @JoinColumn(name = "user_id")
     private Users users;
 
     @Column(name = "weather_event", length = 50)

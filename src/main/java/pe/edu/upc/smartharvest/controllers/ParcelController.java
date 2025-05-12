@@ -10,7 +10,7 @@ import pe.edu.upc.smartharvest.servicesinterfaces.IParcelService;
 import java.util.List;
 import java.util.stream.Collectors;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-
+@SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping("/parcels")
 public class ParcelController {
@@ -47,11 +47,11 @@ public class ParcelController {
         pS.delete(idParcela);
     }
 
-    @GetMapping("/by-user/{userId}")
-    public List<ParcelDTO> getParcelsByUser(@PathVariable("userId") Integer userId) {
+    /*@GetMapping("/by-user/{userId}")
+    public List<ParcelDTO> getParcelsByUser(@PathVariable("userId") Long userId) {
         return pS.findByUserId(userId).stream()
                 .map(x -> new ModelMapper().map(x, ParcelDTO.class))
                 .collect(Collectors.toList());
     }
-
+*/
 }

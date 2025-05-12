@@ -27,7 +27,7 @@ public class Parcel {
     private LocalDate registrationDate;
 
     @ManyToOne
-    @JoinColumn(name = "idUser")
+    @JoinColumn(name = "user_id")
     private Users users;
 
     public Parcel() {

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IUserService {
     List<Users> list();
-    void insert(Users user, String rolStr);
+    void insert(Users user);
     void update(Users user);
-    void delete(int idUser);
+    void delete(Long idUser);
 }

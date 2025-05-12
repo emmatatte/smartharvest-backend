@@ -18,17 +18,15 @@ import java.util.stream.Collectors;
 public class UsersControllers {
     @Autowired
     private IUserService uS;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     public UsersControllers() {
     }
 
     @GetMapping
-    private List<Users> listarusuarios() {
+    private List<UsersDTO> listarusuarios() {
         return uS.list().stream().map(x-> {
             ModelMapper modelMapper = new ModelMapper();
-            return modelMapper.map(x,Users.class);
+            return modelMapper.map(x,UsersDTO.class);
         }).collect(Collectors.toList());
     }
 
@@ -36,13 +34,7 @@ public class UsersControllers {
     public void registrar(@RequestBody UsersDTO uDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Users user = modelMapper.map(uDTO, Users.class);
-
-        // 3. Encriptar contraseña y activar usuario
-        user.setPassword(passwordEncoder.encode(uDTO.getPassword()));
-        user.setEnabled(true);
-
-        // 4. Guardar usuario (el servicio asigna el rol)
-        uS.insert(user, uDTO.getRol());
+        uS.insert(user);
     }
 
     @PutMapping
@@ -53,7 +45,7 @@ public class UsersControllers {
     }
 
     @DeleteMapping("/{idSensor}")
-    public void eliminar(@PathVariable int idUser) {
+    public void eliminar(@PathVariable Long idUser) {
         uS.delete(idUser);
     }
 }

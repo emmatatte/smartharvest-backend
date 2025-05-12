@@ -2,23 +2,22 @@ package pe.edu.upc.smartharvest.dtos;
 
 import jakarta.persistence.*;
 import pe.edu.upc.smartharvest.entities.Role;
-import pe.edu.upc.smartharvest.entities.RoleType;
 
 import java.util.List;
 
 public class UsersDTO {
-    private Long idUser;
+    private Long id;
     private String username;
     private String password;
-    private String email;
-    private String rol;
+    private Boolean enabled;
+    private List<Role> roles;
 
-    public Long getIdUser() {
-        return idUser;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -37,22 +36,19 @@ public class UsersDTO {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public Boolean getEnabled() {
+        return enabled;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
-    public String getRol() {
-        return rol;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setRol(String rol) {
-        if (!RoleType.isValid(rol)) {
-            throw new IllegalArgumentException("Rol inválido");
-        }
-        this.rol = rol.toUpperCase();
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

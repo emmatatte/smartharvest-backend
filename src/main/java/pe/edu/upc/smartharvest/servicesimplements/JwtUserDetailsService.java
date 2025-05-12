@@ -36,17 +36,14 @@ public class JwtUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(String.format("User not exists", username));
         }
 
-        // Obtener el rol del usuario (ahora es un solo rol, no una lista)
-        String roleName = "ROLE_" + user.getRole().getRol().name(); // Ej: "ROLE_ADMIN"
+        List<GrantedAuthority> roles = new ArrayList<>();
 
-        List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(roleName));
+        user.getRoles().forEach(rol -> {
+            roles.add(new SimpleGrantedAuthority(rol.getRol()));
+        });
 
-        return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),
-                user.getPassword(),
-                user.getEnabled(),
-                true, true, true,
-                authorities
-        );
+        UserDetails ud = new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getEnabled(), true, true, true, roles);
+
+        return ud;
     }
 }
