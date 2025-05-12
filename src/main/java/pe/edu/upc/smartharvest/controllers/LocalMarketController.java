@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
-@SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping("/localmarkets")
+@SecurityRequirement(name = "bearerAuth")
 public class LocalMarketController {
     @Autowired
     private IMarketPlaceService mS;

@@ -11,9 +11,9 @@ import pe.edu.upc.smartharvest.servicesinterfaces.INotificationService;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping("/notifications")
+@SecurityRequirement(name = "bearerAuth")
 public class NotificationController {
     @Autowired
     private INotificationService nS;

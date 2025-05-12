@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @RequestMapping("/parcels")
+@SecurityRequirement(name = "bearerAuth")
 public class ParcelController {
     @Autowired
     private IParcelService pS;

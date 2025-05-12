@@ -14,9 +14,9 @@ import pe.edu.upc.smartharvest.servicesinterfaces.IRecommendationService;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping("/recommendations")
+@SecurityRequirement(name = "bearerAuth")
 public class RecommendationController {
     @Autowired
     private IRecommendationService rS;
