@@ -12,10 +12,13 @@ import java.util.List;
 public interface IRecommendationRepository extends JpaRepository<Recommendation, Integer> {
     @Query("SELECT r FROM Recommendation r WHERE r.crop.idCrop = :cropId")
     List<Recommendation> findByCropId(@Param("cropId") Integer cropId);
+
     @Query("SELECT r FROM Recommendation r WHERE r.users.idUser = :userId")
     List<Recommendation> findByUserId(@Param("userId") Integer userId);
+
     @Query("SELECT r FROM Recommendation r WHERE r.crop.idCrop IN (SELECT s.crop.idCrop FROM Sensor s WHERE s.humidity < :threshold)")
     List<Recommendation> findByLowHumiditySensors(@Param("threshold") Double threshold);
+
     @Query(value = "SELECT p.name AS parcela, COUNT(r.id_recommendation) AS total_recomendaciones " +
             "FROM recommendation r " +
             "JOIN crop c ON r.id_crop = c.id_crop " +
@@ -23,4 +26,11 @@ public interface IRecommendationRepository extends JpaRepository<Recommendation,
             "GROUP BY p.name " +
             "ORDER BY total_recomendaciones DESC", nativeQuery = true)
     List<String[]> findRecommendationCountByParcel();
+
+    //US36
+    @Query(value = "SELECT r.id_recommendation, r.description, c.id_crop AS crop, c.type_crop, c.actual_state\n" +
+            "FROM recommendation r\n" +
+            "JOIN crop c ON r.id_crop = c.id_crop\n" +
+            "ORDER BY r.id_recommendation;", nativeQuery = true)
+    public List<String[]> findRecommendations();
 }

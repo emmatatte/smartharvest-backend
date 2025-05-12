@@ -11,4 +11,6 @@ public interface IUserService {
     void insert(Users user, String rolStr);
     void update(Users user);
     void delete(int idUser);
+
+    public List<String[]> getUsersQuantity();
 }
