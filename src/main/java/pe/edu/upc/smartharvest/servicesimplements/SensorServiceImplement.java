@@ -37,6 +37,11 @@ public class SensorServiceImplement implements ISensorService {
     }
 
     @Override
+    public Sensor listId(int idSensor) {
+        return sR.findById(idSensor).orElse(null); // Retorna Sensor o null
+    }
+
+    @Override
     public List<SensorDTO> getDailySummary(Long parcelId) {
         List<Sensor> sensors = sR.getDailySummary(parcelId);
         ModelMapper mapper = new ModelMapper();
@@ -50,4 +55,13 @@ public class SensorServiceImplement implements ISensorService {
         return sR.findByBatteryLevelLessThan(threshold);
     }
 
+    @Override
+    public List<SensorDTO> findSensorsWithMaintenance(){
+        return sR.findSensorsWithMaintenance();
+    }
+
+    @Override
+    public List<String[]> FindActiveSensors(){
+        return sR.findActiveSensors();
+    }
 }

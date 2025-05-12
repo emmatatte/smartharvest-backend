@@ -13,9 +13,9 @@ import pe.edu.upc.smartharvest.servicesinterfaces.IProductMarketService;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping("/productmarkets")
+@SecurityRequirement(name = "bearerAuth")
 public class ProductMarketController {
     @Autowired
     private IProductMarketService pmS;

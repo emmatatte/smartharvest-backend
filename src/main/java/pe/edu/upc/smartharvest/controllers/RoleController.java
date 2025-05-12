@@ -11,9 +11,9 @@ import pe.edu.upc.smartharvest.servicesinterfaces.IRoleService;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping("/roles")
+@SecurityRequirement(name = "bearerAuth")
 public class RoleController {
     @Autowired
     private IRoleService rS;

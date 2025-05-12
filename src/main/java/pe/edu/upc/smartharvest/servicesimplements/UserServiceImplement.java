@@ -41,4 +41,8 @@ public class UserServiceImplement implements IUserService {
         user.setEnabled(true);
         uR.save(user);
     }
+    @Override
+    public List<String[]> getUsersQuantity(){
+        return uR.getUsersQuantity();
+    }
 }

@@ -53,4 +53,8 @@ public class RecommendationServiceImplement implements IRecommendationService {
         return rR.findRecommendationCountByParcel();
     }
 
+    @Override
+    public List<String[]> findRecommendations(){
+        return rR.findRecommendations();
+    }
 }

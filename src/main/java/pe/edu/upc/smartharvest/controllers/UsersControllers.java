@@ -6,15 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.smartharvest.dtos.FindActiveParcelsDTO;
+import pe.edu.upc.smartharvest.dtos.GetUsersQuantityDTO;
 import pe.edu.upc.smartharvest.dtos.UsersDTO;
 import pe.edu.upc.smartharvest.entities.Users;
 import pe.edu.upc.smartharvest.servicesinterfaces.IUserService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
+@SecurityRequirement(name = "bearerAuth")
 public class UsersControllers {
     @Autowired
     private IUserService uS;
@@ -47,5 +51,17 @@ public class UsersControllers {
     @DeleteMapping("/{idSensor}")
     public void eliminar(@PathVariable Long idUser) {
         uS.delete(idUser);
+    }
+
+    @GetMapping("/getUsersQuantity")
+    public List<GetUsersQuantityDTO> getUsersQuantity(){
+        List<GetUsersQuantityDTO> dtoList = new ArrayList<>();
+        List<String[]> RowList=uS.getUsersQuantity();
+        for(String[] column:RowList){
+            GetUsersQuantityDTO dto = new GetUsersQuantityDTO();
+            dto.setQuantity(Integer.parseInt(column[0]));
+            dtoList.add(dto);
+        }
+        return dtoList;
     }
 }

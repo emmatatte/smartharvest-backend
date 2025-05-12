@@ -44,4 +44,13 @@ public class CropServiceImplement implements ICropService {
 
     @Override
     public List<String[]> findCropsNeedingAttention() { return cR.findCropsNeedingAttention();}
+
+    @Override
+    public List<String[]> identifyUpcomingCropDays() { return cR.identifyUpcomingCropDays();}
+
+    @Override
+    public List<String[]> findActiveCrops() {
+        return cR.findActiveCrops();
+    }
+
 }

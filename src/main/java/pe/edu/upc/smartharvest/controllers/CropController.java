@@ -6,6 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.smartharvest.dtos.CropDTO;
 import pe.edu.upc.smartharvest.dtos.CropsNeedingAttentionDTO;
+import pe.edu.upc.smartharvest.dtos.FindActiveCropsDTO;
 import pe.edu.upc.smartharvest.entities.Crop;
 import pe.edu.upc.smartharvest.servicesinterfaces.ICropService;
 
@@ -15,9 +16,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
-@SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping("/crops")
+@SecurityRequirement(name = "bearerAuth")
 public class CropController {
     @Autowired
     private ICropService cS;
@@ -84,4 +85,17 @@ public class CropController {
     return dtoLista;
     }
 
+    @GetMapping("/findActiveCrop")
+    public List<FindActiveCropsDTO> findActiveCrops(){
+        List<FindActiveCropsDTO> dtoLista = new ArrayList<>();
+        List<String[]> RowList=cS.findActiveCrops();
+        for(String[] column:RowList){
+            FindActiveCropsDTO dto = new FindActiveCropsDTO();
+            dto.setIdCrop(Integer.parseInt(column[0]));
+            dto.setIdParcel(Integer.parseInt(column[1]));
+            dto.setName(column[2]);
+            dtoLista.add(dto);
+        }
+        return dtoLista;
+    }
 }

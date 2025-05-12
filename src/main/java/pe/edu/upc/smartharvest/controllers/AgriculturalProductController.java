@@ -11,9 +11,9 @@ import pe.edu.upc.smartharvest.servicesinterfaces.IAgriculturalProductService;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping("/agriculturalproducts")
+@SecurityRequirement(name = "bearerAuth")
 public class AgriculturalProductController {
     @Autowired
     private IAgriculturalProductService aP;
