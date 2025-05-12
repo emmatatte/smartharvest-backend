@@ -37,5 +37,9 @@ public class ParcelServiceImplement implements IParcelService {
     public List<Parcel> findByUserId(Integer userId) {
         return pR.findByUsers_IdUser(userId);
     }
-
+    @Override
+    public List<String[]> findActiveParcels(){
+        return pR.findActiveParcels();
+    }
 }
+

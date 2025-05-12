@@ -10,4 +10,6 @@ public interface IParcelService {
     void update(Parcel parcel);
     void delete(int idParcel);
     List<Parcel> findByUserId(Integer userId);
+
+    public List<String[]> findActiveParcels();
 }

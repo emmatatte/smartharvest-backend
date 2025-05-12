@@ -3,6 +3,7 @@ package pe.edu.upc.smartharvest.servicesinterfaces;
 import pe.edu.upc.smartharvest.dtos.SensorDTO;
 import pe.edu.upc.smartharvest.entities.Sensor;
 
+import java.util.Arrays;
 import java.util.List;
 
 public interface ISensorService {
@@ -14,4 +15,7 @@ public interface ISensorService {
     List<SensorDTO> getDailySummary(Long parcelId);
     List<Sensor> findByBatteryLevelLessThan(double threshold);
 
+    public List<SensorDTO> findSensorsWithMaintenance();
+
+    public List<String[]> FindActiveSensors();
 }

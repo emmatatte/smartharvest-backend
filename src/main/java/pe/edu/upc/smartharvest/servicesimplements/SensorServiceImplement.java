@@ -55,4 +55,13 @@ public class SensorServiceImplement implements ISensorService {
         return sR.findByBatteryLevelLessThan(threshold);
     }
 
+    @Override
+    public List<SensorDTO> findSensorsWithMaintenance(){
+        return sR.findSensorsWithMaintenance();
+    }
+
+    @Override
+    public List<String[]> FindActiveSensors(){
+        return sR.findActiveSensors();
+    }
 }

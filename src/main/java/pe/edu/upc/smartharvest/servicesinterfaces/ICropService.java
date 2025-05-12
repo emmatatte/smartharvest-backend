@@ -13,4 +13,5 @@ public interface ICropService {
     List<Crop> findByActualState(String actualState);
     public List<String[]> findCropsNeedingAttention();
     public List<String[]> identifyUpcomingCropDays();
+    public List<String[]> findActiveCrops();
 }
