@@ -1,17 +1,23 @@
 package pe.edu.upc.smartharvest.dtos;
 
-import jakarta.persistence.*;
-import pe.edu.upc.smartharvest.entities.Parcela;
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import pe.edu.upc.smartharvest.entities.Crop;
+import pe.edu.upc.smartharvest.entities.Parcel;
 
 import java.time.LocalDate;
 
 public class SensorDTO {
     private int idSensor;
-    private String tipoSensor;
-    private LocalDate fechaInstalacion;
-    private boolean estado;
-    private LocalDate ultimaLectura;
-    private Parcela parcela;
+    private String sensorType;
+    private LocalDate installationDate;
+    private boolean state;
+    private LocalDate lastLecture;
+    private double batteryLevel;
+    private Parcel parcel;
+    private Crop crop;
+    private Double humidity;
 
     public int getIdSensor() {
         return idSensor;
@@ -21,43 +27,67 @@ public class SensorDTO {
         this.idSensor = idSensor;
     }
 
-    public String getTipoSensor() {
-        return tipoSensor;
+    public String getSensorType() {
+        return sensorType;
     }
 
-    public void setTipoSensor(String tipoSensor) {
-        this.tipoSensor = tipoSensor;
+    public void setSensorType(String sensorType) {
+        this.sensorType = sensorType;
     }
 
-    public LocalDate getFechaInstalacion() {
-        return fechaInstalacion;
+    public LocalDate getInstallationDate() {
+        return installationDate;
     }
 
-    public void setFechaInstalacion(LocalDate fechaInstalacion) {
-        this.fechaInstalacion = fechaInstalacion;
+    public void setInstallationDate(LocalDate installationDate) {
+        this.installationDate = installationDate;
     }
 
-    public boolean isEstado() {
-        return estado;
+    public boolean isState() {
+        return state;
     }
 
-    public void setEstado(boolean estado) {
-        this.estado = estado;
+    public void setState(boolean state) {
+        this.state = state;
     }
 
-    public LocalDate getUltimaLectura() {
-        return ultimaLectura;
+    public LocalDate getLastLecture() {
+        return lastLecture;
     }
 
-    public void setUltimaLectura(LocalDate ultimaLectura) {
-        this.ultimaLectura = ultimaLectura;
+    public void setLastLecture(LocalDate lastLecture) {
+        this.lastLecture = lastLecture;
     }
 
-    public Parcela getParcela() {
-        return parcela;
+    public double getBatteryLevel() {
+        return batteryLevel;
     }
 
-    public void setParcela(Parcela parcela) {
-        this.parcela = parcela;
+    public void setBatteryLevel(double batteryLevel) {
+        this.batteryLevel = batteryLevel;
+    }
+
+    public Parcel getParcel() {
+        return parcel;
+    }
+
+    public void setParcel(Parcel parcel) {
+        this.parcel = parcel;
+    }
+
+    public Crop getCrop() {
+        return crop;
+    }
+
+    public void setCrop(Crop crop) {
+        this.crop = crop;
+    }
+
+    public Double getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(Double humidity) {
+        this.humidity = humidity;
     }
 }
