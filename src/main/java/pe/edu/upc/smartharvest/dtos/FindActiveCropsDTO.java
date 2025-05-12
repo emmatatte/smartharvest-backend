@@ -29,5 +29,3 @@ public class FindActiveCropsDTO {
         this.name = name;
     }
 }
-//mensajexd
-//EQUIDE
