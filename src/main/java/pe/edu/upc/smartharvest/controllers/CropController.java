@@ -27,6 +27,7 @@ public class CropController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<CropDTO> listar() {
         return cS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
@@ -35,6 +36,7 @@ public class CropController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void registrar(@RequestBody CropDTO cDTO) {
         ModelMapper m = new ModelMapper();
         Crop c = m.map(cDTO, Crop.class);
@@ -42,6 +44,7 @@ public class CropController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void modificar(@RequestBody CropDTO cDTO) {
         ModelMapper m = new ModelMapper();
         Crop c = m.map(cDTO, Crop.class);

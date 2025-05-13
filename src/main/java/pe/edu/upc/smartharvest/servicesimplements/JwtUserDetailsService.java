@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import pe.edu.upc.smartharvest.entities.Users;
 import pe.edu.upc.smartharvest.repositories.IUsersRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,7 +21,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users user = repo.findOneByUsername(username);
+        Users user = repo.findByUsername(username);
 
         if (user == null) {
             throw new UsernameNotFoundException(String.format("User not exists", username));

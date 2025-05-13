@@ -1,5 +1,6 @@
 package pe.edu.upc.smartharvest.servicesinterfaces;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.userdetails.User;
 import pe.edu.upc.smartharvest.entities.Role;
 import pe.edu.upc.smartharvest.entities.Users;
@@ -11,4 +12,5 @@ public interface IUserService {
     void insert(Users user);
     void update(Users user);
     void delete(Long idUser);
+    List<String[]> getUsersQuantity();
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface IParcelRepository extends JpaRepository<Parcel, Integer> {
-    List<Parcel> findByUsers_IdUser(Integer userId);
+    List<Parcel> findParcelByUsers_Id(Long usersId);
 
     //US35
     @Query(value = "SELECT p.id, p.nombre\n" +

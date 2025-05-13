@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.smartharvest.dtos.CropDTO;
 import pe.edu.upc.smartharvest.dtos.FindActiveSensorsDTO;
@@ -28,6 +29,7 @@ public class SensorController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<SensorDTO> listar() {
         return sS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
@@ -36,6 +38,7 @@ public class SensorController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void registrar(@RequestBody SensorDTO sDTO) {
         ModelMapper m = new ModelMapper();
         Sensor s = m.map(sDTO, Sensor.class);
@@ -43,6 +46,7 @@ public class SensorController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void modificar(@RequestBody SensorDTO sDTO) {
         ModelMapper m = new ModelMapper();
         Sensor s = m.map(sDTO, Sensor.class);
@@ -50,11 +54,13 @@ public class SensorController {
     }
 
     @DeleteMapping("/{idSensor}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void eliminar(@PathVariable int idSensor) {
         sS.delete(idSensor);
     }
 
     @GetMapping("/ListByID/{idSensor}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public SensorDTO listarId(@PathVariable("idSensor") int idSensor) {
         ModelMapper m = new ModelMapper();
         SensorDTO dto = m.map(sS.listId(idSensor), SensorDTO.class);

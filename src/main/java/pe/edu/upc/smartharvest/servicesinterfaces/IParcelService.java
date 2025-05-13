@@ -9,5 +9,5 @@ public interface IParcelService {
     void insert(Parcel parcel);
     void update(Parcel parcel);
     void delete(int idParcel);
-    //List<Parcel> findByUserId(Long userId);
+    List<Parcel> findByUserId(Long userId);
 }

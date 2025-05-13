@@ -23,4 +23,10 @@ public interface IRecommendationRepository extends JpaRepository<Recommendation,
             "GROUP BY p.name " +
             "ORDER BY total_recomendaciones DESC", nativeQuery = true)
     List<String[]> findRecommendationCountByParcel();
+    //US36
+    @Query(value = "SELECT r.id_recommendation, r.description, c.id_crop AS crop, c.type_crop, c.actual_state\n" +
+            "FROM recommendation r\n" +
+            "JOIN crop c ON r.id_crop = c.id_crop\n" +
+            "ORDER BY r.id_recommendation;", nativeQuery = true)
+    public List<String[]> findRecommendations();
 }

@@ -23,7 +23,7 @@ public class CompanyController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR','DUEÑO_DE_MERCADO')")
     public List<CompanyDTO> listar() {
         return eS.list().stream().map(x->{
             ModelMapper m = new ModelMapper();
@@ -32,6 +32,7 @@ public class CompanyController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void registrar(@RequestBody CompanyDTO eDTO) {
         ModelMapper m = new ModelMapper();
         Company e = m.map(eDTO, Company.class);
@@ -39,6 +40,7 @@ public class CompanyController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void modificar(@RequestBody CompanyDTO eDTO) {
         ModelMapper m = new ModelMapper();
         Company e = m.map(eDTO, Company.class);
@@ -46,6 +48,7 @@ public class CompanyController {
     }
 
     @DeleteMapping("/{idEmpresa}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void eliminar(@PathVariable int idEmpresa) {
         eS.delete(idEmpresa);
     }
