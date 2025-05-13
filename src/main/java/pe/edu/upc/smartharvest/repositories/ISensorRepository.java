@@ -16,11 +16,10 @@ public interface ISensorRepository extends JpaRepository<Sensor, Integer> {
     List<Sensor> findByBatteryLevelLessThan(double threshold);
 
     //US34
-    @Query(value = "SELECT s FROM Sensor s WHERE s.state = 'false'", nativeQuery = true)
-    public List<SensorDTO> findSensorsWithMaintenance();
+    @Query(value = "SELECT s.id_sensor, s.sensor_type FROM sensor s WHERE s.state = 'false'", nativeQuery = true)
+    public List<String[]> findSensorsWithMaintenance();
 
     //US38
-    @Query(value = "SELECT id, nombre\n" +
-            "FROM sensores WHERE lastLecture < CURRENT_DATE;",nativeQuery = true)
+    @Query(value = "SELECT s.id_sensor, s.sensor_type FROM sensor s WHERE s.last_lecture < CURRENT_DATE",nativeQuery = true)
     public List<String[]> findActiveSensors();
 }

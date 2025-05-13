@@ -80,11 +80,16 @@ public class SensorController {
                 .collect(Collectors.toList());
     }
     @GetMapping("/findSensorsWithMaintenance")
-    public List<SensorDTO> findSensorsWithMaintenance() {
-        return sS.findSensorsWithMaintenance().stream().map(x -> {
-            ModelMapper m = new ModelMapper();
-            return m.map(x, SensorDTO.class);
-        }).collect(Collectors.toList());
+    public List<FindActiveSensorsDTO> findSensorsWithMaintenance() {
+        List<FindActiveSensorsDTO> dtoList = new ArrayList<>();
+        List<String[]> RowList=sS.findSensorsWithMaintenance();
+        for(String[] column:RowList){
+            FindActiveSensorsDTO dto = new FindActiveSensorsDTO();
+            dto.setIdSensor(Integer.parseInt(column[0]));
+            dto.setName(column[1]);
+            dtoList.add(dto);
+        }
+        return dtoList;
     }
 
     @GetMapping("/FindActiveSensors")

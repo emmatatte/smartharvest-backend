@@ -56,7 +56,7 @@ public class SensorServiceImplement implements ISensorService {
     }
 
     @Override
-    public List<SensorDTO> findSensorsWithMaintenance(){
+    public List<String[]> findSensorsWithMaintenance(){
         return sR.findSensorsWithMaintenance();
     }
 
