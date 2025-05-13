@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface IUsersRepository extends JpaRepository<Users, Long> {
     Users findByUsername(String username);
-    @Query(value = "SELECT COUNT(id_user) AS users_quantity\n" +
+    @Query(value = "SELECT COUNT(*) AS users_quantity\n" +
             "FROM users\n" +
             "WHERE enabled is true;",nativeQuery = true)
     public List<String[]> getUsersQuantity();

@@ -15,7 +15,7 @@ public interface ISensorService {
     List<SensorDTO> getDailySummary(Long parcelId);
     List<Sensor> findByBatteryLevelLessThan(double threshold);
 
-    public List<SensorDTO> findSensorsWithMaintenance();
+    public List<String[]> findSensorsWithMaintenance();
 
     public List<String[]> FindActiveSensors();
 }
