@@ -79,13 +79,6 @@ public class WebSecurityConfig {
             "/v3/api-docs.yaml",
             "/swagger-ui/**",
             "/swagger-ui.html",
-            "/recommendations/**",
-            "/notifications/**",
-            "/sensors/**",
-            "/parcels/**",
-            "/maintenances/**",
-            "/localmarkets/**",
-            "/crops/**",
             "/users/**",
             "/roles/**"
     };

@@ -28,6 +28,7 @@ public class RecommendationController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<RecommendationDTO> listar() {
         return rS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
@@ -36,6 +37,7 @@ public class RecommendationController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void register(@RequestBody RecommendationDTO rDTO) {
         ModelMapper m = new ModelMapper();
         Recommendation recommendation = m.map(rDTO, Recommendation.class);
@@ -48,6 +50,7 @@ public class RecommendationController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void modificar(@RequestBody RecommendationDTO rDTO) {
         ModelMapper m = new ModelMapper();
         Recommendation recommendation = m.map(rDTO, Recommendation.class);
@@ -59,11 +62,13 @@ public class RecommendationController {
     }
 
     @DeleteMapping("/{idRecomendation}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void eliminar(@PathVariable int idRecomendation) {
         rS.delete(idRecomendation);
     }
 
     @GetMapping("/by-crop/{cropId}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<RecommendationDTO> getByCrop(@PathVariable("cropId") Integer cropId) {
         return rS.findByCropId(cropId).stream()
                 .map(x -> new ModelMapper().map(x, RecommendationDTO.class))
@@ -71,6 +76,7 @@ public class RecommendationController {
     }
 
     @GetMapping("/by-user/{userId}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<RecommendationDTO> getByUser(@PathVariable("userId") Integer userId) {
         return rS.findByUserId(userId).stream()
                 .map(x -> new ModelMapper().map(x, RecommendationDTO.class))
@@ -79,20 +85,19 @@ public class RecommendationController {
 
 
     @GetMapping("/recomendaciones/sensores-humedad-baja")
-    @PreAuthorize("hasAnyAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public ResponseEntity<List<Recommendation>> getRecommendationsBySensorHumidity(@RequestParam Double threshold) {
         return ResponseEntity.ok(rS.findByLowHumiditySensors(threshold));
     }
 
     @GetMapping("/ranking-recomendaciones-por-parcela")
-    @PreAuthorize("hasAnyAuthority('TECHNICIAN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public ResponseEntity<List<String[]>> getRecommendationRankingByParcel() {
         return ResponseEntity.ok(rS.findRecommendationCountByParcel());
     }
 
-
-
     @GetMapping("/findRecommendations")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<findRecommendationsDTO> findRecommendations(){
         List<findRecommendationsDTO> dtoList = new ArrayList<>();
         List<String[]> RowList=rS.findRecommendations();

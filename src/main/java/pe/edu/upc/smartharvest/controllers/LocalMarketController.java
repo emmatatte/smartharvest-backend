@@ -2,6 +2,7 @@ package pe.edu.upc.smartharvest.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.smartharvest.dtos.LocalMarketDTO;
 import pe.edu.upc.smartharvest.entities.LocalMarket;
@@ -22,6 +23,7 @@ public class LocalMarketController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR','DUEÑO_DE_MERCADO')")
     public List<LocalMarketDTO> listar() {
         return mS.list().stream().map(x->{
             ModelMapper m = new ModelMapper();
@@ -30,6 +32,7 @@ public class LocalMarketController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN','DUEÑO_DE_MERCADO')")
     public void registrar(@RequestBody LocalMarketDTO mDTO) {
         ModelMapper m = new ModelMapper();
         LocalMarket ml = m.map(mDTO, LocalMarket.class);
@@ -37,6 +40,7 @@ public class LocalMarketController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN','DUEÑO_DE_MERCADO')")
     public void modificar(@RequestBody LocalMarketDTO mDTO) {
         ModelMapper m = new ModelMapper();
         LocalMarket ml = m.map(mDTO, LocalMarket.class);
@@ -44,6 +48,7 @@ public class LocalMarketController {
     }
 
     @DeleteMapping("/{idMercadoLocal}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','DUEÑO_DE_MERCADO')")
     public void eliminar(@PathVariable("idMercadoLocal") int idMercadoLocal) {
         mS.delete(idMercadoLocal);
     }

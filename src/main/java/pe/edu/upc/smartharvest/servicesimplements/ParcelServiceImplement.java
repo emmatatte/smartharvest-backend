@@ -33,9 +33,9 @@ public class ParcelServiceImplement implements IParcelService {
         pR.deleteById(idParcela);
     }
 
-    /*@Override
+    @Override
     public List<Parcel> findByUserId(Long userId) {
-        return pR.findByUsers_IdUser(userId);
+        return pR.findParcelByUsers_Id(userId);
     }
-*/
+
 }

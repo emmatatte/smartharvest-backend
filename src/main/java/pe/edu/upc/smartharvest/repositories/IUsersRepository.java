@@ -10,6 +10,9 @@ import java.util.List;
 @Repository
 
 public interface IUsersRepository extends JpaRepository<Users, Long> {
-    public Users findOneByUsername(String username);
-
+    Users findByUsername(String username);
+    @Query(value = "SELECT COUNT(id_user) AS users_quantity\n" +
+            "FROM users\n" +
+            "WHERE enabled is true;",nativeQuery = true)
+    public List<String[]> getUsersQuantity();
 }

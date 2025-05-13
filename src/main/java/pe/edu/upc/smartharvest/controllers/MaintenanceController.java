@@ -24,6 +24,7 @@ public class MaintenanceController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<MaintenanceDTO> listar(){
         return mS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
@@ -32,6 +33,7 @@ public class MaintenanceController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void registrar(@RequestBody MaintenanceDTO mDTO) {
         ModelMapper m = new ModelMapper();
         Maintenance ma = m.map(mDTO, Maintenance.class);
@@ -39,6 +41,7 @@ public class MaintenanceController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void modificar(@RequestBody MaintenanceDTO mDTO) {
         ModelMapper m = new ModelMapper();
         Maintenance ma = m.map(mDTO, Maintenance.class);
@@ -46,6 +49,7 @@ public class MaintenanceController {
     }
 
     @DeleteMapping("/{idMantenimiento}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void eliminiar(@PathVariable int idMantenimiento) {
         mS.delete(idMantenimiento);
     }

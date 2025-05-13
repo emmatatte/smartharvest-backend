@@ -24,6 +24,7 @@ public class ProductMarketController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR','DUEÑO_DE_MERCADO')")
     public List<ProductMarketDTO> listar() {
         return pmS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
@@ -32,6 +33,7 @@ public class ProductMarketController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'DUEÑO_DE_MERCADO')")
     public void register(@RequestBody ProductMarketDTO pmDTO) {
         ModelMapper m = new ModelMapper();
         ProductMarket pm = m.map(pmDTO, ProductMarket.class);
@@ -39,6 +41,7 @@ public class ProductMarketController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'DUEÑO_DE_MERCADO')")
     public void modificar(@RequestBody ProductMarketDTO pmDTO) {
         ModelMapper m = new ModelMapper();
         ProductMarket pm = m.map(pmDTO, ProductMarket.class);
@@ -46,6 +49,7 @@ public class ProductMarketController {
     }
 
     @DeleteMapping("/{idProductMarket}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'DUEÑO_DE_MERCADO')")
     public void eliminar(@PathVariable int idProductMarket) {
         pmS.delete(idProductMarket);
     }
