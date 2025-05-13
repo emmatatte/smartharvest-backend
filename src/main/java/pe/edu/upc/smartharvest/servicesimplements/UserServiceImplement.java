@@ -27,6 +27,8 @@ public class UserServiceImplement implements IUserService {
 
     @Override
     public void update(Users user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setEnabled(true);
         uR.save(user);
     }
 
