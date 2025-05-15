@@ -4,12 +4,10 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.smartharvest.dtos.FindActiveParcelsDTO;
 import pe.edu.upc.smartharvest.dtos.GetUsersQuantityDTO;
 import pe.edu.upc.smartharvest.dtos.UsersDTO;
+import pe.edu.upc.smartharvest.dtos.UsersDTOforRegister;
 import pe.edu.upc.smartharvest.entities.Users;
 import pe.edu.upc.smartharvest.servicesinterfaces.IUserService;
 
@@ -19,7 +17,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
-//@SecurityRequirement(name = "bearerAuth")
+@SecurityRequirement(name = "bearerAuth")
 public class UsersControllers {
     @Autowired
     private IUserService uS;
@@ -28,38 +26,38 @@ public class UsersControllers {
     }
 
     @GetMapping
-    //@PreAuthorize("hasAnyAuthority('ADMIN')")
-    private List<UsersDTO> listarusuarios() {
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public List<UsersDTO> listarusuarios() {
         return uS.list().stream().map(x-> {
             ModelMapper modelMapper = new ModelMapper();
             return modelMapper.map(x,UsersDTO.class);
         }).collect(Collectors.toList());
     }
 
-    @PostMapping
-    //@PreAuthorize("hasAnyAuthority('ADMIN')")
-    public void registrar(@RequestBody UsersDTO uDTO) {
+    @PostMapping("/register")
+    //@PreAuthorize("hasAuthority('ADMIN')")
+    public void registrar(@RequestBody UsersDTOforRegister uDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Users user = modelMapper.map(uDTO, Users.class);
         uS.insert(user);
     }
 
     @PutMapping
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR','DUEÑO_DE_MERCADO')")
-    public void modificar(@RequestBody UsersDTO uDTO) {
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR','DUEÑO_DE_MERCADO')")
+    public void modificar(@RequestBody UsersDTOforRegister uDTO) {
         ModelMapper m = new ModelMapper();
         Users u = m.map(uDTO, Users.class);
         uS.update(u);
     }
 
     @DeleteMapping("/{idUser}")
-    //@PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void eliminar(@PathVariable Long idUser) {
         uS.delete(idUser);
     }
 
     @GetMapping("/getUsersQuantity")
-    //@PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<GetUsersQuantityDTO> getUsersQuantity(){
         List<GetUsersQuantityDTO> dtoList = new ArrayList<>();
         List<String[]> RowList=uS.getUsersQuantity();

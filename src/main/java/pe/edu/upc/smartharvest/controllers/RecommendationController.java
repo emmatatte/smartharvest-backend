@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.smartharvest.dtos.FindActiveParcelsDTO;
 import pe.edu.upc.smartharvest.dtos.RecommendationDTO;
+import pe.edu.upc.smartharvest.dtos.RecommendationDTOforRegister;
 import pe.edu.upc.smartharvest.dtos.findRecommendationsDTO;
 import pe.edu.upc.smartharvest.entities.Crop;
 import pe.edu.upc.smartharvest.entities.Recommendation;
@@ -38,26 +39,17 @@ public class RecommendationController {
 
     @PostMapping
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-    public void register(@RequestBody RecommendationDTO rDTO) {
+    public void register(@RequestBody RecommendationDTOforRegister rDTO) {
         ModelMapper m = new ModelMapper();
         Recommendation recommendation = m.map(rDTO, Recommendation.class);
-
-        Crop c = new Crop();
-        c.setIdCrop(rDTO.getCropId());
-        recommendation.setCrop(c);
-
         rS.insert(recommendation);
     }
 
     @PutMapping
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-    public void modificar(@RequestBody RecommendationDTO rDTO) {
+    public void modificar(@RequestBody RecommendationDTOforRegister rDTO) {
         ModelMapper m = new ModelMapper();
         Recommendation recommendation = m.map(rDTO, Recommendation.class);
-
-        Crop c = new Crop();
-        c.setIdCrop(rDTO.getCropId());
-        recommendation.setCrop(c);
         rS.update(recommendation);
     }
 

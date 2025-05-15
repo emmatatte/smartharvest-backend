@@ -6,10 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.smartharvest.dtos.CropDTO;
-import pe.edu.upc.smartharvest.dtos.FindActiveSensorsDTO;
-import pe.edu.upc.smartharvest.dtos.GetUsersQuantityDTO;
-import pe.edu.upc.smartharvest.dtos.SensorDTO;
+import pe.edu.upc.smartharvest.dtos.*;
 import pe.edu.upc.smartharvest.entities.Sensor;
 import pe.edu.upc.smartharvest.servicesinterfaces.ISensorService;
 
@@ -39,7 +36,7 @@ public class SensorController {
 
     @PostMapping
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-    public void registrar(@RequestBody SensorDTO sDTO) {
+    public void registrar(@RequestBody SensorDTOforRegister sDTO) {
         ModelMapper m = new ModelMapper();
         Sensor s = m.map(sDTO, Sensor.class);
         sS.insert(s);
@@ -47,7 +44,7 @@ public class SensorController {
 
     @PutMapping
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-    public void modificar(@RequestBody SensorDTO sDTO) {
+    public void modificar(@RequestBody SensorDTOforRegister sDTO) {
         ModelMapper m = new ModelMapper();
         Sensor s = m.map(sDTO, Sensor.class);
         sS.update(s);
@@ -68,18 +65,21 @@ public class SensorController {
     }
 
     @GetMapping("/daily-summary")
-    public ResponseEntity<List<SensorDTO>> getDailySummary(@RequestParam Long parcelId) {
-        List<SensorDTO> summary = sS.getDailySummary(parcelId);
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    public ResponseEntity<List<SensorDTO>> getDailySummary() {
+        List<SensorDTO> summary = sS.getDailySummary();
         return new ResponseEntity<>(summary, HttpStatus.OK);
     }
 
     @GetMapping("/battery-low/{threshold}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<SensorDTO> getLowBatterySensors(@PathVariable("threshold") double threshold) {
         return sS.findByBatteryLevelLessThan(threshold).stream()
                 .map(x -> new ModelMapper().map(x, SensorDTO.class))
                 .collect(Collectors.toList());
     }
     @GetMapping("/findSensorsWithMaintenance")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<FindActiveSensorsDTO> findSensorsWithMaintenance() {
         List<FindActiveSensorsDTO> dtoList = new ArrayList<>();
         List<String[]> RowList=sS.findSensorsWithMaintenance();
@@ -93,6 +93,7 @@ public class SensorController {
     }
 
     @GetMapping("/FindActiveSensors")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<FindActiveSensorsDTO> FindActiveSensors(){
         List<FindActiveSensorsDTO> dtoList = new ArrayList<>();
         List<String[]> RowList=sS.FindActiveSensors();

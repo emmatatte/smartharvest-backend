@@ -1,18 +1,21 @@
 package pe.edu.upc.smartharvest.dtos;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import pe.edu.upc.smartharvest.entities.Crop;
 import pe.edu.upc.smartharvest.entities.Users;
 
 import java.time.LocalDate;
 
-public class RecommendationDTO {
+public class RecommendationDTOforRegister {
     private int idRecommendation;
     private String type;
     private String description;
     private LocalDate issueDate;
     private String source;
-    private CropDTO crop;
-    private UsersDTO users;
+    private Crop crop;
+    private Users users;
 
     public int getIdRecommendation() {
         return idRecommendation;
@@ -54,19 +57,19 @@ public class RecommendationDTO {
         this.source = source;
     }
 
-    public CropDTO getCrop() {
+    public Crop getCrop() {
         return crop;
     }
 
-    public void setCrop(CropDTO crop) {
+    public void setCrop(Crop crop) {
         this.crop = crop;
     }
 
-    public UsersDTO getUsers() {
+    public Users getUsers() {
         return users;
     }
 
-    public void setUsers(UsersDTO users) {
+    public void setUsers(Users users) {
         this.users = users;
     }
 }

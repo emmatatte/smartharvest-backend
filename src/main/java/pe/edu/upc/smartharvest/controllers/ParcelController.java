@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.smartharvest.dtos.ParcelDTO;
+import pe.edu.upc.smartharvest.dtos.ParcelDTOforRegister;
 import pe.edu.upc.smartharvest.entities.Parcel;
 import pe.edu.upc.smartharvest.servicesinterfaces.IParcelService;
 
@@ -32,7 +33,7 @@ public class ParcelController {
 
     @PostMapping
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-    public void registrar(@RequestBody ParcelDTO pDTO) {
+    public void registrar(@RequestBody ParcelDTOforRegister pDTO) {
         ModelMapper m = new ModelMapper();
         Parcel p = m.map(pDTO, Parcel.class);
         pS.insert(p);
@@ -40,7 +41,7 @@ public class ParcelController {
 
     @PutMapping
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-    public void modificar(@RequestBody ParcelDTO pDTO) {
+    public void modificar(@RequestBody ParcelDTOforRegister pDTO) {
         ModelMapper m = new ModelMapper();
         Parcel p = m.map(pDTO, Parcel.class);
         pS.update(p);

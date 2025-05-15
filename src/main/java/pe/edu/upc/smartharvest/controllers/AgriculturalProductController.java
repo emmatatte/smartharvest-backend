@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.smartharvest.dtos.AgriculturalProductDTO;
+import pe.edu.upc.smartharvest.dtos.AgriculturalProductDTOforRegister;
 import pe.edu.upc.smartharvest.entities.AgriculturalProduct;
 import pe.edu.upc.smartharvest.servicesinterfaces.IAgriculturalProductService;
 
@@ -33,7 +34,7 @@ public class AgriculturalProductController {
 
     @PostMapping
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-    public void register(@RequestBody AgriculturalProductDTO aDTO) {
+    public void register(@RequestBody AgriculturalProductDTOforRegister aDTO) {
         ModelMapper m = new ModelMapper();
         AgriculturalProduct a = m.map(aDTO, AgriculturalProduct.class);
         aP.insert(a);
@@ -41,7 +42,7 @@ public class AgriculturalProductController {
 
     @PutMapping
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-    public void modificar(@RequestBody AgriculturalProductDTO aDTO) {
+    public void modificar(@RequestBody AgriculturalProductDTOforRegister aDTO) {
         ModelMapper m = new ModelMapper();
         AgriculturalProduct pa = m.map(aDTO, AgriculturalProduct.class);
         aP.update(pa);

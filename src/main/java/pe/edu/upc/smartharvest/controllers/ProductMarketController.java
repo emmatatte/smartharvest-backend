@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.smartharvest.dtos.ProductMarketDTO;
+import pe.edu.upc.smartharvest.dtos.ProductMarketDTOforRegister;
 import pe.edu.upc.smartharvest.entities.ProductMarket;
 import pe.edu.upc.smartharvest.servicesinterfaces.IProductMarketService;
 
@@ -34,7 +35,7 @@ public class ProductMarketController {
 
     @PostMapping
     @PreAuthorize("hasAnyAuthority('ADMIN', 'DUEÑO_DE_MERCADO')")
-    public void register(@RequestBody ProductMarketDTO pmDTO) {
+    public void register(@RequestBody ProductMarketDTOforRegister pmDTO) {
         ModelMapper m = new ModelMapper();
         ProductMarket pm = m.map(pmDTO, ProductMarket.class);
         pmS.insert(pm);
@@ -42,7 +43,7 @@ public class ProductMarketController {
 
     @PutMapping
     @PreAuthorize("hasAnyAuthority('ADMIN', 'DUEÑO_DE_MERCADO')")
-    public void modificar(@RequestBody ProductMarketDTO pmDTO) {
+    public void modificar(@RequestBody ProductMarketDTOforRegister pmDTO) {
         ModelMapper m = new ModelMapper();
         ProductMarket pm = m.map(pmDTO, ProductMarket.class);
         pmS.update(pm);
