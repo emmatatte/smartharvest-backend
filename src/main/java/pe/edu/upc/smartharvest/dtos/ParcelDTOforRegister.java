@@ -1,17 +1,20 @@
 package pe.edu.upc.smartharvest.dtos;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import pe.edu.upc.smartharvest.entities.Users;
 
 import java.time.LocalDate;
 
-public class ParcelDTO {
+public class ParcelDTOforRegister {
     private int idParcel;
     private String name;
     private String location;
     private double sizem2;
     private String groundType;
     private LocalDate registrationDate;
-    private UsersDTO users;
+    private Users users;
 
     public int getIdParcel() {
         return idParcel;
@@ -61,11 +64,11 @@ public class ParcelDTO {
         this.registrationDate = registrationDate;
     }
 
-    public UsersDTO getUsers() {
+    public Users getUsers() {
         return users;
     }
 
-    public void setUsers(UsersDTO users) {
+    public void setUsers(Users users) {
         this.users = users;
     }
 }

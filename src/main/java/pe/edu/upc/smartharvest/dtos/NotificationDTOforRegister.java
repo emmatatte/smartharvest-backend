@@ -1,31 +1,22 @@
 package pe.edu.upc.smartharvest.dtos;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import pe.edu.upc.smartharvest.entities.Sensor;
 import pe.edu.upc.smartharvest.entities.Users;
+
 import java.time.LocalDate;
 
-public class NotificationDTO {
+public class NotificationDTOforRegister {
     private int idNotification;
     private String notificationType;
     private String message;
     private LocalDate dateTime;
     private Boolean read;
-    private SensorDTO sensor;
-    private UsersDTO users;
-    private String weatherEvent; // ADD THIS
-
-    public NotificationDTO() {
-    }
-
-    public NotificationDTO(int idNotification, String notificationType, String message, LocalDate dateTime, Boolean read, SensorDTO sensor, UsersDTO users) {
-        this.idNotification = idNotification;
-        this.notificationType = notificationType;
-        this.message = message;
-        this.dateTime = dateTime;
-        this.read = read;
-        this.sensor = sensor;
-        this.users = users;
-    }
+    private Sensor sensor;
+    private Users users;
+    private String weatherEvent;
 
     public int getIdNotification() {
         return idNotification;
@@ -67,19 +58,19 @@ public class NotificationDTO {
         this.read = read;
     }
 
-    public SensorDTO getSensor() {
+    public Sensor getSensor() {
         return sensor;
     }
 
-    public void setSensor(SensorDTO sensor) {
+    public void setSensor(Sensor sensor) {
         this.sensor = sensor;
     }
 
-    public UsersDTO getUsers() {
+    public Users getUsers() {
         return users;
     }
 
-    public void setUsers(UsersDTO users) {
+    public void setUsers(Users users) {
         this.users = users;
     }
 

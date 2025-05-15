@@ -1,8 +1,13 @@
 package pe.edu.upc.smartharvest.dtos;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import pe.edu.upc.smartharvest.entities.Users;
+
 import java.time.LocalDate;
 
-public class InputDTO {
+public class InputDTOforRegister {
     private int idInput;
     private String name;
     private String type;
@@ -10,7 +15,7 @@ public class InputDTO {
     private String unit;
     private LocalDate registrationDate;
     private LocalDate expirationDate;
-    private UsersDTO users;
+    private Users users;
 
     public int getIdInput() {
         return idInput;
@@ -68,11 +73,11 @@ public class InputDTO {
         this.expirationDate = expirationDate;
     }
 
-    public UsersDTO getUsers() {
+    public Users getUsers() {
         return users;
     }
 
-    public void setUsers(UsersDTO users) {
+    public void setUsers(Users users) {
         this.users = users;
     }
 }

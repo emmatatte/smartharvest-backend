@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.smartharvest.dtos.RoleDTO;
+import pe.edu.upc.smartharvest.dtos.RoleDTOforRegister;
+import pe.edu.upc.smartharvest.dtos.UsersDTO;
 import pe.edu.upc.smartharvest.entities.Role;
 import pe.edu.upc.smartharvest.servicesinterfaces.IRoleService;
 
@@ -27,13 +29,17 @@ public class RoleController {
     public List<RoleDTO> listar() {
         return rS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
-            return m.map(x, RoleDTO.class);
+            RoleDTO dto = m.map(x, RoleDTO.class);
+            if (x.getUser() != null) {
+                dto.setUsers(m.map(x.getUser(), UsersDTO.class));
+            }
+            return dto;
         }).collect(Collectors.toList());
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
-    public void registrar(@RequestBody RoleDTO rDTO) {
+    public void registrar(@RequestBody RoleDTOforRegister rDTO) {
         ModelMapper m = new ModelMapper();
         Role r = m.map(rDTO, Role.class);
         rS.insert(r);
@@ -41,7 +47,7 @@ public class RoleController {
 
     @PutMapping
     @PreAuthorize("hasAuthority('ADMIN')")
-    public void modificar(@RequestBody RoleDTO rDTO) {
+    public void modificar(@RequestBody RoleDTOforRegister rDTO) {
         ModelMapper m = new ModelMapper();
         Role r = m.map(rDTO, Role.class);
         rS.update(r);

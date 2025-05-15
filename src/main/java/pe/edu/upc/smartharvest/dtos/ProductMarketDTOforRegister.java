@@ -1,13 +1,17 @@
 package pe.edu.upc.smartharvest.dtos;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import pe.edu.upc.smartharvest.entities.AgriculturalProduct;
 import pe.edu.upc.smartharvest.entities.LocalMarket;
 
-public class ProductMarketDTO {
+public class ProductMarketDTOforRegister {
     private int idProductMarket;
     private Double estimatedPrice;
     private Boolean availability;
-    private AgriculturalProductDTO agriculturalProduct;
-    private LocalMarket LocalMarket;
+    private AgriculturalProduct agriculturalProduct;
+    private LocalMarket localMarket;
 
     public int getIdProductMarket() {
         return idProductMarket;
@@ -33,19 +37,19 @@ public class ProductMarketDTO {
         this.availability = availability;
     }
 
-    public AgriculturalProductDTO getAgriculturalProduct() {
+    public AgriculturalProduct getAgriculturalProduct() {
         return agriculturalProduct;
     }
 
-    public void setAgriculturalProduct(AgriculturalProductDTO agriculturalProduct) {
+    public void setAgriculturalProduct(AgriculturalProduct agriculturalProduct) {
         this.agriculturalProduct = agriculturalProduct;
     }
 
     public LocalMarket getLocalMarket() {
-        return LocalMarket;
+        return localMarket;
     }
 
     public void setLocalMarket(LocalMarket localMarket) {
-        LocalMarket = localMarket;
+        this.localMarket = localMarket;
     }
 }

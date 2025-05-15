@@ -1,16 +1,20 @@
 package pe.edu.upc.smartharvest.dtos;
 
+import jakarta.persistence.*;
+import pe.edu.upc.smartharvest.entities.Crop;
+import pe.edu.upc.smartharvest.entities.Parcel;
+
 import java.time.LocalDate;
 
-public class SensorDTO {
+public class SensorDTOforRegister {
     private int idSensor;
     private String sensorType;
     private LocalDate installationDate;
     private boolean state;
     private LocalDate lastLecture;
     private double batteryLevel;
-    private ParcelDTO parcel;
-    private CropDTO crop;
+    private Parcel parcel;
+    private Crop crop;
     private Double humidity;
 
     public int getIdSensor() {
@@ -61,19 +65,19 @@ public class SensorDTO {
         this.batteryLevel = batteryLevel;
     }
 
-    public ParcelDTO getParcel() {
+    public Parcel getParcel() {
         return parcel;
     }
 
-    public void setParcel(ParcelDTO parcel) {
+    public void setParcel(Parcel parcel) {
         this.parcel = parcel;
     }
 
-    public CropDTO getCrop() {
+    public Crop getCrop() {
         return crop;
     }
 
-    public void setCrop(CropDTO crop) {
+    public void setCrop(Crop crop) {
         this.crop = crop;
     }
 

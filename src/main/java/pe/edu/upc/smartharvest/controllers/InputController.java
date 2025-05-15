@@ -5,8 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.smartharvest.dtos.InputDTO;
+import pe.edu.upc.smartharvest.dtos.InputDTOforRegister;
+import pe.edu.upc.smartharvest.dtos.UsersDTO;
 import pe.edu.upc.smartharvest.entities.Input;
-import pe.edu.upc.smartharvest.entities.Parcel;
 import pe.edu.upc.smartharvest.servicesinterfaces.IInputService;
 
 import java.util.List;
@@ -28,13 +29,17 @@ public class InputController {
     public List<InputDTO> listar() {
         return iS.list().stream().map(x->{
             ModelMapper m = new ModelMapper();
-            return m.map(x, InputDTO.class);
+            InputDTO dto = m.map(x, InputDTO.class);
+            if (x.getUsers() != null) {
+                dto.setUsers(m.map(x.getUsers(), UsersDTO.class));
+            }
+            return dto;
         }).collect(Collectors.toList());
     }
 
     @PostMapping
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-    public void register(@RequestBody InputDTO inputDTO) {
+    public void register(@RequestBody InputDTOforRegister inputDTO) {
         ModelMapper m = new ModelMapper();
         Input input = m.map(inputDTO, Input.class);
         iS.insert(input);
@@ -43,7 +48,7 @@ public class InputController {
 
     @PutMapping
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-    public void update(@RequestBody InputDTO inputDTO) {
+    public void update(@RequestBody InputDTOforRegister inputDTO) {
         ModelMapper m = new ModelMapper();
         Input input = m.map(inputDTO, Input.class);
         iS.insert(input);

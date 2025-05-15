@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.smartharvest.dtos.MaintenanceDTO;
+import pe.edu.upc.smartharvest.dtos.MaintenanceDTOforRegister;
 import pe.edu.upc.smartharvest.entities.Maintenance;
 import pe.edu.upc.smartharvest.servicesinterfaces.IMaintenanceService;
 
@@ -34,7 +35,7 @@ public class MaintenanceController {
 
     @PostMapping
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-    public void registrar(@RequestBody MaintenanceDTO mDTO) {
+    public void registrar(@RequestBody MaintenanceDTOforRegister mDTO) {
         ModelMapper m = new ModelMapper();
         Maintenance ma = m.map(mDTO, Maintenance.class);
         mS.insert(ma);
@@ -42,7 +43,7 @@ public class MaintenanceController {
 
     @PutMapping
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-    public void modificar(@RequestBody MaintenanceDTO mDTO) {
+    public void modificar(@RequestBody MaintenanceDTOforRegister mDTO) {
         ModelMapper m = new ModelMapper();
         Maintenance ma = m.map(mDTO, Maintenance.class);
         mS.update(ma);

@@ -1,14 +1,19 @@
 package pe.edu.upc.smartharvest.dtos;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import pe.edu.upc.smartharvest.entities.Crop;
+
 import java.time.LocalDate;
 
-public class AgriculturalProductDTO {
+public class AgriculturalProductDTOforRegister {
     private int idProduct;
     private String name;
     private int quantity;
     private String unitMeasure;
     private LocalDate harvestDate;
-    private CropDTO crop;
+    private Crop crop;
 
     public int getIdProduct() {
         return idProduct;
@@ -50,11 +55,11 @@ public class AgriculturalProductDTO {
         this.harvestDate = harvestDate;
     }
 
-    public CropDTO getCrop() {
+    public Crop getCrop() {
         return crop;
     }
 
-    public void setCrop(CropDTO crop) {
+    public void setCrop(Crop crop) {
         this.crop = crop;
     }
 }

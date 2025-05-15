@@ -1,13 +1,18 @@
 package pe.edu.upc.smartharvest.dtos;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import pe.edu.upc.smartharvest.entities.Sensor;
+
 import java.time.LocalDate;
 
-public class MaintenanceDTO {
+public class MaintenanceDTOforRegister {
     private int idMaintenance;
     private LocalDate installationDate;
     private String tipoMantenimiento;
     private String description;
-    private SensorDTO sensor;
+    private Sensor sensor;
 
     public int getIdMaintenance() {
         return idMaintenance;
@@ -41,11 +46,11 @@ public class MaintenanceDTO {
         this.description = description;
     }
 
-    public SensorDTO getSensor() {
+    public Sensor getSensor() {
         return sensor;
     }
 
-    public void setSensor(SensorDTO sensor) {
+    public void setSensor(Sensor sensor) {
         this.sensor = sensor;
     }
 }

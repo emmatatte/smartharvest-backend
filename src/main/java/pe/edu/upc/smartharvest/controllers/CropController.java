@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.smartharvest.dtos.CropDTO;
+import pe.edu.upc.smartharvest.dtos.CropDTOforRegister;
 import pe.edu.upc.smartharvest.dtos.CropsNeedingAttentionDTO;
 import pe.edu.upc.smartharvest.dtos.FindActiveCropsDTO;
 import pe.edu.upc.smartharvest.entities.Crop;
@@ -32,12 +33,13 @@ public class CropController {
         return cS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
             return m.map(x, CropDTO.class);
+
         }).collect(Collectors.toList());
     }
 
     @PostMapping
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-    public void registrar(@RequestBody CropDTO cDTO) {
+    public void registrar(@RequestBody CropDTOforRegister cDTO) {
         ModelMapper m = new ModelMapper();
         Crop c = m.map(cDTO, Crop.class);
         cS.insert(c);
@@ -45,18 +47,20 @@ public class CropController {
 
     @PutMapping
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-    public void modificar(@RequestBody CropDTO cDTO) {
+    public void modificar(@RequestBody CropDTOforRegister cDTO) {
         ModelMapper m = new ModelMapper();
         Crop c = m.map(cDTO, Crop.class);
         cS.update(c);
     }
 
     @DeleteMapping("/{idCultivo}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void eliminar(@PathVariable int idCultivo) {
         cS.delete(idCultivo);
     }
 
     @GetMapping("/by-type/{typeCrop}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<CropDTO> getByType(@PathVariable("typeCrop") String typeCrop) {
         return cS.findByTypeCrop(typeCrop).stream()
                 .map(x -> new ModelMapper().map(x, CropDTO.class))
@@ -64,6 +68,7 @@ public class CropController {
     }
 
     @GetMapping("/by-state/{actualState}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<CropDTO> getByState(@PathVariable("actualState") String actualState) {
         return cS.findByActualState(actualState).stream()
                 .map(x -> new ModelMapper().map(x, CropDTO.class))
@@ -89,6 +94,7 @@ public class CropController {
     }
 
     @GetMapping("/findActiveCrop")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<FindActiveCropsDTO> findActiveCrops(){
         List<FindActiveCropsDTO> dtoLista = new ArrayList<>();
         List<String[]> RowList=cS.findActiveCrops();

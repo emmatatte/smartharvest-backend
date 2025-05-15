@@ -1,11 +1,9 @@
 package pe.edu.upc.smartharvest.dtos;
 
-import pe.edu.upc.smartharvest.entities.Users;
-
 public class RoleDTO {
     private Long id;
     private String rol;
-    private Users user;
+    private UsersDTO users;
 
     public Long getId() {
         return id;
@@ -23,11 +21,11 @@ public class RoleDTO {
         this.rol = rol;
     }
 
-    public Users getUser() {
-        return user;
+    public UsersDTO getUsers() {
+        return users;
     }
 
-    public void setUser(Users user) {
-        this.user = user;
+    public void setUsers(UsersDTO users) {
+        this.users = users;
     }
 }

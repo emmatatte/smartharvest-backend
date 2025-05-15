@@ -1,27 +1,16 @@
-package pe.edu.upc.smartharvest.entities;
-
+package pe.edu.upc.smartharvest.dtos;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import org.hibernate.annotations.View;
+import pe.edu.upc.smartharvest.entities.Role;
 
-import java.io.Serializable;
 import java.util.List;
 
-@Entity
-@Table(name = "users")
-public class Users implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UsersDTOforRegister {
     private Long id;
-
-    @Column(length = 30, unique = true)
     private String username;
-    @Column(length = 200)
     private String password;
     private Boolean enabled;
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JsonManagedReference
     private List<Role> roles;
 
     public Long getId() {
@@ -63,5 +52,4 @@ public class Users implements Serializable {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
-
 }

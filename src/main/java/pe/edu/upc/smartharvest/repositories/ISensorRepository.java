@@ -11,8 +11,8 @@ import java.util.List;
 
 @Repository
 public interface ISensorRepository extends JpaRepository<Sensor, Integer> {
-    @Query("SELECT s FROM Sensor s WHERE s.parcel.idParcel = :parcelId AND s.lastLecture = CURRENT_DATE")
-    List<Sensor> getDailySummary(@Param("parcelId") Long parcelId);
+    @Query(value = "SELECT * FROM sensor s WHERE s.last_lecture = CURRENT_DATE", nativeQuery = true)
+    List<Sensor> getDailySummary();
     List<Sensor> findByBatteryLevelLessThan(double threshold);
 
     //US34

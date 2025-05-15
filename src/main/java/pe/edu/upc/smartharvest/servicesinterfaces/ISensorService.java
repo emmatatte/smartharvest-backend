@@ -12,7 +12,7 @@ public interface ISensorService {
     void update(Sensor sensor);
     void delete(int idSensor);
     Sensor listId(int idSensor);
-    List<SensorDTO> getDailySummary(Long parcelId);
+    List<SensorDTO> getDailySummary();
     List<Sensor> findByBatteryLevelLessThan(double threshold);
 
     public List<String[]> findSensorsWithMaintenance();
