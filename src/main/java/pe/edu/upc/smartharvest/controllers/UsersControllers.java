@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.smartharvest.dtos.GetUsersQuantityDTO;
+import pe.edu.upc.smartharvest.dtos.RoleDTOforRegister;
 import pe.edu.upc.smartharvest.dtos.UsersDTO;
 import pe.edu.upc.smartharvest.dtos.UsersDTOforRegister;
 import pe.edu.upc.smartharvest.entities.Users;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
-@SecurityRequirement(name = "bearerAuth")
+//@SecurityRequirement(name = "bearerAuth")
 public class UsersControllers {
     @Autowired
     private IUserService uS;
@@ -26,7 +27,7 @@ public class UsersControllers {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
+    //@PreAuthorize("hasAuthority('ADMIN')")
     public List<UsersDTO> listarusuarios() {
         return uS.list().stream().map(x-> {
             ModelMapper modelMapper = new ModelMapper();
@@ -43,7 +44,7 @@ public class UsersControllers {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR','DUEÑO_DE_MERCADO')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR','DUEÑO_DE_MERCADO')")
     public void modificar(@RequestBody UsersDTOforRegister uDTO) {
         ModelMapper m = new ModelMapper();
         Users u = m.map(uDTO, Users.class);
@@ -51,13 +52,13 @@ public class UsersControllers {
     }
 
     @DeleteMapping("/{idUser}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    //@PreAuthorize("hasAuthority('ADMIN')")
     public void eliminar(@PathVariable Long idUser) {
         uS.delete(idUser);
     }
 
     @GetMapping("/getUsersQuantity")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    //@PreAuthorize("hasAuthority('ADMIN')")
     public List<GetUsersQuantityDTO> getUsersQuantity(){
         List<GetUsersQuantityDTO> dtoList = new ArrayList<>();
         List<String[]> RowList=uS.getUsersQuantity();
@@ -67,5 +68,12 @@ public class UsersControllers {
             dtoList.add(dto);
         }
         return dtoList;
+    }
+
+    @GetMapping("/{idUser}")
+    public UsersDTOforRegister listarId(@PathVariable("idUser") long idUser) {
+        ModelMapper m = new ModelMapper();
+        UsersDTOforRegister dto = m.map(uS.listId(idUser), UsersDTOforRegister.class);
+        return dto;
     }
 }

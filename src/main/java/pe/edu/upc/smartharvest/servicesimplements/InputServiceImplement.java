@@ -32,4 +32,9 @@ public class InputServiceImplement implements IInputService {
     public void delete(int idInsumo) {
         iR.deleteById(idInsumo);
     }
+
+    @Override
+    public Input listId(int idInput) {
+        return iR.findById(idInput).orElse(new Input());
+    }
 }

@@ -79,6 +79,12 @@ public class WebSecurityConfig {
             "/v3/api-docs.yaml",
             "/swagger-ui/**",
             "/swagger-ui.html",
-            "/users/register"
+            "/companies/**",
+            "/localmarkets/**",
+            "/inputs/**",
+            "/users/**",
+            "/roles/**",
+            "/parcels/**"
+
     };
 }

@@ -32,4 +32,9 @@ public class CompanyServiceImplement implements ICompanyService {
     public void delete(int idEmpresa) {
         eR.deleteById(idEmpresa);
     }
+
+    @Override
+    public Company listId(int idCompany) {
+        return eR.findById(idCompany).orElse(new Company());
+    }
 }
