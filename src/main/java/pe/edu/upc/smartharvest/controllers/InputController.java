@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.smartharvest.dtos.CompanyDTO;
 import pe.edu.upc.smartharvest.dtos.InputDTO;
 import pe.edu.upc.smartharvest.dtos.InputDTOforRegister;
 import pe.edu.upc.smartharvest.dtos.UsersDTO;
@@ -16,7 +17,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @RequestMapping("/inputs")
-@SecurityRequirement(name = "bearerAuth")
+//@SecurityRequirement(name = "bearerAuth")
 public class InputController {
     @Autowired
     private IInputService iS;
@@ -25,7 +26,7 @@ public class InputController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<InputDTO> listar() {
         return iS.list().stream().map(x->{
             ModelMapper m = new ModelMapper();
@@ -38,7 +39,7 @@ public class InputController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void register(@RequestBody InputDTOforRegister inputDTO) {
         ModelMapper m = new ModelMapper();
         Input input = m.map(inputDTO, Input.class);
@@ -47,7 +48,7 @@ public class InputController {
 
 
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void update(@RequestBody InputDTOforRegister inputDTO) {
         ModelMapper m = new ModelMapper();
         Input input = m.map(inputDTO, Input.class);
@@ -56,8 +57,15 @@ public class InputController {
 
 
     @DeleteMapping("/{idInsumo}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-    public void eliminar(@PathVariable int idInsumo) {
+    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    public void eliminar(@PathVariable("idInsumo") int idInsumo) {
         iS.delete(idInsumo);
+    }
+
+    @GetMapping("/{idInsumo}")
+    public InputDTOforRegister listarId(@PathVariable("idInsumo") int idInsumo) {
+        ModelMapper m = new ModelMapper();
+        InputDTOforRegister dto = m.map(iS.listId(idInsumo), InputDTOforRegister.class);
+        return dto;
     }
 }

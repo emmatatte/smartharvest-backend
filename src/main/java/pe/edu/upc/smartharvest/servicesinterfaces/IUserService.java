@@ -13,4 +13,5 @@ public interface IUserService {
     void update(Users user);
     void delete(Long idUser);
     List<String[]> getUsersQuantity();
+    public Users listId(long idUser);
 }

@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.smartharvest.dtos.InputDTOforRegister;
 import pe.edu.upc.smartharvest.dtos.ParcelDTO;
 import pe.edu.upc.smartharvest.dtos.ParcelDTOforRegister;
 import pe.edu.upc.smartharvest.entities.Parcel;
@@ -23,7 +24,7 @@ public class ParcelController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<ParcelDTO> listar() {
         return pS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
@@ -32,7 +33,7 @@ public class ParcelController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void registrar(@RequestBody ParcelDTOforRegister pDTO) {
         ModelMapper m = new ModelMapper();
         Parcel p = m.map(pDTO, Parcel.class);
@@ -40,7 +41,7 @@ public class ParcelController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void modificar(@RequestBody ParcelDTOforRegister pDTO) {
         ModelMapper m = new ModelMapper();
         Parcel p = m.map(pDTO, Parcel.class);
@@ -48,16 +49,23 @@ public class ParcelController {
     }
 
     @DeleteMapping("/{idParcela}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void eliminar(@PathVariable int idParcela) {
         pS.delete(idParcela);
     }
 
     @GetMapping("/by-user/{userId}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<ParcelDTO> getParcelsByUser(@PathVariable("userId") Long userId) {
         return pS.findByUserId(userId).stream()
                 .map(x -> new ModelMapper().map(x, ParcelDTO.class))
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/{idParcela}")
+    public ParcelDTO listarId(@PathVariable("idParcela") int idParcela) {
+        ModelMapper m = new ModelMapper();
+        ParcelDTO dto = m.map(pS.listId(idParcela), ParcelDTO.class);
+        return dto;
     }
 }

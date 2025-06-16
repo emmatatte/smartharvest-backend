@@ -9,4 +9,6 @@ public interface ICompanyService {
     void insert(Company company);
     void update(Company company);
     void delete(int idCompany);
+    public Company listId(int idCompany);
+
 }

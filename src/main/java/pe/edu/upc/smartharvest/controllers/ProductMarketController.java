@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/productmarkets")
-@SecurityRequirement(name = "bearerAuth")
+//@SecurityRequirement(name = "bearerAuth")
 public class ProductMarketController {
     @Autowired
     private IProductMarketService pmS;
@@ -25,7 +25,7 @@ public class ProductMarketController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR','DUEÑO_DE_MERCADO')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR','DUEÑO_DE_MERCADO')")
     public List<ProductMarketDTO> listar() {
         return pmS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
@@ -34,7 +34,7 @@ public class ProductMarketController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'DUEÑO_DE_MERCADO')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN', 'DUEÑO_DE_MERCADO')")
     public void register(@RequestBody ProductMarketDTOforRegister pmDTO) {
         ModelMapper m = new ModelMapper();
         ProductMarket pm = m.map(pmDTO, ProductMarket.class);
@@ -42,7 +42,7 @@ public class ProductMarketController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'DUEÑO_DE_MERCADO')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN', 'DUEÑO_DE_MERCADO')")
     public void modificar(@RequestBody ProductMarketDTOforRegister pmDTO) {
         ModelMapper m = new ModelMapper();
         ProductMarket pm = m.map(pmDTO, ProductMarket.class);
@@ -50,13 +50,13 @@ public class ProductMarketController {
     }
 
     @DeleteMapping("/{idProductMarket}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'DUEÑO_DE_MERCADO')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN', 'DUEÑO_DE_MERCADO')")
     public void eliminar(@PathVariable int idProductMarket) {
         pmS.delete(idProductMarket);
     }
 
     @GetMapping("/ranking-mercados-productos")
-    @PreAuthorize("hasAnyAuthority('AGRICULTOR')")
+    //@PreAuthorize("hasAnyAuthority('AGRICULTOR')")
     public ResponseEntity<List<String[]>> getTopMarketsByProductCount() {
         return ResponseEntity.ok(pmS.findTopMarketsByProductCount());
     }

@@ -39,10 +39,9 @@ public interface ICropRepository extends JpaRepository<Crop, Integer> {
     public List<String[]> identifyUpcomingCropDays();
 
     //US33 Obtener cultivos activos por parcela
-    @Query(value="SELECT c.id_crop AS crop, p.id_parcel, p.name AS parcel\n" +
-            "            FROM crop c\n" +
-            "            JOIN parcel p ON c.id_parcela = p.id_parcel\n" +
-            "            WHERE c.actual_state = 'Listo para cosecha'", nativeQuery = true)
+    @Query(value="SELECT c.id_crop, c.actual_state, p.name, c.type_crop, c.sowing_date, p.id_parcel FROM crop c\n" +
+            "JOIN parcel p ON c.id_parcela = p.id_parcel\n" +
+            "WHERE c.actual_state = 'Listo para cosecha'", nativeQuery = true)
     public List<String[]> findActiveCrops();
 
 }

@@ -32,4 +32,9 @@ public class MarketPlaceServiceImplement implements IMarketPlaceService {
         return mR.findByLocationContainingIgnoreCase(location);
     }
 
+    @Override
+    public LocalMarket listId(int idLocalMarket) {
+        return mR.findById(idLocalMarket).orElse(new LocalMarket());
+    }
+
 }

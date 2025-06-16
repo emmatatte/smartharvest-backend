@@ -38,4 +38,9 @@ public class ParcelServiceImplement implements IParcelService {
         return pR.findParcelByUsers_Id(userId);
     }
 
+    @Override
+    public Parcel listId(int idParcel) {
+        return pR.findById(idParcel).orElse(new Parcel());
+    }
+
 }

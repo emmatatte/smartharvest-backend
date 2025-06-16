@@ -19,7 +19,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @RequestMapping("/crops")
-@SecurityRequirement(name = "bearerAuth")
+//@SecurityRequirement(name = "bearerAuth")
 public class CropController {
     @Autowired
     private ICropService cS;
@@ -28,7 +28,7 @@ public class CropController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<CropDTO> listar() {
         return cS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
@@ -38,7 +38,7 @@ public class CropController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void registrar(@RequestBody CropDTOforRegister cDTO) {
         ModelMapper m = new ModelMapper();
         Crop c = m.map(cDTO, Crop.class);
@@ -46,7 +46,7 @@ public class CropController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void modificar(@RequestBody CropDTOforRegister cDTO) {
         ModelMapper m = new ModelMapper();
         Crop c = m.map(cDTO, Crop.class);
@@ -54,13 +54,13 @@ public class CropController {
     }
 
     @DeleteMapping("/{idCultivo}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void eliminar(@PathVariable int idCultivo) {
         cS.delete(idCultivo);
     }
 
     @GetMapping("/by-type/{typeCrop}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<CropDTO> getByType(@PathVariable("typeCrop") String typeCrop) {
         return cS.findByTypeCrop(typeCrop).stream()
                 .map(x -> new ModelMapper().map(x, CropDTO.class))
@@ -68,7 +68,7 @@ public class CropController {
     }
 
     @GetMapping("/by-state/{actualState}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<CropDTO> getByState(@PathVariable("actualState") String actualState) {
         return cS.findByActualState(actualState).stream()
                 .map(x -> new ModelMapper().map(x, CropDTO.class))
@@ -76,7 +76,7 @@ public class CropController {
     }
 
     @GetMapping("/cropsInDanger")
-    @PreAuthorize("hasAnyAuthority('AGRICULTOR','ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('AGRICULTOR','ADMIN')")
     public List<CropsNeedingAttentionDTO> cultivosNecesitanAtencion(){
     List<String[]> filaLista = cS.findCropsNeedingAttention();
     List<CropsNeedingAttentionDTO> dtoLista = new ArrayList<>();
@@ -94,15 +94,19 @@ public class CropController {
     }
 
     @GetMapping("/findActiveCrop")
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<FindActiveCropsDTO> findActiveCrops(){
+        List<String[]> filaLista = cS.findActiveCrops();
         List<FindActiveCropsDTO> dtoLista = new ArrayList<>();
-        List<String[]> RowList=cS.findActiveCrops();
-        for(String[] column:RowList){
+        for(String[] columna : filaLista){
             FindActiveCropsDTO dto = new FindActiveCropsDTO();
-            dto.setIdCrop(Integer.parseInt(column[0]));
-            dto.setIdParcel(Integer.parseInt(column[1]));
-            dto.setName(column[2]);
+            dto.setIdCrop(Integer.parseInt(columna[0]));
+            dto.setActualState(columna[1]);
+            dto.setName(columna[2]);
+            dto.setType_crop(columna[3]);
+            dto.setSowing_date(LocalDate.parse(columna[4]));
+            dto.setIdParcel(Integer.parseInt(columna[5
+                    ]));
             dtoLista.add(dto);
         }
         return dtoLista;

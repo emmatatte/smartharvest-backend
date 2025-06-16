@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/agriculturalproducts")
-@SecurityRequirement(name = "bearerAuth")
+//@SecurityRequirement(name = "bearerAuth")
 public class AgriculturalProductController {
     @Autowired
     private IAgriculturalProductService aP;
@@ -24,7 +24,7 @@ public class AgriculturalProductController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<AgriculturalProductDTO> listar() {
         return aP.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
@@ -33,7 +33,7 @@ public class AgriculturalProductController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void register(@RequestBody AgriculturalProductDTOforRegister aDTO) {
         ModelMapper m = new ModelMapper();
         AgriculturalProduct a = m.map(aDTO, AgriculturalProduct.class);
@@ -49,7 +49,7 @@ public class AgriculturalProductController {
     }
 
     @DeleteMapping("/{idProduct}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void eliminar(@PathVariable int idProduct) {
         aP.delete(idProduct);
     }
