@@ -17,7 +17,7 @@ public class CORS implements Filter {
 	// Lista de orígenes permitidos
 	private final List<String> allowedOrigins = Arrays.asList(
 			"http://localhost:4200",                    // Desarrollo local
-			"https://smartharvestfrontend.onrender.com" // Producción (cambiar por tu URL real)
+			"https://smartharvest-frontend.onrender.com" // Producción (cambiar por tu URL real)
 	);
 
 	@Override
