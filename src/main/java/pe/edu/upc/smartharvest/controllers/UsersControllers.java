@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
-//@SecurityRequirement(name = "bearerAuth")
+@SecurityRequirement(name = "bearerAuth")
 public class UsersControllers {
     @Autowired
     private IUserService uS;
@@ -27,7 +27,7 @@ public class UsersControllers {
     }
 
     @GetMapping
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<UsersDTO> listarusuarios() {
         return uS.list().stream().map(x-> {
             ModelMapper modelMapper = new ModelMapper();
@@ -36,7 +36,6 @@ public class UsersControllers {
     }
 
     @PostMapping("/register")
-    //@PreAuthorize("hasAuthority('ADMIN')")
     public void registrar(@RequestBody UsersDTOforRegister uDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Users user = modelMapper.map(uDTO, Users.class);
@@ -44,7 +43,7 @@ public class UsersControllers {
     }
 
     @PutMapping
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR','DUEÑO_DE_MERCADO')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR','DUEÑO_DE_MERCADO')")
     public void modificar(@RequestBody UsersDTOforRegister uDTO) {
         ModelMapper m = new ModelMapper();
         Users u = m.map(uDTO, Users.class);
@@ -52,13 +51,13 @@ public class UsersControllers {
     }
 
     @DeleteMapping("/{idUser}")
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void eliminar(@PathVariable Long idUser) {
         uS.delete(idUser);
     }
 
     @GetMapping("/getUsersQuantity")
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<GetUsersQuantityDTO> getUsersQuantity(){
         List<GetUsersQuantityDTO> dtoList = new ArrayList<>();
         List<String[]> RowList=uS.getUsersQuantity();

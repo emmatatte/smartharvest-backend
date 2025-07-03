@@ -15,7 +15,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @RequestMapping("/localmarkets")
-//@SecurityRequirement(name = "bearerAuth")
+@SecurityRequirement(name = "bearerAuth")
 public class LocalMarketController {
     @Autowired
     private IMarketPlaceService mS;
@@ -24,7 +24,7 @@ public class LocalMarketController {
     }
 
     @GetMapping
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR','DUEÑO_DE_MERCADO')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR','DUEÑO_DE_MERCADO')")
     public List<LocalMarketDTO> listar() {
         return mS.list().stream().map(x->{
             ModelMapper m = new ModelMapper();
@@ -33,7 +33,7 @@ public class LocalMarketController {
     }
 
     @PostMapping
-    //@PreAuthorize("hasAnyAuthority('ADMIN','DUEÑO_DE_MERCADO')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','DUEÑO_DE_MERCADO')")
     public void registrar(@RequestBody LocalMarketDTO mDTO) {
         ModelMapper m = new ModelMapper();
         LocalMarket ml = m.map(mDTO, LocalMarket.class);
@@ -41,7 +41,7 @@ public class LocalMarketController {
     }
 
     @PutMapping
-    //@PreAuthorize("hasAnyAuthority('ADMIN','DUEÑO_DE_MERCADO')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','DUEÑO_DE_MERCADO')")
     public void modificar(@RequestBody LocalMarketDTO mDTO) {
         ModelMapper m = new ModelMapper();
         LocalMarket ml = m.map(mDTO, LocalMarket.class);
@@ -49,6 +49,7 @@ public class LocalMarketController {
     }
 
     @GetMapping("/{idLocalMarket}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','DUEÑO_DE_MERCADO')")
     public LocalMarketDTO listarId(@PathVariable("idLocalMarket") int idLocalMarket) {
         ModelMapper m = new ModelMapper();
         LocalMarketDTO dto = m.map(mS.listId(idLocalMarket), LocalMarketDTO.class);
@@ -56,7 +57,7 @@ public class LocalMarketController {
     }
 
     @DeleteMapping("/{idMercadoLocal}")
-    //@PreAuthorize("hasAnyAuthority('ADMIN','DUEÑO_DE_MERCADO')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','DUEÑO_DE_MERCADO')")
     public void eliminar(@PathVariable("idMercadoLocal") int idMercadoLocal) {
         mS.delete(idMercadoLocal);
     }

@@ -14,7 +14,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @RequestMapping("/companies")
-//@SecurityRequirement(name = "bearerAuth")
+@SecurityRequirement(name = "bearerAuth")
 public class CompanyController {
     @Autowired
     private ICompanyService eS;
@@ -23,7 +23,7 @@ public class CompanyController {
     }
 
     @GetMapping
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR','DUEÑO_DE_MERCADO')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR','DUEÑO_DE_MERCADO')")
     public List<CompanyDTO> listar() {
         return eS.list().stream().map(x->{
             ModelMapper m = new ModelMapper();
@@ -32,7 +32,7 @@ public class CompanyController {
     }
 
     @PostMapping
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void registrar(@RequestBody CompanyDTO eDTO) {
         ModelMapper m = new ModelMapper();
         Company e = m.map(eDTO, Company.class);
@@ -40,7 +40,7 @@ public class CompanyController {
     }
 
     @PutMapping
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void modificar(@RequestBody CompanyDTO eDTO) {
         ModelMapper m = new ModelMapper();
         Company e = m.map(eDTO, Company.class);
@@ -55,7 +55,7 @@ public class CompanyController {
     }
 
     @DeleteMapping("/{idEmpresa}")
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void eliminar(@PathVariable("idEmpresa") int idEmpresa) {
         eS.delete(idEmpresa);
     }

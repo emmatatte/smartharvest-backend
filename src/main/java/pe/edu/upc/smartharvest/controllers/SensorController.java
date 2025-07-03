@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @RequestMapping("/sensors")
-//@SecurityRequirement(name = "bearerAuth")
+@SecurityRequirement(name = "bearerAuth")
 public class SensorController {
     @Autowired
     private ISensorService sS;
@@ -26,7 +26,7 @@ public class SensorController {
     }
 
     @GetMapping
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<SensorDTO> listar() {
         return sS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
@@ -35,7 +35,7 @@ public class SensorController {
     }
 
     @PostMapping
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void registrar(@RequestBody SensorDTOforRegister sDTO) {
         ModelMapper m = new ModelMapper();
         Sensor s = m.map(sDTO, Sensor.class);
@@ -43,7 +43,7 @@ public class SensorController {
     }
 
     @PutMapping
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void modificar(@RequestBody SensorDTOforRegister sDTO) {
         ModelMapper m = new ModelMapper();
         Sensor s = m.map(sDTO, Sensor.class);
@@ -51,13 +51,13 @@ public class SensorController {
     }
 
     @DeleteMapping("/{idSensor}")
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void eliminar(@PathVariable int idSensor) {
         sS.delete(idSensor);
     }
 
-    @GetMapping("/ListByID/{idSensor}")
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    @GetMapping("/{idSensor}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public SensorDTO listarId(@PathVariable("idSensor") int idSensor) {
         ModelMapper m = new ModelMapper();
         SensorDTO dto = m.map(sS.listId(idSensor), SensorDTO.class);
@@ -65,21 +65,21 @@ public class SensorController {
     }
 
     @GetMapping("/daily-summary")
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public ResponseEntity<List<SensorDTO>> getDailySummary() {
         List<SensorDTO> summary = sS.getDailySummary();
         return new ResponseEntity<>(summary, HttpStatus.OK);
     }
 
     @GetMapping("/battery-low/{threshold}")
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<SensorDTO> getLowBatterySensors(@PathVariable("threshold") double threshold) {
         return sS.findByBatteryLevelLessThan(threshold).stream()
                 .map(x -> new ModelMapper().map(x, SensorDTO.class))
                 .collect(Collectors.toList());
     }
     @GetMapping("/findSensorsWithMaintenance")
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<FindActiveSensorsDTO> findSensorsWithMaintenance() {
         List<FindActiveSensorsDTO> dtoList = new ArrayList<>();
         List<String[]> RowList=sS.findSensorsWithMaintenance();
@@ -93,7 +93,7 @@ public class SensorController {
     }
 
     @GetMapping("/FindActiveSensors")
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<FindActiveSensorsDTO> FindActiveSensors(){
         List<FindActiveSensorsDTO> dtoList = new ArrayList<>();
         List<String[]> RowList=sS.FindActiveSensors();

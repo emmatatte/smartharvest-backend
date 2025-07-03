@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/roles")
-//@SecurityRequirement(name = "bearerAuth")
+@SecurityRequirement(name = "bearerAuth")
 public class RoleController {
     @Autowired
     private IRoleService rS;
@@ -26,7 +26,7 @@ public class RoleController {
     }
 
     @GetMapping
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<RoleDTO> listar() {
         return rS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
@@ -39,7 +39,6 @@ public class RoleController {
     }
 
     @PostMapping
-    //@PreAuthorize("hasAuthority('ADMIN')")
     public void registrar(@RequestBody RoleDTOforRegister rDTO) {
         ModelMapper m = new ModelMapper();
         Role r = m.map(rDTO, Role.class);
@@ -47,7 +46,7 @@ public class RoleController {
     }
 
     @PutMapping
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void modificar(@RequestBody RoleDTOforRegister rDTO) {
         ModelMapper m = new ModelMapper();
         Role r = m.map(rDTO, Role.class);
@@ -55,7 +54,7 @@ public class RoleController {
     }
 
     @DeleteMapping("/{idRol}")
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void eliminar(@PathVariable int idRol) {
         rS.delete(idRol);
     }
