@@ -35,4 +35,9 @@ public class AgriculturalProductImplement implements IAgriculturalProductService
     public void delete(int idAgriculturalProduct) {
         aP.deleteById(idAgriculturalProduct);
     }
+
+    @Override
+    public AgriculturalProduct listId(int idAgriculturalProduct) {
+        return aP.findById(idAgriculturalProduct).orElse(new AgriculturalProduct());
+    }
 }

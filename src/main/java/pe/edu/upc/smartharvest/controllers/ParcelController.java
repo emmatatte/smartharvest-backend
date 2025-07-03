@@ -24,7 +24,7 @@ public class ParcelController {
     }
 
     @GetMapping
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<ParcelDTO> listar() {
         return pS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
@@ -33,7 +33,7 @@ public class ParcelController {
     }
 
     @PostMapping
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void registrar(@RequestBody ParcelDTOforRegister pDTO) {
         ModelMapper m = new ModelMapper();
         Parcel p = m.map(pDTO, Parcel.class);
@@ -41,7 +41,7 @@ public class ParcelController {
     }
 
     @PutMapping
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void modificar(@RequestBody ParcelDTOforRegister pDTO) {
         ModelMapper m = new ModelMapper();
         Parcel p = m.map(pDTO, Parcel.class);
@@ -49,13 +49,13 @@ public class ParcelController {
     }
 
     @DeleteMapping("/{idParcela}")
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void eliminar(@PathVariable int idParcela) {
         pS.delete(idParcela);
     }
 
     @GetMapping("/by-user/{userId}")
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<ParcelDTO> getParcelsByUser(@PathVariable("userId") Long userId) {
         return pS.findByUserId(userId).stream()
                 .map(x -> new ModelMapper().map(x, ParcelDTO.class))

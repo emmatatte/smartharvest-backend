@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @RequestMapping("/inputs")
-//@SecurityRequirement(name = "bearerAuth")
+@SecurityRequirement(name = "bearerAuth")
 public class InputController {
     @Autowired
     private IInputService iS;
@@ -26,7 +26,7 @@ public class InputController {
     }
 
     @GetMapping
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<InputDTO> listar() {
         return iS.list().stream().map(x->{
             ModelMapper m = new ModelMapper();
@@ -39,7 +39,7 @@ public class InputController {
     }
 
     @PostMapping
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void register(@RequestBody InputDTOforRegister inputDTO) {
         ModelMapper m = new ModelMapper();
         Input input = m.map(inputDTO, Input.class);
@@ -48,7 +48,7 @@ public class InputController {
 
 
     @PutMapping
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void update(@RequestBody InputDTOforRegister inputDTO) {
         ModelMapper m = new ModelMapper();
         Input input = m.map(inputDTO, Input.class);
@@ -57,7 +57,7 @@ public class InputController {
 
 
     @DeleteMapping("/{idInsumo}")
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void eliminar(@PathVariable("idInsumo") int idInsumo) {
         iS.delete(idInsumo);
     }
