@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/notifications")
-//@SecurityRequirement(name = "bearerAuth")
+@SecurityRequirement(name = "bearerAuth")
 public class NotificationController {
     @Autowired
     private INotificationService nS;
@@ -24,7 +24,7 @@ public class NotificationController {
     }
 
     @GetMapping
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR','DUEÑO_DE_MERCADO')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR','DUEÑO_DE_MERCADO')")
     public List<NotificationDTO> listar() {
         return nS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
@@ -33,7 +33,7 @@ public class NotificationController {
     }
 
     @PostMapping
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void registrar(@RequestBody NotificationDTOforRegister nDTO) {
         ModelMapper m = new ModelMapper();
         Notification n = m.map(nDTO, Notification.class);
@@ -41,7 +41,7 @@ public class NotificationController {
     }
 
     @PutMapping
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void modificar(@RequestBody NotificationDTOforRegister nDTO) {
         ModelMapper m = new ModelMapper();
         Notification n = m.map(nDTO, Notification.class);
@@ -49,13 +49,13 @@ public class NotificationController {
     }
 
     @DeleteMapping("/{idNotification}")
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void eliminar(@PathVariable int idNotification) {
         nS.delete(idNotification);
     }
 
     @GetMapping("/by-type/{Actualización}")
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<NotificationDTO> getByType(@PathVariable("Actualización") String Actualización) {
         return nS.findByNotificationType(Actualización).stream()
                 .map(x -> new ModelMapper().map(x, NotificationDTO.class))
