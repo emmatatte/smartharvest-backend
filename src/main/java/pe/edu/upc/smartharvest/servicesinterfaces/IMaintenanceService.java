@@ -1,5 +1,6 @@
 package pe.edu.upc.smartharvest.servicesinterfaces;
 
+import pe.edu.upc.smartharvest.entities.Input;
 import pe.edu.upc.smartharvest.entities.Maintenance;
 
 import java.util.List;

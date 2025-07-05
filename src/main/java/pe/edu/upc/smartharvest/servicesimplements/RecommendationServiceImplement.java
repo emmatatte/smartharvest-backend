@@ -2,6 +2,7 @@ package pe.edu.upc.smartharvest.servicesimplements;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pe.edu.upc.smartharvest.entities.Maintenance;
 import pe.edu.upc.smartharvest.entities.Recommendation;
 import pe.edu.upc.smartharvest.repositories.IRecommendationRepository;
 import pe.edu.upc.smartharvest.servicesinterfaces.IRecommendationService;
@@ -31,6 +32,11 @@ public class RecommendationServiceImplement implements IRecommendationService {
     @Override
     public void delete(int idRecommendation) {
         rR.deleteById(idRecommendation);
+    }
+
+    @Override
+    public Recommendation listId(int idRecommendation) {
+        return rR.findById(idRecommendation).orElse(new Recommendation());
     }
 
     @Override
