@@ -107,4 +107,18 @@ public class RecommendationController {
         }
         return dtoList;
     }
+
+    @GetMapping("/recommendationsbymonth/{year}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    public List<RecommendationsByMonthInYearDTO> parcelsByMonth(@PathVariable("year") int year){
+        List<RecommendationsByMonthInYearDTO> dtoList = new ArrayList<>();
+        List<String[]> RowList=rS.recommendationsByMonth(year);
+        for(String[] column:RowList){
+            RecommendationsByMonthInYearDTO dto = new RecommendationsByMonthInYearDTO();
+            dto.setMes(column[0]);
+            dto.setQuantity(Integer.parseInt(column[1]));
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
 }

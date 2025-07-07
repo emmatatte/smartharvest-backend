@@ -6,6 +6,7 @@ import pe.edu.upc.smartharvest.entities.Crop;
 import pe.edu.upc.smartharvest.repositories.ICropRepository;
 import pe.edu.upc.smartharvest.servicesinterfaces.ICropService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -44,19 +45,22 @@ public class CropServiceImplement implements ICropService {
     }
 
     @Override
-    public List<Crop> findByActualState(String actualState) {
-        return cR.findByActualState(actualState);
-    }
-
-    @Override
     public List<String[]> findCropsNeedingAttention() { return cR.findCropsNeedingAttention();}
 
     @Override
-    public List<String[]> identifyUpcomingCropDays() { return cR.identifyUpcomingCropDays();}
+    public List<String[]> CropsByActualState() {
+        return cR.CropsByActualState();
+    }
 
     @Override
     public List<String[]> findActiveCrops() {
         return cR.findActiveCrops();
     }
 
+    @Override
+    public List<String[]> countHarvestByCropTypeInRange(LocalDate startDate, LocalDate endDate) {
+        return cR.countHarvestByCropTypeInRange(startDate, endDate);
+    }
 }
+
+

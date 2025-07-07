@@ -5,12 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.smartharvest.dtos.InputDTOforRegister;
 import pe.edu.upc.smartharvest.dtos.MaintenanceDTO;
 import pe.edu.upc.smartharvest.dtos.MaintenanceDTOforRegister;
+import pe.edu.upc.smartharvest.dtos.TopCropsByMaintenanceDTO;
 import pe.edu.upc.smartharvest.entities.Maintenance;
 import pe.edu.upc.smartharvest.servicesinterfaces.IMaintenanceService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -64,11 +65,22 @@ public class MaintenanceController {
                 .collect(Collectors.toList());
     }
 
+    //REPORTE1
     @GetMapping("/top-cultivos-mantenimientos")
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-    public ResponseEntity<List<Object[]>> getTopCropsByMaintenance() {
-        return ResponseEntity.ok(mS.findTopCropsByMaintenanceCount());
+
+    public List<TopCropsByMaintenanceDTO> getTopCropsByMaintenance() {
+        List<TopCropsByMaintenanceDTO> dtoList = new ArrayList<>();
+        List<String[]> RowList = mS.findTopCropsByMaintenanceCount();
+        for (String[] column : RowList) {
+            TopCropsByMaintenanceDTO dto = new TopCropsByMaintenanceDTO();
+            dto.setType_crop(column[0]);
+            dto.setQuant_maintenance(Integer.parseInt(column[1]));
+            dtoList.add(dto);
+        }
+        return dtoList;
     }
+
 
     @GetMapping("/{idMantenimiento}")
     public MaintenanceDTOforRegister listarId(@PathVariable("idMantenimiento") int idMantenimiento) {
@@ -76,4 +88,5 @@ public class MaintenanceController {
         MaintenanceDTOforRegister dto = m.map(mS.listId(idMantenimiento), MaintenanceDTOforRegister.class);
         return dto;
     }
+
 }
