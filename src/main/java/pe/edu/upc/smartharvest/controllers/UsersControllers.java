@@ -27,7 +27,7 @@ public class UsersControllers {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<UsersDTO> listarusuarios() {
         return uS.list().stream().map(x-> {
             ModelMapper modelMapper = new ModelMapper();

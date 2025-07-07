@@ -72,12 +72,18 @@ public class CropController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/by-state/{actualState}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-    public List<CropDTO> getByState(@PathVariable("actualState") String actualState) {
-        return cS.findByActualState(actualState).stream()
-                .map(x -> new ModelMapper().map(x, CropDTO.class))
-                .collect(Collectors.toList());
+    @GetMapping("/by-state")
+    @PreAuthorize("hasAnyAuthority('AGRICULTOR','ADMIN')")
+    public List<CropByStateDTO> cultivosporestado(){
+        List<String[]> filaLista = cS.CropsByActualState();
+        List<CropByStateDTO> dtoLista = new ArrayList<>();
+        for (String[] columna : filaLista) {
+            CropByStateDTO dto = new CropByStateDTO();
+            dto.setActualState(columna[0]);
+            dto.setQuantity(Integer.parseInt(columna[1]));
+            dtoLista.add(dto);
+        }
+        return dtoLista;
     }
 
     @GetMapping("/cropsInDanger")
@@ -96,6 +102,20 @@ public class CropController {
         dtoLista.add(dto);
     }
     return dtoLista;
+    }
+
+    @GetMapping("/harvestbycroptypeinrange/{startdate}/{enddate}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    public List<HarvestByCropTypeInRangeDTO> harvestbycroptypeinrange(@PathVariable("startdate") LocalDate startdate, @PathVariable("enddate") LocalDate enddate) {
+        List<String[]> filaLista = cS.countHarvestByCropTypeInRange(startdate, enddate);
+        List<HarvestByCropTypeInRangeDTO> dtoLista = new ArrayList<>();
+        for(String[] columna : filaLista){
+            HarvestByCropTypeInRangeDTO dto = new HarvestByCropTypeInRangeDTO();
+            dto.setTypeCrop(columna[0]);
+            dto.setQuantity(Integer.parseInt(columna[1]));
+            dtoLista.add(dto);
+        }
+        return dtoLista;
     }
 
     @GetMapping("/findActiveCrop")

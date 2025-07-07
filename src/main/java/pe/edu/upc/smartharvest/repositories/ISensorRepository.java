@@ -22,4 +22,20 @@ public interface ISensorRepository extends JpaRepository<Sensor, Integer> {
     //US38
     @Query(value = "SELECT s.id_sensor, s.sensor_type FROM sensor s WHERE s.last_lecture < CURRENT_DATE",nativeQuery = true)
     public List<String[]> findActiveSensors();
+
+    @Query(value = "SELECT s.sensor_type,\n" +
+            "        COUNT(*) AS cantidad\n" +
+            "    FROM sensor s\n" +
+            "    WHERE s.state = true\n" +
+            "    GROUP BY s.sensor_type\n" +
+            "    ORDER BY cantidad DESC",nativeQuery = true)
+    List<String[]> countActiveSensorsByType();
+
+    @Query(value = "SELECT s.sensor_type,\n" +
+            "        COUNT(*) AS cantidad\n" +
+            "    FROM maintenance m\n" +
+            "    JOIN sensor s ON m.id_sensor = s.id_sensor\n" +
+            "    GROUP BY s.sensor_type\n" +
+            "    ORDER BY cantidad DESC",nativeQuery = true)
+    List<String[]> countMaintenanceBySensorType();
 }

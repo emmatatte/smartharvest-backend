@@ -1,8 +1,10 @@
 package pe.edu.upc.smartharvest.servicesinterfaces;
 
+import org.springframework.data.repository.query.Param;
 import pe.edu.upc.smartharvest.entities.Company;
 import pe.edu.upc.smartharvest.entities.Crop;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ICropService {
@@ -10,10 +12,10 @@ public interface ICropService {
     void insert(Crop crop);
     void update(Crop crop);
     void delete(int idCrop);
-    public Crop listId(int idCrop);
+    Crop listId(int idCrop);
     List<Crop> findByTypeCrop(String typeCrop);
-    List<Crop> findByActualState(String actualState);
-    public List<String[]> findCropsNeedingAttention();
-    public List<String[]> identifyUpcomingCropDays();
-    public List<String[]> findActiveCrops();
+    List<String[]> findCropsNeedingAttention();
+    List<String[]> CropsByActualState();
+    List<String[]> findActiveCrops();
+    List<String[]> countHarvestByCropTypeInRange(LocalDate startDate, LocalDate endDate);
 }

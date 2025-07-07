@@ -5,18 +5,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.smartharvest.dtos.FindActiveParcelsDTO;
 import pe.edu.upc.smartharvest.dtos.MaintenanceDTO;
 import pe.edu.upc.smartharvest.dtos.MaintenanceDTOforRegister;
+import pe.edu.upc.smartharvest.dtos.TopCropsByMaintenanceDTO;
 import pe.edu.upc.smartharvest.entities.Maintenance;
 import pe.edu.upc.smartharvest.servicesinterfaces.IMaintenanceService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @RequestMapping("/maintenances")
-//@SecurityRequirement(name = "bearerAuth")
+@SecurityRequirement(name = "bearerAuth")
 public class MaintenanceController {
     @Autowired
     private IMaintenanceService mS;
@@ -25,7 +28,7 @@ public class MaintenanceController {
     }
 
     @GetMapping
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<MaintenanceDTO> listar(){
         return mS.list().stream().map(x -> {
             ModelMapper m = new ModelMapper();
@@ -34,7 +37,7 @@ public class MaintenanceController {
     }
 
     @PostMapping
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void registrar(@RequestBody MaintenanceDTOforRegister mDTO) {
         ModelMapper m = new ModelMapper();
         Maintenance ma = m.map(mDTO, Maintenance.class);
@@ -42,7 +45,7 @@ public class MaintenanceController {
     }
 
     @PutMapping
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void modificar(@RequestBody MaintenanceDTOforRegister mDTO) {
         ModelMapper m = new ModelMapper();
         Maintenance ma = m.map(mDTO, Maintenance.class);
@@ -50,7 +53,7 @@ public class MaintenanceController {
     }
 
     @DeleteMapping("/{idMantenimiento}")
-    //@PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public void eliminiar(@PathVariable int idMantenimiento) {
         mS.delete(idMantenimiento);
     }
@@ -62,11 +65,18 @@ public class MaintenanceController {
                 .collect(Collectors.toList());
     }
 
+    //REPORTE1
     @GetMapping("/top-cultivos-mantenimientos")
-    //@PreAuthorize("hasAnyAuthority('ADMIN')")
-    public ResponseEntity<List<Object[]>> getTopCropsByMaintenance() {
-        return ResponseEntity.ok(mS.findTopCropsByMaintenanceCount());
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    public List<TopCropsByMaintenanceDTO> getTopCropsByMaintenance() {
+        List<TopCropsByMaintenanceDTO> dtoList = new ArrayList<>();
+        List<String[]> RowList = mS.findTopCropsByMaintenanceCount();
+        for (String[] column : RowList) {
+            TopCropsByMaintenanceDTO dto = new TopCropsByMaintenanceDTO();
+            dto.setType_crop(column[0]);
+            dto.setQuant_maintenance(Integer.parseInt(column[1]));
+            dtoList.add(dto);
+        }
+        return dtoList;
     }
-
-
 }

@@ -16,6 +16,7 @@ public interface ISensorService {
     List<Sensor> findByBatteryLevelLessThan(double threshold);
 
     public List<String[]> findSensorsWithMaintenance();
-
     public List<String[]> FindActiveSensors();
+    public List<String[]> countActiveSensorsByType();
+    List<String[]> countMaintenanceBySensorType();
 }

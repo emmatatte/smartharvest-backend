@@ -54,6 +54,11 @@ public class RecommendationServiceImplement implements IRecommendationService {
     }
 
     @Override
+    public List<String[]> recommendationsByMonth(int year) {
+        return rR.recommendationsByMonth(year);
+    }
+
+    @Override
     public List<String[]> findRecommendations(){
         return rR.findRecommendations();
     }

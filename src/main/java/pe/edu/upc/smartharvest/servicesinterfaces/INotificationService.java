@@ -10,4 +10,5 @@ public interface INotificationService {
     void update(Notification notification);
     void delete(int idNotification);
     List<Notification> findByNotificationType(String notificationType);
+    List<String[]> countNotificationsByMonthInYear(int year);
 }

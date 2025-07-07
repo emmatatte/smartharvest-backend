@@ -14,6 +14,6 @@ public interface IRecommendationService {
     List<Recommendation> findByUserId(Integer userId);
     List<Recommendation> findByLowHumiditySensors(Double threshold);
     List<String[]> findRecommendationCountByParcel();
-
+    List<String[]> recommendationsByMonth(int year);
     public List<String[]> findRecommendations();
 }

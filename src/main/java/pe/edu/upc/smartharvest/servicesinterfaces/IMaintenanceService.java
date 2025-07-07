@@ -10,5 +10,5 @@ public interface IMaintenanceService {
     void update(Maintenance maintenance);
     void delete(int idMaintenance);
     List<Maintenance> findBySensorId(int sensorId);
-    List<Object[]> findTopCropsByMaintenanceCount();
+    List<String[]> findTopCropsByMaintenanceCount();
 }

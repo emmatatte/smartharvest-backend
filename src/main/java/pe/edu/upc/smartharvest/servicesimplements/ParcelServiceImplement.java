@@ -43,4 +43,14 @@ public class ParcelServiceImplement implements IParcelService {
         return pR.findById(idParcel).orElse(new Parcel());
     }
 
+    @Override
+    public List<String[]> findActiveParcels() {
+        return pR.findActiveParcels();
+    }
+
+    @Override
+    public List<String[]> countParcelsByMonthInYear(int year) {
+        return pR.countParcelsByMonthInYear(year);
+    }
+
 }

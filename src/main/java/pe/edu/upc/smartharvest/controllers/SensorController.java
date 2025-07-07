@@ -106,4 +106,32 @@ public class SensorController {
         return dtoList;
     }
 
+    @GetMapping("/SensorsWithMaintenanceByType")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    public List<TypeSensorActiveDTO> SensorTypeActiveByType(){
+        List<TypeSensorActiveDTO> dtoList = new ArrayList<>();
+        List<String[]> RowList=sS.countActiveSensorsByType();
+        for(String[] column:RowList){
+            TypeSensorActiveDTO dto = new TypeSensorActiveDTO();
+            dto.setSensorType(column[0]);
+            dto.setCantidad(Integer.parseInt(column[1]));
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+
+    @GetMapping("/countmaintenancesensor")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    public List<CountMaintenanceSensorDTO> CountMaintenanceSensorDTO(){
+        List<CountMaintenanceSensorDTO> dtoList = new ArrayList<>();
+        List<String[]> RowList=sS.countMaintenanceBySensorType();
+        for(String[] column:RowList){
+            CountMaintenanceSensorDTO dto = new CountMaintenanceSensorDTO();
+            dto.setSensorType(column[0]);
+            dto.setQuantity(Integer.parseInt(column[1]));
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+
 }

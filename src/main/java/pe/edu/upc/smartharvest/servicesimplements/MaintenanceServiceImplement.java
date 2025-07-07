@@ -39,8 +39,8 @@ public class MaintenanceServiceImplement implements IMaintenanceService {
     }
 
     @Override
-    public List<Object[]> findTopCropsByMaintenanceCount() {
-        return mR.findTopCropsByMaintenanceCount();
+    public List<String[]> findTopCropsByMaintenanceCount() {
+        return mR.findTopCropsByMaintenanceCountGroupByType();
     }
 
 }
