@@ -56,6 +56,13 @@ public class RecommendationController {
         rS.delete(idRecomendation);
     }
 
+    @GetMapping("/{idRecomendation}")
+    public RecommendationDTOforRegister listarId(@PathVariable("idRecomendation") int idRecomendation) {
+        ModelMapper m = new ModelMapper();
+        RecommendationDTOforRegister dto = m.map(rS.listId(idRecomendation), RecommendationDTOforRegister.class);
+        return dto;
+    }
+
     @GetMapping("/by-crop/{cropId}")
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<RecommendationDTO> getByCrop(@PathVariable("cropId") Integer cropId) {
@@ -71,7 +78,6 @@ public class RecommendationController {
                 .map(x -> new ModelMapper().map(x, RecommendationDTO.class))
                 .collect(Collectors.toList());
     }
-
 
     @GetMapping("/recomendaciones/sensores-humedad-baja")
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
