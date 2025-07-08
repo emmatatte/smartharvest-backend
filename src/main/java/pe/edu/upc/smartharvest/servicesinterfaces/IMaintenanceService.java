@@ -10,7 +10,6 @@ public interface IMaintenanceService {
     void insert(Maintenance maintenance);
     void update(Maintenance maintenance);
     void delete(int idMaintenance);
-    public Maintenance listId(int idMaintenance);
     List<Maintenance> findBySensorId(int sensorId);
     List<String[]> findTopCropsByMaintenanceCount();
     Maintenance listId(int idMaintenance);
