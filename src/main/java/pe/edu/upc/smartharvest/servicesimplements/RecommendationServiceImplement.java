@@ -62,4 +62,9 @@ public class RecommendationServiceImplement implements IRecommendationService {
     public List<String[]> findRecommendations(){
         return rR.findRecommendations();
     }
+
+    @Override
+    public Recommendation listId(int idRecommendation) {
+        return rR.findById(idRecommendation).orElse(new Recommendation());
+    }
 }

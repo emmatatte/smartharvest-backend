@@ -48,7 +48,9 @@ public class UserServiceImplement implements IUserService {
 
     @Override
     public void delete(Long idUser) {
-        uR.deleteById(idUser);
+        Users user = uR.findById(idUser)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        uR.delete(user);
     }
 
     @Override
@@ -65,5 +67,15 @@ public class UserServiceImplement implements IUserService {
     @Override
     public Users listId(long idUser) {
         return uR.findById(idUser).orElse(new Users());
+    }
+
+    @Override
+    public Users findbyUsername(String username) {
+        return uR.findByUsername(username);
+    }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        return uR.existsByUsername(username);
     }
 }

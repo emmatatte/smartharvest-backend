@@ -15,4 +15,6 @@ public interface IUsersRepository extends JpaRepository<Users, Long> {
             "FROM users\n" +
             "WHERE enabled is true;",nativeQuery = true)
     public List<String[]> getUsersQuantity();
+
+    boolean existsByUsername(String username);
 }

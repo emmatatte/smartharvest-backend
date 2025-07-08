@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.smartharvest.dtos.FindActiveParcelsDTO;
-import pe.edu.upc.smartharvest.dtos.MaintenanceDTO;
-import pe.edu.upc.smartharvest.dtos.MaintenanceDTOforRegister;
-import pe.edu.upc.smartharvest.dtos.TopCropsByMaintenanceDTO;
+import pe.edu.upc.smartharvest.dtos.*;
 import pe.edu.upc.smartharvest.entities.Maintenance;
 import pe.edu.upc.smartharvest.servicesinterfaces.IMaintenanceService;
 
@@ -79,4 +76,12 @@ public class MaintenanceController {
         }
         return dtoList;
     }
+    @GetMapping("/{idMaintenance}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    public MaintenanceDTO listId(@PathVariable("idMaintenance") int idMaintenance) {
+        ModelMapper m = new ModelMapper();
+        MaintenanceDTO dto = m.map(mS.listId(idMaintenance), MaintenanceDTO.class);
+        return dto;
+    }
+
 }
