@@ -75,4 +75,17 @@ public class UsersControllers {
         UsersDTOforRegister dto = m.map(uS.listId(idUser), UsersDTOforRegister.class);
         return dto;
     }
+
+    @GetMapping("/getIdByUsername/{username}")
+    public Long getIdbyUsername(@PathVariable("username") String username) {
+        ModelMapper m = new ModelMapper();
+        UsersDTOforRegister dto = m.map(uS.findbyUsername(username), UsersDTOforRegister.class);
+        Long id = dto.getId();
+        return id;
+    }
+
+    @GetMapping("/existsbyUsername/{username}")
+    public boolean existsbyUsername(@PathVariable("username") String username) {
+        return uS.existsByUsername(username);
+    }
 }

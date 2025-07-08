@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.smartharvest.dtos.MaintenanceDTO;
-import pe.edu.upc.smartharvest.dtos.MaintenanceDTOforRegister;
-import pe.edu.upc.smartharvest.dtos.TopCropsByMaintenanceDTO;
+import pe.edu.upc.smartharvest.dtos.*;
 import pe.edu.upc.smartharvest.entities.Maintenance;
 import pe.edu.upc.smartharvest.servicesinterfaces.IMaintenanceService;
 
@@ -58,7 +56,6 @@ public class MaintenanceController {
     }
 
     @GetMapping("/by-sensor/{sensorId}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<MaintenanceDTO> getBySensor(@PathVariable("sensorId") int sensorId) {
         return mS.findBySensorId(sensorId).stream()
                 .map(x -> new ModelMapper().map(x, MaintenanceDTO.class))
@@ -68,7 +65,6 @@ public class MaintenanceController {
     //REPORTE1
     @GetMapping("/top-cultivos-mantenimientos")
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-
     public List<TopCropsByMaintenanceDTO> getTopCropsByMaintenance() {
         List<TopCropsByMaintenanceDTO> dtoList = new ArrayList<>();
         List<String[]> RowList = mS.findTopCropsByMaintenanceCount();
@@ -80,12 +76,11 @@ public class MaintenanceController {
         }
         return dtoList;
     }
-
-
-    @GetMapping("/{idMantenimiento}")
-    public MaintenanceDTOforRegister listarId(@PathVariable("idMantenimiento") int idMantenimiento) {
+    @GetMapping("/{idMaintenance}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    public MaintenanceDTO listId(@PathVariable("idMaintenance") int idMaintenance) {
         ModelMapper m = new ModelMapper();
-        MaintenanceDTOforRegister dto = m.map(mS.listId(idMantenimiento), MaintenanceDTOforRegister.class);
+        MaintenanceDTO dto = m.map(mS.listId(idMaintenance), MaintenanceDTO.class);
         return dto;
     }
 

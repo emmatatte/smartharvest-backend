@@ -121,4 +121,12 @@ public class RecommendationController {
         }
         return dtoList;
     }
+
+    @GetMapping("/{idRecommendation}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    public RecommendationDTO listarId(@PathVariable("idRecommendation") int idRecommendation) {
+        ModelMapper m = new ModelMapper();
+        RecommendationDTO dto = m.map(rS.listId(idRecommendation), RecommendationDTO.class);
+        return dto;
+    }
 }

@@ -18,4 +18,5 @@ public interface IRecommendationService {
     List<String[]> findRecommendationCountByParcel();
     List<String[]> recommendationsByMonth(int year);
     public List<String[]> findRecommendations();
+    Recommendation listId(int idRecommendation);
 }
