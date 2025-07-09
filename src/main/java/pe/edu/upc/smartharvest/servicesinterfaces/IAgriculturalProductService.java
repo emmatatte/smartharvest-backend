@@ -11,4 +11,5 @@ public interface IAgriculturalProductService {
     void update(AgriculturalProduct agriculturalProduct);
     void delete(int idAgriculturalProduct);
     AgriculturalProduct listId(int idAgriculturalProduct);
+    List<AgriculturalProduct> findAgriculturalProductsByCrop_Parcel_Users_Id(Long cropParcelUsersId);
 }

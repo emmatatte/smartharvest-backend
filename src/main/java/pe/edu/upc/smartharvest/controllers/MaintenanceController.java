@@ -84,4 +84,12 @@ public class MaintenanceController {
         return dto;
     }
 
+    @GetMapping("/listarporiduser/{idUser}")
+    @PreAuthorize("hasAuthority('AGRICULTOR')")
+    public List<MaintenanceDTO> listbyiduser(@PathVariable("idUser") Long idUser) {
+        return mS.findMaintenancesBySensor_Parcel_Users_Id(idUser).stream().map(x->{
+            ModelMapper m = new ModelMapper();
+            return m.map(x, MaintenanceDTO.class);
+        }).collect(Collectors.toList());
+    }
 }

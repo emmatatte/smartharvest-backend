@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface ILocalMarketRepository extends JpaRepository<LocalMarket, Integer> {
     List<LocalMarket> findByLocationContainingIgnoreCase(String location);
+
+    List<LocalMarket> findLocalMarketsByUsers_Id(Long usersId);
 }

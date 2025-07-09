@@ -34,11 +34,6 @@ public class MaintenanceServiceImplement implements IMaintenanceService {
     }
 
     @Override
-    public Maintenance listId(int idMaintenance) {
-        return mR.findById(idMaintenance).orElse(new Maintenance());
-    }
-
-    @Override
     public List<Maintenance> findBySensorId(int sensorId) {
         return mR.findBySensor_IdSensor(sensorId);
     }
@@ -53,4 +48,8 @@ public class MaintenanceServiceImplement implements IMaintenanceService {
         return mR.findById(idMaintenance).orElse(new Maintenance());
     }
 
+    @Override
+    public List<Maintenance> findMaintenancesBySensor_Parcel_Users_Id(Long sensorParcelUsersId) {
+        return mR.findMaintenancesBySensor_Parcel_Users_Id(sensorParcelUsersId);
+    }
 }

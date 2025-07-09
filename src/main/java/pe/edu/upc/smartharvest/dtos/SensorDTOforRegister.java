@@ -14,7 +14,6 @@ public class SensorDTOforRegister {
     private LocalDate lastLecture;
     private double batteryLevel;
     private Parcel parcel;
-    private Crop crop;
     private Double humidity;
 
     public int getIdSensor() {
@@ -71,14 +70,6 @@ public class SensorDTOforRegister {
 
     public void setParcel(Parcel parcel) {
         this.parcel = parcel;
-    }
-
-    public Crop getCrop() {
-        return crop;
-    }
-
-    public void setCrop(Crop crop) {
-        this.crop = crop;
     }
 
     public Double getHumidity() {

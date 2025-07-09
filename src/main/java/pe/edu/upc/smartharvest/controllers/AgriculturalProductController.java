@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.smartharvest.dtos.AgriculturalProductDTO;
 import pe.edu.upc.smartharvest.dtos.AgriculturalProductDTOforRegister;
+import pe.edu.upc.smartharvest.dtos.CropDTO;
 import pe.edu.upc.smartharvest.dtos.InputDTOforRegister;
 import pe.edu.upc.smartharvest.entities.AgriculturalProduct;
 import pe.edu.upc.smartharvest.servicesinterfaces.IAgriculturalProductService;
@@ -60,5 +61,14 @@ public class AgriculturalProductController {
         ModelMapper m = new ModelMapper();
         AgriculturalProductDTO dto = m.map(aP.listId(idProduct), AgriculturalProductDTO.class);
         return dto;
+    }
+
+    @GetMapping("/listarporidusuario/{idUsuario}")
+    @PreAuthorize("hasAuthority('AGRICULTOR')")
+    public List<AgriculturalProductDTO> listbyiduser(@PathVariable("idUsuario") Long idUsuario) {
+        return aP.findAgriculturalProductsByCrop_Parcel_Users_Id(idUsuario).stream().map(x->{
+            ModelMapper m = new ModelMapper();
+            return m.map(x, AgriculturalProductDTO.class);
+        }).collect(Collectors.toList());
     }
 }

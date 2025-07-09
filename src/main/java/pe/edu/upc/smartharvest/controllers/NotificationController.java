@@ -5,9 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.smartharvest.dtos.NotificationDTO;
-import pe.edu.upc.smartharvest.dtos.NotificationDTOforRegister;
-import pe.edu.upc.smartharvest.dtos.RecommendationsByMonthInYearDTO;
+import pe.edu.upc.smartharvest.dtos.*;
 import pe.edu.upc.smartharvest.entities.Notification;
 import pe.edu.upc.smartharvest.servicesinterfaces.INotificationService;
 
@@ -76,5 +74,14 @@ public class NotificationController {
             dtoList.add(dto);
         }
         return dtoList;
+    }
+
+    @GetMapping("/listarporiduser/{idUser}")
+    @PreAuthorize("hasAuthority('AGRICULTOR')")
+    public List<NotificationDTO> listbyiduser(@PathVariable("idUser") Long idUser) {
+        return nS.listIdUser(idUser).stream().map(x->{
+            ModelMapper m = new ModelMapper();
+            return m.map(x, NotificationDTO.class);
+        }).collect(Collectors.toList());
     }
 }

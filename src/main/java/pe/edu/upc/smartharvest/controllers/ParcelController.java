@@ -95,4 +95,13 @@ public class ParcelController {
         }
         return dtoList;
     }
+
+    @GetMapping("/listarporiduser/{idUser}")
+    @PreAuthorize("hasAuthority('AGRICULTOR')")
+    public List<ParcelDTO> listbyiduser(@PathVariable("idUser") Long idUser) {
+        return pS.findByUserId(idUser).stream().map(x->{
+            ModelMapper m = new ModelMapper();
+            return m.map(x, ParcelDTO.class);
+        }).collect(Collectors.toList());
+    }
 }

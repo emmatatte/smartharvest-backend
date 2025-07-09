@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pe.edu.upc.smartharvest.entities.Crop;
+import pe.edu.upc.smartharvest.entities.Sensor;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,6 +14,9 @@ import java.util.List;
 public interface ICropRepository extends JpaRepository<Crop, Integer> {
     List<Crop> findByTypeCrop(String typeCrop); // US27
     List<Crop> findByActualState(String actualState); // US27
+
+    List<Crop> findCropsByParcel_Users_Id(Long parcelUsersId);
+
 
     // US31 Identificar cultivos que necesitan atención inmediata
     @Query(value = "SELECT c.id_crop, c.type_crop, p.name,\n" +

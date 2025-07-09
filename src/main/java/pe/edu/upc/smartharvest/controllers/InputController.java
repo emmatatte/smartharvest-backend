@@ -68,4 +68,13 @@ public class InputController {
         InputDTOforRegister dto = m.map(iS.listId(idInsumo), InputDTOforRegister.class);
         return dto;
     }
+
+    @GetMapping("/listarporidusuario/{idUsuario}")
+    @PreAuthorize("hasAuthority('AGRICULTOR')")
+    public List<InputDTO> listbyiduser(@PathVariable("idUsuario") Long idUsuario) {
+        return iS.listIdUser(idUsuario).stream().map(x->{
+            ModelMapper m = new ModelMapper();
+            return m.map(x, InputDTO.class);
+        }).collect(Collectors.toList());
+    }
 }

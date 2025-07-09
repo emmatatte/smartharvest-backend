@@ -134,4 +134,13 @@ public class SensorController {
         return dtoList;
     }
 
+    @GetMapping("/listarporiduser/{idUser}")
+    @PreAuthorize("hasAuthority('AGRICULTOR')")
+    public List<SensorDTO> listbyiduser(@PathVariable("idUser") Long idUser) {
+        return sS.findSensorsByParcel_Users_Id(idUser).stream().map(x->{
+            ModelMapper m = new ModelMapper();
+            return m.map(x, SensorDTO.class);
+        }).collect(Collectors.toList());
+    }
+
 }

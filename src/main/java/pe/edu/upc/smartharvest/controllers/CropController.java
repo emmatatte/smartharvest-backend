@@ -136,4 +136,13 @@ public class CropController {
         }
         return dtoLista;
     }
+
+    @GetMapping("/listarporidusuario/{idUsuario}")
+    @PreAuthorize("hasAuthority('AGRICULTOR')")
+    public List<CropDTO> listbyiduser(@PathVariable("idUsuario") Long idUsuario) {
+        return cS.findCropsByParcel_Users_Id(idUsuario).stream().map(x->{
+            ModelMapper m = new ModelMapper();
+            return m.map(x, CropDTO.class);
+        }).collect(Collectors.toList());
+    }
 }

@@ -35,11 +35,6 @@ public class RecommendationServiceImplement implements IRecommendationService {
     }
 
     @Override
-    public Recommendation listId(int idRecommendation) {
-        return rR.findById(idRecommendation).orElse(new Recommendation());
-    }
-
-    @Override
     public List<Recommendation> findByCropId(Integer cropId) {
         return rR.findByCropId(cropId);
     }
@@ -47,11 +42,6 @@ public class RecommendationServiceImplement implements IRecommendationService {
     @Override
     public List<Recommendation> findByUserId(Integer userId) {
         return rR.findByUserId(userId);
-    }
-
-    @Override
-    public List<Recommendation> findByLowHumiditySensors(Double threshold) {
-        return rR.findByLowHumiditySensors(threshold);
     }
 
     @Override
@@ -72,5 +62,10 @@ public class RecommendationServiceImplement implements IRecommendationService {
     @Override
     public Recommendation listId(int idRecommendation) {
         return rR.findById(idRecommendation).orElse(new Recommendation());
+    }
+
+    @Override
+    public List<Recommendation> findRecommendationsByCrop_Parcel_Users_Id(Long cropParcelUsersId) {
+        return rR.findRecommendationsByCrop_Parcel_Users_Id(cropParcelUsersId);
     }
 }
