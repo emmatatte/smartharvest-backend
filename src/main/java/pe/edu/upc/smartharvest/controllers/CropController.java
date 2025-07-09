@@ -72,10 +72,10 @@ public class CropController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/by-state")
+    @GetMapping("/by-state/{idUser}")
     @PreAuthorize("hasAnyAuthority('AGRICULTOR','ADMIN')")
-    public List<CropByStateDTO> cultivosporestado(){
-        List<String[]> filaLista = cS.CropsByActualState();
+    public List<CropByStateDTO> cultivosporestado(@PathVariable("idUser") Long idUser){
+        List<String[]> filaLista = cS.CropsByActualState(idUser);
         List<CropByStateDTO> dtoLista = new ArrayList<>();
         for (String[] columna : filaLista) {
             CropByStateDTO dto = new CropByStateDTO();
@@ -86,10 +86,10 @@ public class CropController {
         return dtoLista;
     }
 
-    @GetMapping("/cropsInDanger")
+    @GetMapping("/cropsInDanger/{idUser}")
     @PreAuthorize("hasAnyAuthority('AGRICULTOR','ADMIN')")
-    public List<CropsNeedingAttentionDTO> cultivosNecesitanAtencion(){
-    List<String[]> filaLista = cS.findCropsNeedingAttention();
+    public List<CropsNeedingAttentionDTO> cultivosNecesitanAtencion(@PathVariable("idUser") Long idUser){
+    List<String[]> filaLista = cS.findCropsNeedingAttention(idUser);
     List<CropsNeedingAttentionDTO> dtoLista = new ArrayList<>();
     for (String[] columna : filaLista) {
         CropsNeedingAttentionDTO dto = new CropsNeedingAttentionDTO();
@@ -104,10 +104,10 @@ public class CropController {
     return dtoLista;
     }
 
-    @GetMapping("/harvestbycroptypeinrange/{startdate}/{enddate}")
+    @GetMapping("/harvestbycroptypeinrange/{startdate}/{enddate}/{idUser}")
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-    public List<HarvestByCropTypeInRangeDTO> harvestbycroptypeinrange(@PathVariable("startdate") LocalDate startdate, @PathVariable("enddate") LocalDate enddate) {
-        List<String[]> filaLista = cS.countHarvestByCropTypeInRange(startdate, enddate);
+    public List<HarvestByCropTypeInRangeDTO> harvestbycroptypeinrange(@PathVariable("startdate") LocalDate startdate, @PathVariable("enddate") LocalDate enddate, @PathVariable("idUser") Long idUser ) {
+        List<String[]> filaLista = cS.countHarvestByCropTypeInRange(startdate, enddate, idUser);
         List<HarvestByCropTypeInRangeDTO> dtoLista = new ArrayList<>();
         for(String[] columna : filaLista){
             HarvestByCropTypeInRangeDTO dto = new HarvestByCropTypeInRangeDTO();
