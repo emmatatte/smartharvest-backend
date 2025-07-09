@@ -1,15 +1,15 @@
 package pe.edu.upc.smartharvest.dtos;
 
-public class TopCropsByMaintenanceDTO {
-    private String type_crop ;
+public class TopParcelsByMaintenanceDTO {
+    private String parcelName;
     private int quant_maintenance;
 
-    public String getType_crop() {
-        return type_crop;
+    public String getParcelName() {
+        return parcelName;
     }
 
-    public void setType_crop(String type_crop) {
-        this.type_crop = type_crop;
+    public void setParcelName(String parcelName) {
+        this.parcelName = parcelName;
     }
 
     public int getQuant_maintenance() {

@@ -106,11 +106,11 @@ public class SensorController {
         return dtoList;
     }
 
-    @GetMapping("/SensorsWithMaintenanceByType")
+    @GetMapping("/SensorsTypeActiveByType/{idUser}")
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-    public List<TypeSensorActiveDTO> SensorTypeActiveByType(){
+    public List<TypeSensorActiveDTO> SensorTypeActiveByType(@PathVariable("idUser") Long idUser){
         List<TypeSensorActiveDTO> dtoList = new ArrayList<>();
-        List<String[]> RowList=sS.countActiveSensorsByType();
+        List<String[]> RowList=sS.countActiveSensorsByType(idUser);
         for(String[] column:RowList){
             TypeSensorActiveDTO dto = new TypeSensorActiveDTO();
             dto.setSensorType(column[0]);
@@ -120,11 +120,11 @@ public class SensorController {
         return dtoList;
     }
 
-    @GetMapping("/countmaintenancesensor")
+    @GetMapping("/countmaintenancesensor/{idUser}")
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-    public List<CountMaintenanceSensorDTO> CountMaintenanceSensorDTO(){
+    public List<CountMaintenanceSensorDTO> CountMaintenanceSensorDTO(@PathVariable("idUser") Long idUser){
         List<CountMaintenanceSensorDTO> dtoList = new ArrayList<>();
-        List<String[]> RowList=sS.countMaintenanceBySensorType();
+        List<String[]> RowList=sS.countMaintenanceBySensorType(idUser);
         for(String[] column:RowList){
             CountMaintenanceSensorDTO dto = new CountMaintenanceSensorDTO();
             dto.setSensorType(column[0]);

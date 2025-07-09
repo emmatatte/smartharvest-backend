@@ -25,18 +25,21 @@ public interface ISensorRepository extends JpaRepository<Sensor, Integer> {
     public List<String[]> findActiveSensors();
 
     @Query(value = "SELECT s.sensor_type,\n" +
-            "        COUNT(*) AS cantidad\n" +
-            "    FROM sensor s\n" +
-            "    WHERE s.state = true\n" +
-            "    GROUP BY s.sensor_type\n" +
-            "    ORDER BY cantidad DESC",nativeQuery = true)
-    List<String[]> countActiveSensorsByType();
+            "COUNT(*) AS cantidad\n" +
+            "FROM sensor s\n" +
+            "JOIN parcel p ON s.id_parcel = p.id_parcel\n" +
+            "WHERE s.state = true AND p.user_id = :idUser\n" +
+            "GROUP BY s.sensor_type\n" +
+            "ORDER BY cantidad DESC",nativeQuery = true)
+    List<String[]> countActiveSensorsByType(@Param("idUser") Long idUser);
 
     @Query(value = "SELECT s.sensor_type,\n" +
-            "        COUNT(*) AS cantidad\n" +
-            "    FROM maintenance m\n" +
-            "    JOIN sensor s ON m.id_sensor = s.id_sensor\n" +
-            "    GROUP BY s.sensor_type\n" +
-            "    ORDER BY cantidad DESC",nativeQuery = true)
-    List<String[]> countMaintenanceBySensorType();
+            "COUNT(*) AS cantidad\n" +
+            "FROM maintenance m\n" +
+            "JOIN sensor s ON m.id_sensor = s.id_sensor\n" +
+            "JOIN parcel p ON p.id_parcel = s.id_parcel\n" +
+            "WHERE p.user_id = :idUser\n" +
+            "GROUP BY s.sensor_type\n" +
+            "ORDER BY cantidad DESC",nativeQuery = true)
+    List<String[]> countMaintenanceBySensorType(@Param("idUser") Long idUser);
 }

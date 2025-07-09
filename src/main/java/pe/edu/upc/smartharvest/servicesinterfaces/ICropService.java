@@ -14,9 +14,9 @@ public interface ICropService {
     void delete(int idCrop);
     Crop listId(int idCrop);
     List<Crop> findByTypeCrop(String typeCrop);
-    List<String[]> findCropsNeedingAttention();
-    List<String[]> CropsByActualState();
+    List<String[]> findCropsNeedingAttention(Long idUser);
+    List<String[]> CropsByActualState(Long idUser);
     List<String[]> findActiveCrops();
-    List<String[]> countHarvestByCropTypeInRange(LocalDate startDate, LocalDate endDate);
+    List<String[]> countHarvestByCropTypeInRange(LocalDate startDate, LocalDate endDate, Long idUser);
     List<Crop> findCropsByParcel_Users_Id(Long parcelUsersId);
 }

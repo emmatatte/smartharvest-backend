@@ -19,22 +19,24 @@ public interface ICropRepository extends JpaRepository<Crop, Integer> {
 
 
     // US31 Identificar cultivos que necesitan atención inmediata
-    @Query(value = "SELECT c.id_crop, c.type_crop, p.name,\n" +
-            "c.actual_state, c.sowing_date \n" +
-            "FROM public.crop c\n" +
-            "JOIN public.parcel p ON c.id_parcela = p.id_parcel\n" +
+    @Query(value = "SELECT c.id_crop, c.type_crop, p.name, c.actual_state, c.sowing_date\n" +
+            "FROM crop c\n" +
+            "JOIN parcel p ON c.id_parcela = p.id_parcel\n" +
             "WHERE c.actual_state IN ('Seco', 'Enfermo', 'Plagas')\n" +
-            "ORDER BY c.sowing_date;", nativeQuery = true)
-    public List<String[]> findCropsNeedingAttention();
+            "AND p.user_id = :idUser\n" +
+            "ORDER BY c.sowing_date", nativeQuery = true)
+    public List<String[]> findCropsNeedingAttention(@Param("idUser") Long idUser);
 
     // US32 Identificar dias de cultivos proximos
-    @Query(value = "SELECT \n" +
-            "        c.actual_state,\n" +
-            "        COUNT(*) AS cantidad\n" +
-            "    FROM crop c\n" +
-            "    GROUP BY c.actual_state\n" +
-            "    ORDER BY cantidad DESC", nativeQuery = true)
-    public List<String[]> CropsByActualState();
+    @Query(value = "SELECT\n" +
+            "c.actual_state,\n" +
+            "COUNT(*) AS cantidad\n" +
+            "FROM crop c\n" +
+            "JOIN parcel p ON c.id_parcela = p.id_parcel\n" +
+            "WHERE p.user_id = :idUser\n" +
+            "GROUP BY c.actual_state\n" +
+            "ORDER BY cantidad DESC", nativeQuery = true)
+    public List<String[]> CropsByActualState(@Param("idUser") Long idUser);
 
     //US33 Obtener cultivos activos por parcela
     @Query(value="SELECT c.id_crop, c.actual_state, p.name, c.type_crop, c.sowing_date, p.id_parcel FROM crop c\n" +
@@ -44,12 +46,15 @@ public interface ICropRepository extends JpaRepository<Crop, Integer> {
 
     //REPORTE 4
     @Query(value = "SELECT c.type_crop,\n" +
-            "        COUNT(*) AS cantidad\n" +
-            "    FROM crop c\n" +
-            "    WHERE c.estimated_harvest_date BETWEEN :startDate AND :endDate\n" +
-            "      AND c.actual_state NOT IN ('Plagas', 'Enfermo', 'Seco')\n" +
-            "    GROUP BY c.type_crop\n" +
-            "    ORDER BY cantidad DESC", nativeQuery = true)
+            "COUNT(*) AS cantidad\n" +
+            "FROM crop c\n" +
+            "JOIN parcel p ON c.id_parcela = p.id_parcel\n" +
+            "WHERE p.user_id = :idUser\n" +
+            "AND c.estimated_harvest_date BETWEEN :startDate AND :endDate\n" +
+            "AND c.actual_state NOT IN ('Plagas', 'Enfermo', 'Seco')\n" +
+            "GROUP BY c.type_crop\n" +
+            "ORDER BY cantidad DESC", nativeQuery = true)
     List<String[]> countHarvestByCropTypeInRange(@Param("startDate") LocalDate startDate,
-                                                 @Param("endDate") LocalDate endDate);
+                                                 @Param("endDate") LocalDate endDate,
+                                                 @Param("idUser") Long idUser);
 }
