@@ -1,5 +1,6 @@
 package pe.edu.upc.smartharvest.servicesinterfaces;
 
+import pe.edu.upc.smartharvest.entities.Input;
 import pe.edu.upc.smartharvest.entities.Notification;
 
 import java.util.List;
@@ -11,4 +12,5 @@ public interface INotificationService {
     void delete(int idNotification);
     List<Notification> findByNotificationType(String notificationType);
     List<String[]> countNotificationsByMonthInYear(int year);
+    public List<Notification> listIdUser(Long idUser);
 }

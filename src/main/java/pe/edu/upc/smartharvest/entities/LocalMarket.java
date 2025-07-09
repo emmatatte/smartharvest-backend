@@ -21,15 +21,20 @@ public class LocalMarket {
     @Column(name = "attentionDate", nullable = false, length = 50)
     private String attentionDate;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Users users;
+
     public LocalMarket() {
     }
 
-    public LocalMarket(int idLocalMarket, String name, String location, String contact, String attentionDate) {
+    public LocalMarket(int idLocalMarket, String name, String location, String contact, String attentionDate, Users users) {
         this.idLocalMarket = idLocalMarket;
         this.name = name;
         this.location = location;
         this.contact = contact;
         this.attentionDate = attentionDate;
+        this.users = users;
     }
 
     public int getIdLocalMarket() {
@@ -70,5 +75,13 @@ public class LocalMarket {
 
     public void setAttentionDate(String attentionDate) {
         this.attentionDate = attentionDate;
+    }
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
     }
 }

@@ -13,4 +13,5 @@ public interface IMaintenanceService {
     List<Maintenance> findBySensorId(int sensorId);
     List<String[]> findTopCropsByMaintenanceCount();
     Maintenance listId(int idMaintenance);
+    List<Maintenance> findMaintenancesBySensor_Parcel_Users_Id(Long sensorParcelUsersId);
 }

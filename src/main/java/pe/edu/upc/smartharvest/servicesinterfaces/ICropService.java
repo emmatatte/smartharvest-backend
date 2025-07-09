@@ -18,4 +18,5 @@ public interface ICropService {
     List<String[]> CropsByActualState();
     List<String[]> findActiveCrops();
     List<String[]> countHarvestByCropTypeInRange(LocalDate startDate, LocalDate endDate);
+    List<Crop> findCropsByParcel_Users_Id(Long parcelUsersId);
 }

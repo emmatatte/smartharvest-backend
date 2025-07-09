@@ -19,4 +19,5 @@ public interface ISensorService {
     public List<String[]> FindActiveSensors();
     public List<String[]> countActiveSensorsByType();
     List<String[]> countMaintenanceBySensorType();
+    List<Sensor> findSensorsByParcel_Users_Id(Long parcelUsersId);
 }

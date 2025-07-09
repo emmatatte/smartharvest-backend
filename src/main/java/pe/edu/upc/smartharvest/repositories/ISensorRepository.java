@@ -15,6 +15,7 @@ public interface ISensorRepository extends JpaRepository<Sensor, Integer> {
     List<Sensor> getDailySummary();
     List<Sensor> findByBatteryLevelLessThan(double threshold);
 
+    List<Sensor> findSensorsByParcel_Users_Id(Long parcelUsersId);
     //US34
     @Query(value = "SELECT s.id_sensor, s.sensor_type FROM sensor s WHERE s.state = 'false'", nativeQuery = true)
     public List<String[]> findSensorsWithMaintenance();

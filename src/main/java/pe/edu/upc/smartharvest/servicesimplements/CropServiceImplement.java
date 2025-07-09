@@ -61,6 +61,11 @@ public class CropServiceImplement implements ICropService {
     public List<String[]> countHarvestByCropTypeInRange(LocalDate startDate, LocalDate endDate) {
         return cR.countHarvestByCropTypeInRange(startDate, endDate);
     }
+
+    @Override
+    public List<Crop> findCropsByParcel_Users_Id(Long parcelUsersId) {
+        return cR.findCropsByParcel_Users_Id(parcelUsersId);
+    }
 }
 
 

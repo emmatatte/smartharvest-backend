@@ -45,11 +45,6 @@ public class RecommendationServiceImplement implements IRecommendationService {
     }
 
     @Override
-    public List<Recommendation> findByLowHumiditySensors(Double threshold) {
-        return rR.findByLowHumiditySensors(threshold);
-    }
-
-    @Override
     public List<String[]> findRecommendationCountByParcel() {
         return rR.findRecommendationCountByParcel();
     }
@@ -67,5 +62,10 @@ public class RecommendationServiceImplement implements IRecommendationService {
     @Override
     public Recommendation listId(int idRecommendation) {
         return rR.findById(idRecommendation).orElse(new Recommendation());
+    }
+
+    @Override
+    public List<Recommendation> findRecommendationsByCrop_Parcel_Users_Id(Long cropParcelUsersId) {
+        return rR.findRecommendationsByCrop_Parcel_Users_Id(cropParcelUsersId);
     }
 }

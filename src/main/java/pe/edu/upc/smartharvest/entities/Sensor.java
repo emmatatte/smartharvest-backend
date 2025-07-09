@@ -29,17 +29,13 @@ public class Sensor {
     @JoinColumn(name = "idParcel")
     private Parcel parcel;
 
-    @ManyToOne
-    @JoinColumn(name = "idCrop")
-    private Crop crop;
-
     @Column(name = "humidity", nullable = false)
     private Double humidity;
 
     public Sensor() {
     }
 
-    public Sensor(int idSensor, String sensorType, LocalDate installationDate, boolean state, LocalDate lastLecture, Parcel parcel, double batteryLevel, Double humidity, Crop crop) {
+    public Sensor(int idSensor, String sensorType, LocalDate installationDate, boolean state, LocalDate lastLecture, Parcel parcel, double batteryLevel, Double humidity) {
         this.idSensor = idSensor;
         this.sensorType = sensorType;
         this.installationDate = installationDate;
@@ -48,7 +44,6 @@ public class Sensor {
         this.parcel = parcel;
         this.batteryLevel = batteryLevel;
         this.humidity = humidity;
-        this.crop = crop;
     }
 
     public int getIdSensor() {
@@ -106,21 +101,12 @@ public class Sensor {
     public void setBatteryLevel(double batteryLevel) {
         this.batteryLevel = batteryLevel;
     }
-    public Crop getCrop() {
-        return crop;
-    }
-    public void setCrop(Crop crop) {
-        this.crop = crop;
-    }
 
     public Double getHumidity() {
         return humidity;
     }
+
     public void setHumidity(Double humidity) {
         this.humidity = humidity;
     }
-
-
-
-
 }
