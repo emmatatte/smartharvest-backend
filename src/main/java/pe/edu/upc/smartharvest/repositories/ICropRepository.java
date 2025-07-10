@@ -17,6 +17,23 @@ public interface ICropRepository extends JpaRepository<Crop, Integer> {
 
     List<Crop> findCropsByParcel_Users_Id(Long parcelUsersId);
 
+    // Reporte e - porcentaje de cultivos en peligro
+    @Query(value = "SELECT \n" +
+            "    p.id_parcel,\n" +
+            "    p.name AS parcel_name,\n" +
+            "    COUNT(c.id_crop) AS total_crops,\n" +
+            "    COUNT(CASE WHEN c.actual_state IN ('Seco', 'Enfermo', 'Plagas') THEN 1 END) AS crops_at_risk,\n" +
+            "    ROUND(\n" +
+            "        COUNT(CASE WHEN c.actual_state IN ('Seco', 'Enfermo', 'Plagas') THEN 1 END) * 100.0 / \n" +
+            "        NULLIF(COUNT(c.id_crop), 0), \n" +
+            "    1) AS risk_percentage\n" +
+            "FROM public.parcel p\n" +
+            "JOIN public.crop c ON p.id_parcel = c.id_parcela\n" +
+            "WHERE p.user_id = :idUser\n" +
+            "GROUP BY p.id_parcel, p.name\n" +
+            "HAVING COUNT(CASE WHEN c.actual_state IN ('Seco', 'Enfermo', 'Plagas') THEN 1 END) > 0\n" +
+            "ORDER BY risk_percentage DESC;", nativeQuery = true)
+    public List<String[]> findCropRiskPercentageByParcel(@Param("idUser") Long idUser);
 
     // US31 Identificar cultivos que necesitan atención inmediata
     @Query(value = "SELECT c.id_crop, c.type_crop, p.name, c.actual_state, c.sowing_date\n" +

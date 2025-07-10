@@ -15,6 +15,7 @@ public interface ICropService {
     Crop listId(int idCrop);
     List<Crop> findByTypeCrop(String typeCrop);
     List<String[]> findCropsNeedingAttention(Long idUser);
+    List<String[]> findCropRiskPercentageByParcel(Long idUser);
     List<String[]> CropsByActualState(Long idUser);
     List<String[]> findActiveCrops();
     List<String[]> countHarvestByCropTypeInRange(LocalDate startDate, LocalDate endDate, Long idUser);
