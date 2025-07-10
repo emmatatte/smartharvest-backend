@@ -13,4 +13,4 @@ public class SmartHarvestApplication {
 		SpringApplication.run(SmartHarvestApplication.class, args);
 	}
 
-}
+} 

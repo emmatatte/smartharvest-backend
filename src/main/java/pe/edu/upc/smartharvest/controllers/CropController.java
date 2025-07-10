@@ -86,6 +86,23 @@ public class CropController {
         return dtoLista;
     }
 
+    @GetMapping("/cropRiskPercentage/{idUser}")
+    @PreAuthorize("hasAnyAuthority('AGRICULTOR','ADMIN')")
+    public List<RiskPercentageByParcelDTO> porcentajeCultivosEnRiesgo(@PathVariable("idUser") Long idUser) {
+        List<String[]> filaLista = cS.findCropRiskPercentageByParcel(idUser);
+        List<RiskPercentageByParcelDTO> dtoLista = new ArrayList<>();
+        for (String[] columna : filaLista) {
+            RiskPercentageByParcelDTO dto = new RiskPercentageByParcelDTO();
+            dto.setIdParcel(Integer.parseInt(columna[0]));
+            dto.setParcelName(columna[1]);
+            dto.setTotalCrops(Integer.parseInt(columna[2]));
+            dto.setCropsAtRisk(Integer.parseInt(columna[3]));
+            dto.setRiskPercentage(Double.parseDouble(columna[4]));
+            dtoLista.add(dto);
+        }
+        return dtoLista;
+    }
+
     @GetMapping("/cropsInDanger/{idUser}")
     @PreAuthorize("hasAnyAuthority('AGRICULTOR','ADMIN')")
     public List<CropsNeedingAttentionDTO> cultivosNecesitanAtencion(@PathVariable("idUser") Long idUser){

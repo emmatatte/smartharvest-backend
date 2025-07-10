@@ -48,6 +48,11 @@ public class CropServiceImplement implements ICropService {
     public List<String[]> findCropsNeedingAttention(Long idUser) { return cR.findCropsNeedingAttention(idUser);}
 
     @Override
+    public List<String[]> findCropRiskPercentageByParcel(Long idUser) {
+        return cR.findCropRiskPercentageByParcel(idUser);
+    }
+
+    @Override
     public List<String[]> CropsByActualState(Long idUser) {
         return cR.CropsByActualState(idUser);
     }
