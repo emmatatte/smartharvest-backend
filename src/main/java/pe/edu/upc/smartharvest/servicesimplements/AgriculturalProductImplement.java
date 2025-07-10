@@ -40,4 +40,9 @@ public class AgriculturalProductImplement implements IAgriculturalProductService
     public AgriculturalProduct listId(int idAgriculturalProduct) {
         return aP.findById(idAgriculturalProduct).orElse(new AgriculturalProduct());
     }
+
+    @Override
+    public List<AgriculturalProduct> findAgriculturalProductsByCrop_Parcel_Users_Id(Long cropParcelUsersId) {
+        return aP.findAgriculturalProductsByCrop_Parcel_Users_Id(cropParcelUsersId);
+    }
 }

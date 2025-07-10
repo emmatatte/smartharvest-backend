@@ -2,6 +2,7 @@ package pe.edu.upc.smartharvest.dtos;
 
 import jakarta.persistence.*;
 import pe.edu.upc.smartharvest.entities.Sensor;
+import pe.edu.upc.smartharvest.entities.Users;
 
 public class LocalMarketDTO {
     private int idLocalMarket;
@@ -9,6 +10,7 @@ public class LocalMarketDTO {
     private String location;
     private String contact;
     private String attentionDate;
+    private Users users;
 
     public int getIdLocalMarket() {
         return idLocalMarket;
@@ -50,4 +52,11 @@ public class LocalMarketDTO {
         this.attentionDate = attentionDate;
     }
 
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
+    }
 }

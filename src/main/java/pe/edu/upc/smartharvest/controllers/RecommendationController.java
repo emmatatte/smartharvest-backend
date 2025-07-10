@@ -56,13 +56,6 @@ public class RecommendationController {
         rS.delete(idRecomendation);
     }
 
-    @GetMapping("/{idRecomendation}")
-    public RecommendationDTOforRegister listarId(@PathVariable("idRecomendation") int idRecomendation) {
-        ModelMapper m = new ModelMapper();
-        RecommendationDTOforRegister dto = m.map(rS.listId(idRecomendation), RecommendationDTOforRegister.class);
-        return dto;
-    }
-
     @GetMapping("/by-crop/{cropId}")
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<RecommendationDTO> getByCrop(@PathVariable("cropId") Integer cropId) {
@@ -79,11 +72,7 @@ public class RecommendationController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/recomendaciones/sensores-humedad-baja")
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-    public ResponseEntity<List<Recommendation>> getRecommendationsBySensorHumidity(@RequestParam Double threshold) {
-        return ResponseEntity.ok(rS.findByLowHumiditySensors(threshold));
-    }
+
 
     @GetMapping("/ranking-recomendaciones-por-parcela")
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
@@ -106,5 +95,36 @@ public class RecommendationController {
             dtoList.add(dto);
         }
         return dtoList;
+    }
+
+    @GetMapping("/recommendationsbymonth/{year}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    public List<RecommendationsByMonthInYearDTO> parcelsByMonth(@PathVariable("year") int year){
+        List<RecommendationsByMonthInYearDTO> dtoList = new ArrayList<>();
+        List<String[]> RowList=rS.recommendationsByMonth(year);
+        for(String[] column:RowList){
+            RecommendationsByMonthInYearDTO dto = new RecommendationsByMonthInYearDTO();
+            dto.setMes(column[0]);
+            dto.setQuantity(Integer.parseInt(column[1]));
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+
+    @GetMapping("/{idRecommendation}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    public RecommendationDTO listarId(@PathVariable("idRecommendation") int idRecommendation) {
+        ModelMapper m = new ModelMapper();
+        RecommendationDTO dto = m.map(rS.listId(idRecommendation), RecommendationDTO.class);
+        return dto;
+    }
+
+    @GetMapping("/listarporiduser/{idUser}")
+    @PreAuthorize("hasAuthority('AGRICULTOR')")
+    public List<RecommendationDTO> listbyiduser(@PathVariable("idUser") Long idUser) {
+        return rS.findRecommendationsByCrop_Parcel_Users_Id(idUser).stream().map(x->{
+            ModelMapper m = new ModelMapper();
+            return m.map(x, RecommendationDTO.class);
+        }).collect(Collectors.toList());
     }
 }

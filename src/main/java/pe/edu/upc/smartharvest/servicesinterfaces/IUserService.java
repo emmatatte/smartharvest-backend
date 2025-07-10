@@ -14,4 +14,6 @@ public interface IUserService {
     void delete(Long idUser);
     List<String[]> getUsersQuantity();
     public Users listId(long idUser);
+    public Users findbyUsername(String username);
+    public boolean existsByUsername(String username);
 }

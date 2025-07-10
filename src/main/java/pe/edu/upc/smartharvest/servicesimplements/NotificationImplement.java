@@ -40,6 +40,16 @@ public class NotificationImplement implements INotificationService {
         return nR.findByNotificationType(notificationType);
     }
 
+    @Override
+    public List<String[]> countNotificationsByMonthInYear(int year) {
+        return nR.countNotificationsByMonthInYear(year);
+    }
+
+    @Override
+    public List<Notification> listIdUser(Long idUser) {
+        return nR.findByUsers_Id(idUser);
+    }
+
     public void createWeatherNotification(Users user, String weatherEvent, String message) {
         Notification notification = new Notification();
         notification.setUsers(user);

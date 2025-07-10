@@ -12,4 +12,6 @@ public interface IParcelService {
     void delete(int idParcel);
     List<Parcel> findByUserId(Long userId);
     public Parcel listId(int idParcel);
+    List<String[]> findActiveParcels();
+    List<String[]> countParcelsByMonthInYear(int year);
 }

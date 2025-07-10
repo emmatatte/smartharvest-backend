@@ -2,15 +2,13 @@ package pe.edu.upc.smartharvest.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.smartharvest.dtos.InputDTOforRegister;
-import pe.edu.upc.smartharvest.dtos.MaintenanceDTO;
-import pe.edu.upc.smartharvest.dtos.MaintenanceDTOforRegister;
+import pe.edu.upc.smartharvest.dtos.*;
 import pe.edu.upc.smartharvest.entities.Maintenance;
 import pe.edu.upc.smartharvest.servicesinterfaces.IMaintenanceService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -57,23 +55,40 @@ public class MaintenanceController {
     }
 
     @GetMapping("/by-sensor/{sensorId}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
     public List<MaintenanceDTO> getBySensor(@PathVariable("sensorId") int sensorId) {
         return mS.findBySensorId(sensorId).stream()
                 .map(x -> new ModelMapper().map(x, MaintenanceDTO.class))
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/top-cultivos-mantenimientos")
+    //REPORTE1
+    @GetMapping("/top-parcelas-mantenimientos/{idUser}")
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-    public ResponseEntity<List<Object[]>> getTopCropsByMaintenance() {
-        return ResponseEntity.ok(mS.findTopCropsByMaintenanceCount());
+    public List<TopParcelsByMaintenanceDTO> getTopParcelsByMaintenance(@PathVariable("idUser") Long idUser) {
+        List<TopParcelsByMaintenanceDTO> dtoList = new ArrayList<>();
+        List<String[]> RowList = mS.findTopParcelsByMaintenanceCount(idUser);
+        for (String[] column : RowList) {
+            TopParcelsByMaintenanceDTO dto = new TopParcelsByMaintenanceDTO();
+            dto.setParcelName(column[0]);
+            dto.setQuant_maintenance(Integer.parseInt(column[1]));
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+    @GetMapping("/{idMaintenance}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    public MaintenanceDTO listId(@PathVariable("idMaintenance") int idMaintenance) {
+        ModelMapper m = new ModelMapper();
+        MaintenanceDTO dto = m.map(mS.listId(idMaintenance), MaintenanceDTO.class);
+        return dto;
     }
 
-    @GetMapping("/{idMantenimiento}")
-    public MaintenanceDTOforRegister listarId(@PathVariable("idMantenimiento") int idMantenimiento) {
-        ModelMapper m = new ModelMapper();
-        MaintenanceDTOforRegister dto = m.map(mS.listId(idMantenimiento), MaintenanceDTOforRegister.class);
-        return dto;
+    @GetMapping("/listarporiduser/{idUser}")
+    @PreAuthorize("hasAuthority('AGRICULTOR')")
+    public List<MaintenanceDTO> listbyiduser(@PathVariable("idUser") Long idUser) {
+        return mS.findMaintenancesBySensor_Parcel_Users_Id(idUser).stream().map(x->{
+            ModelMapper m = new ModelMapper();
+            return m.map(x, MaintenanceDTO.class);
+        }).collect(Collectors.toList());
     }
 }

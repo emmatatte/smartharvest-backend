@@ -106,4 +106,41 @@ public class SensorController {
         return dtoList;
     }
 
+    @GetMapping("/SensorsTypeActiveByType/{idUser}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    public List<TypeSensorActiveDTO> SensorTypeActiveByType(@PathVariable("idUser") Long idUser){
+        List<TypeSensorActiveDTO> dtoList = new ArrayList<>();
+        List<String[]> RowList=sS.countActiveSensorsByType(idUser);
+        for(String[] column:RowList){
+            TypeSensorActiveDTO dto = new TypeSensorActiveDTO();
+            dto.setSensorType(column[0]);
+            dto.setCantidad(Integer.parseInt(column[1]));
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+
+    @GetMapping("/countmaintenancesensor/{idUser}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
+    public List<CountMaintenanceSensorDTO> CountMaintenanceSensorDTO(@PathVariable("idUser") Long idUser){
+        List<CountMaintenanceSensorDTO> dtoList = new ArrayList<>();
+        List<String[]> RowList=sS.countMaintenanceBySensorType(idUser);
+        for(String[] column:RowList){
+            CountMaintenanceSensorDTO dto = new CountMaintenanceSensorDTO();
+            dto.setSensorType(column[0]);
+            dto.setQuantity(Integer.parseInt(column[1]));
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+
+    @GetMapping("/listarporiduser/{idUser}")
+    @PreAuthorize("hasAuthority('AGRICULTOR')")
+    public List<SensorDTO> listbyiduser(@PathVariable("idUser") Long idUser) {
+        return sS.findSensorsByParcel_Users_Id(idUser).stream().map(x->{
+            ModelMapper m = new ModelMapper();
+            return m.map(x, SensorDTO.class);
+        }).collect(Collectors.toList());
+    }
+
 }

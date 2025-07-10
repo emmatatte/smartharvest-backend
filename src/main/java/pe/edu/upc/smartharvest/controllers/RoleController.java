@@ -38,7 +38,7 @@ public class RoleController {
         }).collect(Collectors.toList());
     }
 
-    @PostMapping
+    @PostMapping("/registrar")
     public void registrar(@RequestBody RoleDTOforRegister rDTO) {
         ModelMapper m = new ModelMapper();
         Role r = m.map(rDTO, Role.class);

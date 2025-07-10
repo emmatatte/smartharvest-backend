@@ -37,4 +37,9 @@ public class InputServiceImplement implements IInputService {
     public Input listId(int idInput) {
         return iR.findById(idInput).orElse(new Input());
     }
+
+    @Override
+    public List<Input> listIdUser(Long idUser) {
+        return iR.findByUsers_Id(idUser);
+    }
 }

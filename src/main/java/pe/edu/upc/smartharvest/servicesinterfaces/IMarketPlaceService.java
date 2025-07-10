@@ -13,4 +13,5 @@ public interface IMarketPlaceService {
     void delete(int idLocalMarket);
     List<LocalMarket> findByLocation(String location);
     public LocalMarket listId(int idLocalMarket);
+    List<LocalMarket> findLocalMarketsByUsers_Id(Long usersId);
 }

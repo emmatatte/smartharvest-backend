@@ -64,4 +64,19 @@ public class SensorServiceImplement implements ISensorService {
     public List<String[]> FindActiveSensors(){
         return sR.findActiveSensors();
     }
+
+    @Override
+    public List<String[]> countActiveSensorsByType(Long idUser) {
+        return sR.countActiveSensorsByType(idUser);
+    }
+
+    @Override
+    public List<String[]> countMaintenanceBySensorType(Long idUser) {
+        return sR.countMaintenanceBySensorType(idUser);
+    }
+
+    @Override
+    public List<Sensor> findSensorsByParcel_Users_Id(Long parcelUsersId) {
+        return sR.findSensorsByParcel_Users_Id(parcelUsersId);
+    }
 }
