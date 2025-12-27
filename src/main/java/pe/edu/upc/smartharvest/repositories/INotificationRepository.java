@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import pe.edu.upc.smartharvest.entities.Input;
 import pe.edu.upc.smartharvest.entities.Notification;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface INotificationRepository extends JpaRepository<Notification, Int
             "    GROUP BY mes\n" +
             "    ORDER BY mes",nativeQuery = true)
     public List<String[]> countNotificationsByMonthInYear(@Param("year") int year);
+
+    List<Notification> findByUsers_Id(Long usersId);
 }

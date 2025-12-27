@@ -2,7 +2,6 @@ package pe.edu.upc.smartharvest.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.smartharvest.dtos.*;
@@ -63,14 +62,14 @@ public class MaintenanceController {
     }
 
     //REPORTE1
-    @GetMapping("/top-cultivos-mantenimientos")
+    @GetMapping("/top-parcelas-mantenimientos/{idUser}")
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-    public List<TopCropsByMaintenanceDTO> getTopCropsByMaintenance() {
-        List<TopCropsByMaintenanceDTO> dtoList = new ArrayList<>();
-        List<String[]> RowList = mS.findTopCropsByMaintenanceCount();
+    public List<TopParcelsByMaintenanceDTO> getTopParcelsByMaintenance(@PathVariable("idUser") Long idUser) {
+        List<TopParcelsByMaintenanceDTO> dtoList = new ArrayList<>();
+        List<String[]> RowList = mS.findTopParcelsByMaintenanceCount(idUser);
         for (String[] column : RowList) {
-            TopCropsByMaintenanceDTO dto = new TopCropsByMaintenanceDTO();
-            dto.setType_crop(column[0]);
+            TopParcelsByMaintenanceDTO dto = new TopParcelsByMaintenanceDTO();
+            dto.setParcelName(column[0]);
             dto.setQuant_maintenance(Integer.parseInt(column[1]));
             dtoList.add(dto);
         }
@@ -84,4 +83,12 @@ public class MaintenanceController {
         return dto;
     }
 
+    @GetMapping("/listarporiduser/{idUser}")
+    @PreAuthorize("hasAuthority('AGRICULTOR')")
+    public List<MaintenanceDTO> listbyiduser(@PathVariable("idUser") Long idUser) {
+        return mS.findMaintenancesBySensor_Parcel_Users_Id(idUser).stream().map(x->{
+            ModelMapper m = new ModelMapper();
+            return m.map(x, MaintenanceDTO.class);
+        }).collect(Collectors.toList());
+    }
 }

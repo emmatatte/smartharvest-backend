@@ -6,6 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.smartharvest.dtos.CompanyDTO;
 import pe.edu.upc.smartharvest.dtos.LocalMarketDTO;
+import pe.edu.upc.smartharvest.dtos.MaintenanceDTO;
 import pe.edu.upc.smartharvest.entities.LocalMarket;
 import pe.edu.upc.smartharvest.servicesinterfaces.IMarketPlaceService;
 
@@ -69,4 +70,12 @@ public class LocalMarketController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping("/listarporiduser/{idUser}")
+    @PreAuthorize("hasAuthority('DUEÑO_DE_MERCADO')")
+    public List<LocalMarketDTO> listbyiduser(@PathVariable("idUser") Long idUser) {
+        return mS.findLocalMarketsByUsers_Id(idUser).stream().map(x->{
+            ModelMapper m = new ModelMapper();
+            return m.map(x, LocalMarketDTO.class);
+        }).collect(Collectors.toList());
+    }
 }

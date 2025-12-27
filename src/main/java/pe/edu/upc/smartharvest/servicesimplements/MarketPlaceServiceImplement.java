@@ -37,4 +37,9 @@ public class MarketPlaceServiceImplement implements IMarketPlaceService {
         return mR.findById(idLocalMarket).orElse(new LocalMarket());
     }
 
+    @Override
+    public List<LocalMarket> findLocalMarketsByUsers_Id(Long usersId) {
+        return mR.findLocalMarketsByUsers_Id(usersId);
+    }
+
 }

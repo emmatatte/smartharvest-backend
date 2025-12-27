@@ -45,6 +45,11 @@ public class NotificationImplement implements INotificationService {
         return nR.countNotificationsByMonthInYear(year);
     }
 
+    @Override
+    public List<Notification> listIdUser(Long idUser) {
+        return nR.findByUsers_Id(idUser);
+    }
+
     public void createWeatherNotification(Users user, String weatherEvent, String message) {
         Notification notification = new Notification();
         notification.setUsers(user);

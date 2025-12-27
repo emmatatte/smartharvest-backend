@@ -45,11 +45,16 @@ public class CropServiceImplement implements ICropService {
     }
 
     @Override
-    public List<String[]> findCropsNeedingAttention() { return cR.findCropsNeedingAttention();}
+    public List<String[]> findCropsNeedingAttention(Long idUser) { return cR.findCropsNeedingAttention(idUser);}
 
     @Override
-    public List<String[]> CropsByActualState() {
-        return cR.CropsByActualState();
+    public List<String[]> findCropRiskPercentageByParcel(Long idUser) {
+        return cR.findCropRiskPercentageByParcel(idUser);
+    }
+
+    @Override
+    public List<String[]> CropsByActualState(Long idUser) {
+        return cR.CropsByActualState(idUser);
     }
 
     @Override
@@ -58,8 +63,13 @@ public class CropServiceImplement implements ICropService {
     }
 
     @Override
-    public List<String[]> countHarvestByCropTypeInRange(LocalDate startDate, LocalDate endDate) {
-        return cR.countHarvestByCropTypeInRange(startDate, endDate);
+    public List<String[]> countHarvestByCropTypeInRange(LocalDate startDate, LocalDate endDate, Long idUser) {
+        return cR.countHarvestByCropTypeInRange(startDate, endDate, idUser);
+    }
+
+    @Override
+    public List<Crop> findCropsByParcel_Users_Id(Long parcelUsersId) {
+        return cR.findCropsByParcel_Users_Id(parcelUsersId);
     }
 }
 

@@ -11,4 +11,5 @@ public interface IInputService {
     void update(Input input);
     void delete(int idInput);
     public Input listId(int idInput);
+    public List<Input> listIdUser(Long idUser);
 }

@@ -72,11 +72,7 @@ public class RecommendationController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/recomendaciones/sensores-humedad-baja")
-    @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
-    public ResponseEntity<List<Recommendation>> getRecommendationsBySensorHumidity(@RequestParam Double threshold) {
-        return ResponseEntity.ok(rS.findByLowHumiditySensors(threshold));
-    }
+
 
     @GetMapping("/ranking-recomendaciones-por-parcela")
     @PreAuthorize("hasAnyAuthority('ADMIN','AGRICULTOR')")
@@ -121,5 +117,14 @@ public class RecommendationController {
         ModelMapper m = new ModelMapper();
         RecommendationDTO dto = m.map(rS.listId(idRecommendation), RecommendationDTO.class);
         return dto;
+    }
+
+    @GetMapping("/listarporiduser/{idUser}")
+    @PreAuthorize("hasAuthority('AGRICULTOR')")
+    public List<RecommendationDTO> listbyiduser(@PathVariable("idUser") Long idUser) {
+        return rS.findRecommendationsByCrop_Parcel_Users_Id(idUser).stream().map(x->{
+            ModelMapper m = new ModelMapper();
+            return m.map(x, RecommendationDTO.class);
+        }).collect(Collectors.toList());
     }
 }

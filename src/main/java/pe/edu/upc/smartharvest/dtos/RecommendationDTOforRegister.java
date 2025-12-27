@@ -15,7 +15,6 @@ public class RecommendationDTOforRegister {
     private LocalDate issueDate;
     private String source;
     private Crop crop;
-    private Users users;
 
     public int getIdRecommendation() {
         return idRecommendation;
@@ -63,13 +62,5 @@ public class RecommendationDTOforRegister {
 
     public void setCrop(Crop crop) {
         this.crop = crop;
-    }
-
-    public Users getUsers() {
-        return users;
-    }
-
-    public void setUsers(Users users) {
-        this.users = users;
     }
 }

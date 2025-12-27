@@ -13,9 +13,9 @@ public interface IRecommendationService {
     void delete(int idRecommendation);
     List<Recommendation> findByCropId(Integer cropId);
     List<Recommendation> findByUserId(Integer userId);
-    List<Recommendation> findByLowHumiditySensors(Double threshold);
     List<String[]> findRecommendationCountByParcel();
     List<String[]> recommendationsByMonth(int year);
     public List<String[]> findRecommendations();
     Recommendation listId(int idRecommendation);
+    List<Recommendation> findRecommendationsByCrop_Parcel_Users_Id(Long cropParcelUsersId);
 }
