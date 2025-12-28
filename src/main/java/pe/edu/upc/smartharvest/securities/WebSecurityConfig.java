@@ -82,6 +82,7 @@ public class WebSecurityConfig {
             "/users/register",
             "/roles/registrar",
             "/users/getIdByUsername/**",
-            "/users/existsbyUsername/**"
+            "/users/existsbyUsername/**",
+            "/ia/**"
     };
 }

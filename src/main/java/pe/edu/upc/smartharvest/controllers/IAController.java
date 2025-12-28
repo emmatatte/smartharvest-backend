@@ -9,6 +9,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/ia")
+@CrossOrigin(origins = "https://smartharvest-frontend.onrender.com")
 public class IAController {
 
     // Esta variable leerá la llave desde Render (Environment Variables)
